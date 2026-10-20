@@ -5,6 +5,7 @@ using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FreeChat.Dalamud.Chat;
+using FreeChat.Dalamud.Send;
 using FreeChat.Dalamud.UI;
 
 namespace FreeChat.Dalamud;
@@ -32,7 +33,8 @@ public sealed class Plugin : IDalamudPlugin
         this.Configuration = Interface.GetPluginConfig() as Configuration ?? new Configuration();
         this.Configuration.Initialise(this);
 
-        this.ServerHost = new ServerHost(this.Configuration, Interface, Log);
+        this.ChatSendService = new ChatSendService(Framework, Log);
+        this.ServerHost = new ServerHost(this.Configuration, Interface, Log, this.ChatSendService);
         this.ServerHost.Start();
 
         var factory = new ChatEventFactory(new ChatEnricher(DataManager));
@@ -40,6 +42,7 @@ public sealed class Plugin : IDalamudPlugin
             ChatGui,
             this.ServerHost,
             factory,
+            this.ChatSendService,
             () => this.LocalPlayerName,
             Log);
 
@@ -66,6 +69,7 @@ public sealed class Plugin : IDalamudPlugin
 
     public Configuration Configuration { get; }
     public ServerHost ServerHost { get; }
+    public ChatSendService ChatSendService { get; }
     public ChatCapture ChatCapture { get; }
     public string? LocalPlayerName => ObjectTable.LocalPlayer?.Name.TextValue;
 
@@ -84,6 +88,7 @@ public sealed class Plugin : IDalamudPlugin
         Interface.UiBuilder.OpenMainUi -= this.OpenMainWindow;
 
         this.ChatCapture.Dispose();
+        this.ChatSendService.Dispose();
         this.ServerHost.Dispose();
         this.windowSystem.RemoveAllWindows();
         this.mainWindow.Dispose();

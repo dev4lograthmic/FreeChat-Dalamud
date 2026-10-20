@@ -36,12 +36,13 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
 | `ChatEnricher` | 把 SeString payload 转成协议 segments |
 | `ServerHost` | 启停 `FreeChatServer`、更新角色 |
 | `PairingApprovalService` | 把配对请求接到 UI |
-| `MainWindow` | 状态、配对、设备、设置 |
+| `ChatSendService` | `ProcessChatBoxEntry`、分段、黑名单、echo 跟踪 |
+| `MainWindow` | 状态、配对、设备、设置、测试发送 |
 
 ## 当前限制
 
-- 发送尚未接入；`UnavailableChatSink` 在 Phase 4 前返回
-  `ERROR_CODE_NOT_LOGGED_IN`。
+- 暂不发送 `SendResult(ECHOED)`；outgoing `ChatEvent.origin_request_id` 已填充，
+  客户端可自行关联。
 - UI 文案尚未本地化；Phase 5 处理。
 - `ChatEvent.Original*` 字段暂未填充。
 - 通讯贝/CWLS 名称暂未解析。
@@ -54,6 +55,8 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
    `wss://<游戏电脑>:14777/ws`。
 4. 在插件窗口里确认设备。
 5. 正常聊天；客户端应收到 `PostHandle` 事件。
+6. 在 **Test send** 输入框里填 `/echo FreeChat test`；游戏应回显，
+   **Last send** / **Last echo** 应更新。
 
 ## 相关
 

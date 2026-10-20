@@ -55,20 +55,3 @@ public sealed class PendingApproval
     public string Fingerprint { get; }
     internal TaskCompletionSource<bool> Completion { get; }
 }
-
-internal sealed class UnavailableChatSink : IChatSink
-{
-    public Task<SendResult> SendAsync(SendContext context, SendRequest request, CancellationToken cancellationToken) =>
-        Task.FromResult(new SendResult
-        {
-            Status = SendStatus.Failed,
-            Error = ErrorCode.NotLoggedIn,
-            Message = "Sending is not wired yet (Phase 4).",
-        });
-
-    public Task<SendResult> CancelAsync(
-        SendContext context,
-        string targetRequestId,
-        CancellationToken cancellationToken) =>
-        Task.FromResult(new SendResult { Status = SendStatus.Cancelled });
-}

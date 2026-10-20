@@ -8,6 +8,7 @@ namespace FreeChat.Dalamud.UI;
 public sealed class MainWindow : Window, IDisposable
 {
     private readonly Plugin plugin;
+    private string testText = "/echo FreeChat test";
 
     public MainWindow(Plugin plugin)
         : base("FreeChat##FreeChatMain", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
@@ -72,6 +73,15 @@ public sealed class MainWindow : Window, IDisposable
         this.DrawPendingApprovals();
         this.DrawDevices(server);
         this.DrawSettings(config, host);
+
+        ImGui.Separator();
+        ImGui.TextUnformatted("Test send");
+        ImGui.InputText("##freechat-test-send", ref this.testText, 500);
+        if (ImGui.Button("Send") && !string.IsNullOrWhiteSpace(this.testText))
+            _ = this.plugin.ChatSendService.SendTestAsync(this.testText);
+
+        ImGui.TextWrapped($"Last send: {this.plugin.ChatSendService.LastStatus ?? "(none)"}");
+        ImGui.TextWrapped($"Last echo: {this.plugin.ChatSendService.LastEcho ?? "(none)"}");
     }
 
     private void DrawPendingApprovals()
@@ -154,6 +164,6 @@ public sealed class MainWindow : Window, IDisposable
         }
 
         ImGui.SameLine();
-        ImGui.TextDisabled("Sending is wired in Phase 4.");
+        ImGui.TextDisabled("Changes apply after Save and restart.");
     }
 }

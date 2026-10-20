@@ -1,6 +1,7 @@
 using Dalamud.Game.Chat;
 using Dalamud.Plugin.Services;
 using FreeChat.Dalamud;
+using FreeChat.Dalamud.Send;
 using FreeChat.Protocol.V1;
 
 namespace FreeChat.Dalamud.Chat;
@@ -16,6 +17,7 @@ public sealed class ChatCapture : IDisposable
     private readonly IChatGui chatGui;
     private readonly ServerHost server;
     private readonly ChatEventFactory factory;
+    private readonly ChatSendService sendService;
     private readonly Func<string?> localPlayerName;
     private readonly IPluginLog log;
     private long preHandleCount;
@@ -34,12 +36,14 @@ public sealed class ChatCapture : IDisposable
         IChatGui chatGui,
         ServerHost server,
         ChatEventFactory factory,
+        ChatSendService sendService,
         Func<string?> localPlayerName,
         IPluginLog log)
     {
         this.chatGui = chatGui;
         this.server = server;
         this.factory = factory;
+        this.sendService = sendService;
         this.localPlayerName = localPlayerName;
         this.log = log;
 
@@ -52,10 +56,11 @@ public sealed class ChatCapture : IDisposable
     {
         try
         {
-            this.server.Publish(this.factory.Create(
+            var chatEvent = this.factory.Create(
                 message,
                 ChatSource.PreHandle,
-                this.localPlayerName()));
+                this.localPlayerName());
+            this.server.Publish(chatEvent);
             Interlocked.Increment(ref this.preHandleCount);
             this.lastEventAt = DateTimeOffset.UtcNow;
         }
@@ -69,10 +74,13 @@ public sealed class ChatCapture : IDisposable
     {
         try
         {
-            this.server.Publish(this.factory.Create(
+            var chatEvent = this.factory.Create(
                 message,
                 ChatSource.PostHandle,
-                this.localPlayerName()));
+                this.localPlayerName());
+            this.sendService.TryAttachEcho(chatEvent);
+            this.server.Publish(chatEvent);
+            this.sendService.UpdateLastEcho(chatEvent);
             Interlocked.Increment(ref this.postHandleCount);
             this.lastEventAt = DateTimeOffset.UtcNow;
         }

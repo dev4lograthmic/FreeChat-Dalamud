@@ -14,16 +14,19 @@ public sealed class ServerHost : IDisposable
     private readonly Configuration configuration;
     private readonly IDalamudPluginInterface pluginInterface;
     private readonly IPluginLog log;
+    private readonly IChatSink chatSink;
     private string? lastCharacterKey;
 
     public ServerHost(
         Configuration configuration,
         IDalamudPluginInterface pluginInterface,
-        IPluginLog log)
+        IPluginLog log,
+        IChatSink chatSink)
     {
         this.configuration = configuration;
         this.pluginInterface = pluginInterface;
         this.log = log;
+        this.chatSink = chatSink;
         this.Approval = new PairingApprovalService();
     }
 
@@ -55,7 +58,7 @@ public sealed class ServerHost : IDisposable
                 BacklogBytes = Math.Max(1, this.configuration.BacklogMiB) * 1024L * 1024,
             };
 
-            var server = new FreeChatServer(options, new UnavailableChatSink(), this.Approval);
+            var server = new FreeChatServer(options, this.chatSink, this.Approval);
             server.StartAsync().GetAwaiter().GetResult();
             this.Server = server;
             this.lastCharacterKey = null;

@@ -37,12 +37,13 @@ pairing code, pending approvals, trusted devices, and basic settings.
 | `ChatEnricher` | Converts SeString payloads to protocol segments |
 | `ServerHost` | Starts/stops `FreeChatServer`, updates character |
 | `PairingApprovalService` | Bridges pairing requests to the UI |
-| `MainWindow` | Server status, pairing, devices, settings |
+| `ChatSendService` | `ProcessChatBoxEntry`, splitting, blocklist, echo tracking |
+| `MainWindow` | Server status, pairing, devices, settings, test send |
 
 ## Current limitations
 
-- Sending is not wired yet; `UnavailableChatSink` returns
-  `ERROR_CODE_NOT_LOGGED_IN` until Phase 4.
+- `SendResult(ECHOED)` is not emitted yet; outgoing `ChatEvent.origin_request_id`
+  is populated for clients that need correlation.
 - UI strings are not localized yet; localization is Phase 5.
 - `ChatEvent.Original*` fields are not populated yet.
 - Linkshell/CWLS display names are not resolved yet.
@@ -55,6 +56,8 @@ pairing code, pending approvals, trusted devices, and basic settings.
    `wss://<game-pc>:14777/ws`.
 4. Approve the device in the plugin window.
 5. Chat normally; the client should receive `PostHandle` events.
+6. Use the **Test send** box with `/echo FreeChat test`; the game should echo
+   it, and **Last send** / **Last echo** should update.
 
 ## Related
 

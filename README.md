@@ -6,7 +6,7 @@ A Dalamud plugin that runs a game-side WebSocket server for FINAL FANTASY XIV.
 Trusted clients on the same machine or LAN can receive structured chat events
 and send messages or commands through the game chat box.
 
-> Status: Phase 3 (Dalamud receive adapter + UI). Sending is wired in Phase 4.
+> Status: Phase 4 (basic send implemented; pending in-game verification).
 > The protocol is `freechat.v1`; clients are third-party/separate projects.
 
 ## Repository layout
@@ -58,11 +58,13 @@ Load it as a Dalamud dev plugin:
 - Receive `ChatMessage`, `ChatMessageUnhandled`, and `LogMessage`
 - Structured `ChatEvent` with raw SeString, text, styles, item/map/player/status
 - Per-connection filters, current-session replay, send rate limiting
-- Plugin UI: status, fingerprint, pairing code, devices, capture counters
+- Send raw text/commands via `ProcessChatBoxEntry`, with 500-byte splitting,
+  command blocklist, and echo correlation
+- Plugin UI: status, fingerprint, pairing code, devices, capture counters, test send
 
 ## Not implemented yet
 
-- Sending real chat/commands (Phase 4)
+- `SendResult(ECHOED)` and full multi-part acknowledgement (Phase 5)
 - Localized UI and full log panel (Phase 5)
 - CLI/reference client and conformance runner (Phase 6)
 - Browser clients, relay, multi-instance (future)
@@ -86,7 +88,7 @@ AGPL-3.0; see [LICENSE.md](LICENSE.md).
 一个 Dalamud 插件：在游戏进程内运行 WebSocket 服务端，让本机或局域网内的受信
 客户端接收结构化聊天事件，并通过游戏聊天框发送消息/命令。
 
-> 状态：Phase 3（Dalamud 接收适配 + UI）。发送在 Phase 4 接入。
+> 状态：Phase 4（基础发送已接入，等待游戏内验证）。
 > 协议为 `freechat.v1`；客户端由第三方或独立项目实现。
 
 ## 仓库结构
@@ -138,11 +140,12 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
 - 接收 `ChatMessage`、`ChatMessageUnhandled`、`LogMessage`
 - 结构化 `ChatEvent`：原始 SeString、文本、样式、物品/地图/玩家/状态
 - 每连接过滤、当前会话回放、发送限流
-- 插件 UI：状态、指纹、配对码、设备、捕获计数
+- 通过 `ProcessChatBoxEntry` 发送原始文本/命令，支持 500 字节分段、命令黑名单、echo 关联
+- 插件 UI：状态、指纹、配对码、设备、捕获计数、测试发送
 
 ## 尚未实现
 
-- 真实聊天/命令发送（Phase 4）
+- `SendResult(ECHOED)` 和完整多段回执（Phase 5）
 - UI 本地化、完整日志面板（Phase 5）
 - CLI/参考客户端、一致性测试 runner（Phase 6）
 - 浏览器客户端、relay、多实例（以后）
