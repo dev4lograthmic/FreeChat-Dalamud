@@ -73,6 +73,20 @@ public sealed class FreeChatServer : IAsyncDisposable
     public IReadOnlyList<string> EnabledFeatures { get; }
     public byte[] Fingerprint => this.certificates.Fingerprint;
     public int Port => this.transport.Port;
+    public IReadOnlyList<ClientSessionInfo> Sessions =>
+        this.sessions.Values
+            .Select(x => x.GetInfo())
+            .OrderBy(x => x.ConnectedAt)
+            .ToArray();
+
+    public bool DisconnectSession(string sessionId)
+    {
+        if (!this.sessions.TryGetValue(sessionId, out var session))
+            return false;
+
+        _ = session.EndAsync("disconnected_by_user");
+        return true;
+    }
 
     public Task StartAsync()
     {

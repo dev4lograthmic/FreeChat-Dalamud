@@ -11,6 +11,7 @@ internal sealed class SessionHandler : IAsyncDisposable
     private readonly ClientConnection connection;
     private readonly object gate = new();
     private readonly string sessionId = Guid.NewGuid().ToString("N");
+    private readonly DateTimeOffset connectedAt;
 
     private SessionState state = SessionState.Connected;
     private DeviceRecord? device;
@@ -25,10 +26,22 @@ internal sealed class SessionHandler : IAsyncDisposable
     {
         this.server = server;
         this.connection = connection;
+        this.connectedAt = server.Clock.UtcNow;
     }
 
     public string SessionId => this.sessionId;
     public bool IsSubscribed => this.subscribed;
+    public bool IsAuthenticated => this.state >= SessionState.Authenticated;
+
+    public ClientSessionInfo GetInfo() => new(
+        this.sessionId,
+        this.device?.DeviceId,
+        this.device?.Name,
+        this.device?.Platform,
+        this.connection.RemoteAddress?.ToString(),
+        this.IsAuthenticated,
+        this.subscribed,
+        this.connectedAt);
 
     public async Task HandleAsync(Envelope envelope, CancellationToken cancellationToken)
     {

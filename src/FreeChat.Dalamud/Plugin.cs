@@ -5,6 +5,8 @@ using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using FreeChat.Dalamud.Chat;
+using FreeChat.Dalamud.Localization;
+using FreeChat.Dalamud.Logging;
 using FreeChat.Dalamud.Send;
 using FreeChat.Dalamud.UI;
 
@@ -32,9 +34,20 @@ public sealed class Plugin : IDalamudPlugin
     {
         this.Configuration = Interface.GetPluginConfig() as Configuration ?? new Configuration();
         this.Configuration.Initialise(this);
+        this.UiLog = new UiLog();
+        this.Localizer = new Localizer(this.Configuration.Language);
 
-        this.ChatSendService = new ChatSendService(Framework, Log);
-        this.ServerHost = new ServerHost(this.Configuration, Interface, Log, this.ChatSendService);
+        this.ChatSendService = new ChatSendService(
+            this.Configuration,
+            this.UiLog,
+            Framework,
+            Log);
+        this.ServerHost = new ServerHost(
+            this.Configuration,
+            Interface,
+            Log,
+            this.UiLog,
+            this.ChatSendService);
         this.ServerHost.Start();
 
         var factory = new ChatEventFactory(new ChatEnricher(DataManager));
@@ -65,9 +78,12 @@ public sealed class Plugin : IDalamudPlugin
             this.ServerHost.UpdateCharacter(ObjectTable.LocalPlayer);
 
         Log.Information("FreeChat loaded.");
+        this.UiLog.Add(UiLogLevel.Info, "FreeChat loaded.");
     }
 
     public Configuration Configuration { get; }
+    public Localizer Localizer { get; }
+    public UiLog UiLog { get; }
     public ServerHost ServerHost { get; }
     public ChatSendService ChatSendService { get; }
     public ChatCapture ChatCapture { get; }

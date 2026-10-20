@@ -5,6 +5,7 @@ using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.System.Memory;
 using FFXIVClientStructs.FFXIV.Client.System.String;
 using FFXIVClientStructs.FFXIV.Client.UI;
+using FreeChat.Dalamud.Logging;
 using FreeChat.Protocol.V1;
 using FreeChat.Server;
 
@@ -13,8 +14,9 @@ namespace FreeChat.Dalamud.Send;
 public sealed class ChatSendService : IChatSink, IDisposable
 {
     private static readonly TimeSpan EchoWindow = TimeSpan.FromSeconds(5);
-    private static readonly TimeSpan PartInterval = TimeSpan.FromMilliseconds(250);
 
+    private readonly Configuration configuration;
+    private readonly UiLog uiLog;
     private readonly IFramework framework;
     private readonly IPluginLog log;
     private readonly Channel<SendJob> queue = Channel.CreateBounded<SendJob>(
@@ -31,16 +33,24 @@ public sealed class ChatSendService : IChatSink, IDisposable
     private SendJob? current;
     private int disposed;
     private volatile string? lastStatus;
+    private SendResult? lastResult;
     private string? lastEcho;
 
-    public ChatSendService(IFramework framework, IPluginLog log)
+    public ChatSendService(
+        Configuration configuration,
+        UiLog uiLog,
+        IFramework framework,
+        IPluginLog log)
     {
+        this.configuration = configuration;
+        this.uiLog = uiLog;
         this.framework = framework;
         this.log = log;
         this.framework.Update += this.OnFrameworkUpdate;
     }
 
     public string? LastStatus => this.lastStatus;
+    public SendResult? LastResult => this.lastResult;
     public string? LastEcho => this.lastEcho;
 
     public async Task<SendResult> SendAsync(
@@ -53,8 +63,17 @@ public sealed class ChatSendService : IChatSink, IDisposable
         if (!this.TryBuildParts(request, out var parts, out var failure))
         {
             this.lastStatus = FormatStatus(failure);
+            this.lastResult = failure;
             if (failure.Error == ErrorCode.CommandBlocked)
+            {
                 this.log.Warning("FreeChat send blocked by command policy.");
+                this.uiLog.Add(UiLogLevel.Warning, "Send blocked by command policy.");
+            }
+            else
+            {
+                this.uiLog.Add(UiLogLevel.Warning, $"Send rejected: {failure.Message}");
+            }
+
             return failure;
         }
 
@@ -63,6 +82,8 @@ public sealed class ChatSendService : IChatSink, IDisposable
         {
             var full = Error(SendStatus.QueueFull, ErrorCode.QueueFull, "Send queue is full.");
             this.lastStatus = FormatStatus(full);
+            this.lastResult = full;
+            this.uiLog.Add(UiLogLevel.Warning, "Send queue is full.");
             return full;
         }
 
@@ -72,6 +93,7 @@ public sealed class ChatSendService : IChatSink, IDisposable
                 .WaitAsync(TimeSpan.FromSeconds(15), cancellationToken)
                 .ConfigureAwait(false);
             this.lastStatus = FormatStatus(result);
+            this.lastResult = result;
             return result;
         }
         catch (OperationCanceledException)
@@ -79,31 +101,66 @@ public sealed class ChatSendService : IChatSink, IDisposable
             job.Completion.TrySetCanceled(cancellationToken);
             var cancelled = Error(SendStatus.Cancelled, ErrorCode.InvalidRequest, "Send was cancelled.");
             this.lastStatus = FormatStatus(cancelled);
+            this.lastResult = cancelled;
             return cancelled;
         }
         catch (TimeoutException)
         {
             var timeout = Error(SendStatus.Failed, ErrorCode.Internal, "Send timed out.");
             this.lastStatus = FormatStatus(timeout);
+            this.lastResult = timeout;
+            this.uiLog.Add(UiLogLevel.Error, "Send timed out.");
             return timeout;
         }
     }
 
     public Task<SendResult> SendTestAsync(string text) =>
-        this.SendAsync(
+        this.SendTestAsync(text, ChatChannel.Unspecified, null, null);
+
+    public Task<SendResult> SendTestAsync(
+        string text,
+        ChatChannel channel,
+        string? targetName,
+        string? targetWorld)
+    {
+        var request = channel == ChatChannel.Unspecified
+            ? new SendRequest { RawText = text }
+            : new SendRequest
+            {
+                Chat = new ChatSend
+                {
+                    Channel = channel,
+                    Text = text,
+                    Target = channel == ChatChannel.Tell
+                        ? new CharacterRef
+                        {
+                            Name = targetName ?? string.Empty,
+                            WorldName = targetWorld ?? string.Empty,
+                        }
+                        : null,
+                },
+            };
+
+        return this.SendAsync(
             new SendContext("ui", "ui", null, Guid.NewGuid().ToString("N")),
-            new SendRequest { RawText = text },
+            request,
             CancellationToken.None);
+    }
 
     public Task<SendResult> CancelAsync(
         SendContext context,
         string targetRequestId,
-        CancellationToken cancellationToken) =>
-        Task.FromResult(new SendResult
+        CancellationToken cancellationToken)
+    {
+        var result = new SendResult
         {
             Status = SendStatus.Cancelled,
             Message = "Only queued sends can be cancelled; this request is already in flight.",
-        });
+        };
+        this.lastResult = result;
+        this.lastStatus = FormatStatus(result);
+        return Task.FromResult(result);
+    }
 
     public bool TryAttachEcho(ChatEvent chatEvent)
     {
@@ -136,8 +193,11 @@ public sealed class ChatSendService : IChatSink, IDisposable
 
     public void UpdateLastEcho(ChatEvent chatEvent)
     {
-        if (!string.IsNullOrEmpty(chatEvent.OriginRequestId))
-            this.lastEcho = $"{chatEvent.OriginRequestId} -> {chatEvent.MessageId}";
+        if (string.IsNullOrEmpty(chatEvent.OriginRequestId))
+            return;
+
+        this.lastEcho = $"{chatEvent.OriginRequestId} -> {chatEvent.MessageId}";
+        this.uiLog.Add(UiLogLevel.Debug, $"Echo matched: {this.lastEcho}");
     }
 
     private bool TryBuildParts(
@@ -159,7 +219,7 @@ public sealed class ChatSendService : IChatSink, IDisposable
                 if (Encoding.UTF8.GetByteCount(text) > ChatTextSplitter.MaxBytes)
                     return Fail(SendStatus.Failed, ErrorCode.TextTooLong, "Raw text exceeds 500 UTF-8 bytes.", out failure);
 
-                if (CommandPolicy.IsBlocked(text))
+                if (CommandPolicy.IsBlocked(text, this.configuration.BlockedCommands))
                     return Fail(SendStatus.Blocked, ErrorCode.CommandBlocked, "Command is blocked by server policy.", out failure);
 
                 parts = [text];
@@ -209,8 +269,13 @@ public sealed class ChatSendService : IChatSink, IDisposable
                 return;
         }
 
-        if (this.current.Index > 0 && this.sinceLastPart.Elapsed < PartInterval)
-            return;
+        if (this.current.Index > 0)
+        {
+            var interval = TimeSpan.FromMilliseconds(
+                Math.Clamp(this.configuration.SendIntervalMs, 0, 5000));
+            if (this.sinceLastPart.Elapsed < interval)
+                return;
+        }
 
         var part = this.current.Parts[this.current.Index];
         var pending = new PendingEcho(this.current.Context.RequestId, part, DateTimeOffset.UtcNow);
@@ -262,6 +327,7 @@ public sealed class ChatSendService : IChatSink, IDisposable
         catch (Exception ex)
         {
             this.log.Error(ex, "FreeChat failed to submit chat input.");
+            this.uiLog.Add(UiLogLevel.Error, $"Chat input failed: {ex.Message}");
             return false;
         }
         finally
@@ -274,6 +340,12 @@ public sealed class ChatSendService : IChatSink, IDisposable
     private void Finish(SendJob job, SendResult result)
     {
         this.lastStatus = FormatStatus(result);
+        this.lastResult = result;
+        this.uiLog.Add(
+            result.Status == SendStatus.Submitted ? UiLogLevel.Info : UiLogLevel.Error,
+            result.Status == SendStatus.Submitted
+                ? $"Send submitted ({result.PartCount} part(s))."
+                : $"Send failed: {result.Message}");
         job.Completion.TrySetResult(result);
     }
 

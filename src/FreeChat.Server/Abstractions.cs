@@ -37,6 +37,16 @@ public sealed record SendContext(
     CharacterRef? Character,
     string RequestId);
 
+public sealed record ClientSessionInfo(
+    string SessionId,
+    string? DeviceId,
+    string? DeviceName,
+    string? Platform,
+    string? RemoteAddress,
+    bool Authenticated,
+    bool Subscribed,
+    DateTimeOffset ConnectedAt);
+
 public sealed class SendRejectedException : Exception
 {
     public SendRejectedException(ErrorCode code, string message) : base(message) => this.Code = code;
