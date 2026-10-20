@@ -70,6 +70,10 @@ public sealed class CoreTests
         var ex = Assert.Throws<FilterValidationException>(() =>
             new ChatFilterMatcher(new ChatFilter { Regex = "[" }));
         Assert.Equal(ErrorCode.RegexInvalid, ex.Code);
+
+        var tooLong = Assert.Throws<FilterValidationException>(() =>
+            new ChatFilterMatcher(new ChatFilter { Regex = new string('a', 257) }));
+        Assert.Equal(ErrorCode.RegexInvalid, tooLong.Code);
     }
 
     [Fact]
@@ -149,6 +153,36 @@ public sealed class CoreTests
     }
 
     [Fact]
+    public async Task Pairing_LocksOutAfterFiveFailures()
+    {
+        var clock = new FakeClock();
+        var store = new InMemoryDeviceStore();
+        var pairing = new PairingService(store, new AutoApprovePairing(), clock);
+        var (key, publicKey) = TestKeys.Create();
+        var wrongCode = pairing.CurrentCode == "000000" ? "000001" : "000000";
+        var request = new PairingRequest(null, "test", "test", publicKey);
+
+        for (var i = 0; i < 5; i++)
+        {
+            var result = await pairing.PairAsync(
+                wrongCode, request, "127.0.0.1", CancellationToken.None);
+            Assert.Equal(ErrorCode.PairingInvalid, result.Error);
+        }
+
+        var locked = await pairing.PairAsync(
+            pairing.CurrentCode, request, "127.0.0.1", CancellationToken.None);
+        Assert.False(locked.Ok);
+        Assert.Equal(ErrorCode.PairingRateLimited, locked.Error);
+
+        clock.Advance(TimeSpan.FromMinutes(5) + TimeSpan.FromSeconds(1));
+        pairing.GenerateCode();
+        var unlocked = await pairing.PairAsync(
+            pairing.CurrentCode, request, "127.0.0.1", CancellationToken.None);
+        Assert.True(unlocked.Ok);
+        key.Dispose();
+    }
+
+    [Fact]
     public void TokenBucket_RefillsOverTime()
     {
         var clock = new FakeClock();
@@ -160,5 +194,23 @@ public sealed class CoreTests
 
         clock.Advance(TimeSpan.FromSeconds(1));
         Assert.True(bucket.TryTake());
+    }
+
+    [Fact]
+    public void CorruptCertificate_IsRejected()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "freechat-tests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        var path = Path.Combine(root, "corrupt.pfx");
+        File.WriteAllBytes(path, "not a pfx"u8.ToArray());
+        try
+        {
+            Assert.ThrowsAny<CryptographicException>(() =>
+                CertificateManager.LoadOrCreate(path, "password"));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
     }
 }

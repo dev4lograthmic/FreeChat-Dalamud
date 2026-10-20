@@ -116,6 +116,25 @@ internal sealed class TestClient : IAsyncDisposable
             CancellationToken.None);
     }
 
+    public Task SendRawAsync(byte[] bytes) =>
+        this.socket.SendAsync(
+            new ArraySegment<byte>(bytes),
+            System.Net.WebSockets.WebSocketMessageType.Binary,
+            endOfMessage: true,
+            CancellationToken.None);
+
+    public async Task<System.Net.WebSockets.WebSocketCloseStatus?> ReceiveCloseAsync(TimeSpan timeout)
+    {
+        using var cancellation = new CancellationTokenSource(timeout);
+        var buffer = new byte[4096];
+        while (true)
+        {
+            var result = await this.socket.ReceiveAsync(new ArraySegment<byte>(buffer), cancellation.Token);
+            if (result.MessageType == System.Net.WebSockets.WebSocketMessageType.Close)
+                return result.CloseStatus;
+        }
+    }
+
     public async Task<Envelope> ReceiveAsync(TimeSpan? timeout = null)
     {
         using var cancellation = new CancellationTokenSource(timeout ?? TimeSpan.FromSeconds(5));

@@ -1,6 +1,8 @@
 using System.Numerics;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Textures.TextureWraps;
 using Dalamud.Interface.Windowing;
+using Dalamud.Plugin.Services;
 using FreeChat.Dalamud.Logging;
 using FreeChat.Protocol.V1;
 using FreeChat.Server;
@@ -41,6 +43,7 @@ public sealed class MainWindow : Window, IDisposable
 
     private readonly Plugin plugin;
     private readonly Localization.Localizer l10n;
+    private readonly ITextureProvider textureProvider;
 
     private string testText = "/echo FreeChat test";
     private string targetName = string.Empty;
@@ -49,7 +52,11 @@ public sealed class MainWindow : Window, IDisposable
     private string logFilter = string.Empty;
     private string? settingsMessage;
     private string? qrText;
-    private QrCodeMatrix? qrCode;
+    private IDalamudTextureWrap? qrTexture;
+    private string? qrError;
+    private bool qrLoading;
+    private bool confirmCertificateReset;
+    private int qrGeneration;
     private int sendChannelIndex;
     private bool showDebug = true;
     private bool showInfo = true;
@@ -61,6 +68,7 @@ public sealed class MainWindow : Window, IDisposable
     {
         this.plugin = plugin;
         this.l10n = plugin.Localizer;
+        this.textureProvider = plugin.TextureProvider;
         plugin.Configuration.BlockedCommands ??= new List<string>(CommandPolicy.DefaultBlocked);
         this.blockedText = string.Join(Environment.NewLine, plugin.Configuration.BlockedCommands);
         this.Size = new Vector2(700, 600);
@@ -70,6 +78,8 @@ public sealed class MainWindow : Window, IDisposable
 
     public void Dispose()
     {
+        this.qrTexture?.Dispose();
+        this.qrTexture = null;
     }
 
     public override void Draw()
@@ -123,8 +133,32 @@ public sealed class MainWindow : Window, IDisposable
         if (server is null)
         {
             ImGui.TextColored(new Vector4(0.9f, 0.35f, 0.35f, 1f), this.l10n["status.stopped"]);
-            if (!string.IsNullOrEmpty(host.LastError))
+            if (host.CertificateError)
+            {
+                ImGui.TextWrapped(this.l10n["status.certificateInvalid"]);
+                if (ImGui.Button(this.l10n["cert.reset"]))
+                    this.confirmCertificateReset = true;
+
+                if (this.confirmCertificateReset)
+                {
+                    ImGui.Separator();
+                    ImGui.TextWrapped(this.l10n["cert.resetWarning"]);
+                    if (ImGui.Button(this.l10n["cert.resetConfirm"]))
+                    {
+                        host.ResetCertificate();
+                        this.confirmCertificateReset = false;
+                    }
+
+                    ImGui.SameLine();
+                    if (ImGui.Button(this.l10n["common.cancel"]))
+                        this.confirmCertificateReset = false;
+                }
+            }
+            else if (!string.IsNullOrEmpty(host.LastError))
+            {
                 ImGui.TextWrapped(this.l10n.Get("status.error", host.LastError));
+            }
+
             if (ImGui.Button(this.l10n["status.start"]))
                 host.Start();
             return;
@@ -306,52 +340,63 @@ public sealed class MainWindow : Window, IDisposable
 
     private void DrawQrCode(string link)
     {
-        if (!string.Equals(this.qrText, link, StringComparison.Ordinal))
+        if (!string.Equals(this.qrText, link, StringComparison.Ordinal) && !this.qrLoading)
         {
             this.qrText = link;
-            try
+            this.qrError = null;
+            this.qrLoading = true;
+            var generation = ++this.qrGeneration;
+            _ = this.LoadQrAsync(link, generation);
+        }
+
+        if (this.qrTexture is not null)
+        {
+            ImGui.Image(this.qrTexture.Handle, new Vector2(212, 212));
+            return;
+        }
+
+        if (this.qrError is not null)
+        {
+            ImGui.TextDisabled(this.qrError);
+            return;
+        }
+
+        ImGui.TextDisabled("Generating QR...");
+    }
+
+    private async Task LoadQrAsync(string link, int generation)
+    {
+        try
+        {
+            var png = QrCodeMatrix.CreatePng(link);
+            var texture = await this.textureProvider
+                .CreateFromImageAsync(png, "FreeChat pairing QR")
+                .ConfigureAwait(false);
+            if (texture is null)
+                throw new InvalidOperationException("Texture provider returned no texture.");
+
+            if (generation != this.qrGeneration)
             {
-                this.qrCode = QrCodeMatrix.Create(link);
+                texture.Dispose();
+                return;
             }
-            catch (Exception ex)
+
+            var previous = Interlocked.Exchange(ref this.qrTexture, texture);
+            previous?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            if (generation == this.qrGeneration)
             {
-                this.qrCode = null;
+                this.qrError = ex.Message;
                 this.plugin.UiLog.Add(UiLogLevel.Warning, $"QR generation failed: {ex.Message}");
             }
         }
-
-        var qr = this.qrCode;
-        if (qr is null)
-            return;
-
-        const float moduleSize = 4f;
-        const int quietZone = 2;
-        var size = (qr.Size + (quietZone * 2)) * moduleSize;
-        var origin = ImGui.GetCursorScreenPos();
-        var drawList = ImGui.GetWindowDrawList();
-        drawList.AddRectFilled(
-            origin,
-            origin + new Vector2(size, size),
-            ImGui.GetColorU32(new Vector4(1f, 1f, 1f, 1f)));
-
-        for (var y = 0; y < qr.Size; y++)
+        finally
         {
-            for (var x = 0; x < qr.Size; x++)
-            {
-                if (!qr.Modules[y, x])
-                    continue;
-
-                var topLeft = origin + new Vector2(
-                    (x + quietZone) * moduleSize,
-                    (y + quietZone) * moduleSize);
-                drawList.AddRectFilled(
-                    topLeft,
-                    topLeft + new Vector2(moduleSize, moduleSize),
-                    ImGui.GetColorU32(new Vector4(0f, 0f, 0f, 1f)));
-            }
+            if (generation == this.qrGeneration)
+                this.qrLoading = false;
         }
-
-        ImGui.Dummy(new Vector2(size, size));
     }
 
     private void DrawPendingApprovals()

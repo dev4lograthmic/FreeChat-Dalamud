@@ -31,7 +31,7 @@ dotnet build FreeChat.slnx -c Release
 dotnet test FreeChat.slnx -c Release
 ```
 
-Expected: 0 warnings, 0 errors; 24 server/protocol tests pass.
+Expected: 0 warnings, 0 errors; 36 server/protocol tests pass.
 
 ## Build the plugin
 
@@ -125,7 +125,7 @@ dotnet build FreeChat.slnx -c Release
 dotnet test FreeChat.slnx -c Release
 ```
 
-预期：0 warning、0 error；24 个服务端/协议测试通过。
+预期：0 warning、0 error；36 个服务端/协议测试通过。
 
 ## 构建插件
 

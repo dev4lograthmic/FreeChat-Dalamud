@@ -32,6 +32,9 @@ public sealed class SendHelperTests
     {
         Assert.True(CommandPolicy.IsBlocked("/logout"));
         Assert.True(CommandPolicy.IsBlocked("  /QUIT now"));
+        Assert.True(CommandPolicy.IsBlocked("\t/logout"));
+        Assert.True(CommandPolicy.IsBlocked("/logout now"));
+        Assert.True(CommandPolicy.IsBlocked("／logout"));
         Assert.False(CommandPolicy.IsBlocked("/party hello"));
         Assert.False(CommandPolicy.IsBlocked("hello /logout"));
         Assert.Equal("/tell", CommandPolicy.GetCommandName("/tell Someone@Typhon hi"));

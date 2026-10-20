@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
@@ -39,12 +40,14 @@ public sealed class ServerHost : IDisposable
     public PairingApprovalService Approval { get; }
     public FreeChatServer? Server { get; private set; }
     public string? LastError { get; private set; }
+    public bool CertificateError { get; private set; }
     public bool IsRunning => this.Server is not null;
 
     public bool Start()
     {
         this.Stop();
         this.LastError = null;
+        this.CertificateError = false;
         this.advertisedHost = null;
 
         try
@@ -84,8 +87,48 @@ public sealed class ServerHost : IDisposable
         catch (Exception ex)
         {
             this.LastError = ex.Message;
+            this.CertificateError = ex is CryptographicException;
             this.log.Error(ex, "Could not start FreeChat server.");
             this.uiLog.Add(UiLogLevel.Error, $"Server start failed: {ex.Message}");
+            this.Server = null;
+            return false;
+        }
+    }
+
+    public bool ResetCertificate()
+    {
+        this.Stop();
+        this.LastError = null;
+        this.CertificateError = false;
+
+        try
+        {
+            var directory = this.pluginInterface.GetPluginConfigDirectory();
+            Directory.CreateDirectory(directory);
+            var certificatePath = Path.Combine(directory, "freechat.pfx");
+            if (File.Exists(certificatePath))
+            {
+                var quarantine = certificatePath
+                                 + ".corrupt-"
+                                 + DateTimeOffset.Now.ToString("yyyyMMdd-HHmmssfff");
+                File.Move(certificatePath, quarantine, overwrite: false);
+                this.uiLog.Add(UiLogLevel.Warning, $"Certificate quarantined: {quarantine}");
+            }
+
+            if (this.Start())
+            {
+                this.uiLog.Add(UiLogLevel.Info, "A new TLS certificate was generated.");
+                return true;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            this.LastError = ex.Message;
+            this.CertificateError = ex is CryptographicException;
+            this.log.Error(ex, "Could not reset the FreeChat certificate.");
+            this.uiLog.Add(UiLogLevel.Error, $"Certificate reset failed: {ex.Message}");
             this.Server = null;
             return false;
         }

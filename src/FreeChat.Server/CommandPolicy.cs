@@ -17,7 +17,11 @@ public static class CommandPolicy
     public static string? GetCommandName(string text)
     {
         var trimmed = text.TrimStart();
-        if (trimmed.Length == 0 || trimmed[0] != '/')
+        if (trimmed.Length == 0)
+            return null;
+        if (trimmed[0] == '\uFF0F')
+            trimmed = "/" + trimmed[1..];
+        if (trimmed[0] != '/')
             return null;
 
         var end = trimmed.IndexOfAny([' ', '\t', '\r', '\n']);

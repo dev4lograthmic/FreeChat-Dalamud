@@ -28,4 +28,11 @@ public sealed class QrCodeMatrix
 
         return new QrCodeMatrix(modules);
     }
+
+    public static byte[] CreatePng(string text, int pixelsPerModule = 8)
+    {
+        using var generator = new QRCodeGenerator();
+        using var data = generator.CreateQrCode(text, QRCodeGenerator.ECCLevel.M);
+        return new PngByteQRCode(data).GetGraphic(pixelsPerModule);
+    }
 }

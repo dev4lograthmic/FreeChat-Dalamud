@@ -88,6 +88,18 @@ public sealed class ClientConnection : IAsyncDisposable
         this.outgoing.Writer.TryComplete();
         try
         {
+            if (this.writerTask is not null)
+            {
+                try
+                {
+                    await this.writerTask.WaitAsync(TimeSpan.FromSeconds(2)).ConfigureAwait(false);
+                }
+                catch (TimeoutException)
+                {
+                    // Fall through and close the socket.
+                }
+            }
+
             if (this.socket.State is WebSocketState.Open or WebSocketState.CloseReceived)
             {
                 using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(2));

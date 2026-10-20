@@ -99,9 +99,23 @@ internal sealed class DeviceIdentity
     {
         var fullPath = Path.GetFullPath(path);
         Directory.CreateDirectory(Path.GetDirectoryName(fullPath)!);
-        var temp = fullPath + ".tmp";
+        var temp = fullPath + "." + Guid.NewGuid().ToString("N") + ".tmp";
         File.WriteAllText(temp, JsonSerializer.Serialize(this, JsonOptions));
-        File.Move(temp, fullPath, overwrite: true);
+
+        for (var attempt = 0; ; attempt++)
+        {
+            try
+            {
+                File.Move(temp, fullPath, overwrite: true);
+                break;
+            }
+            catch (Exception ex) when (
+                (ex is IOException or UnauthorizedAccessException)
+                && attempt < 10)
+            {
+                Thread.Sleep(10 * (attempt + 1));
+            }
+        }
 
         if (!OperatingSystem.IsWindows())
             File.SetUnixFileMode(fullPath, UnixFileMode.UserRead | UnixFileMode.UserWrite);
