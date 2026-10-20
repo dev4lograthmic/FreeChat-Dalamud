@@ -6,7 +6,7 @@ A Dalamud plugin that runs a game-side WebSocket server for FINAL FANTASY XIV.
 Trusted clients on the same machine or LAN can receive structured chat events
 and send messages or commands through the game chat box.
 
-> Status: Phase 5 (localized UI, pairing QR/deep link, logs, fuller settings; pending in-game verification).
+> Status: Phase 6 (CLI reference client, quick-start docs, conformance tests; pending live CLI check).
 > The protocol is `freechat.v1`; clients are third-party/separate projects.
 
 ## Repository layout
@@ -17,9 +17,10 @@ and send messages or commands through the game chat box.
 | `src/FreeChat.Protocol` | Generated C# bindings, codecs, constants |
 | `src/FreeChat.Server` | WSS transport, pairing, sessions, filters, replay |
 | `src/FreeChat.Dalamud` | Dalamud plugin, chat capture, pairing UI |
+| `src/FreeChat.Cli` | Reference CLI client for pairing/subscribe/send/decode |
 | `tests/FreeChat.Server.Tests` | Server/protocol integration tests |
 | `docs/` | Bilingual protocol and development documentation |
-| `FreeChat.slnx` | Buildable solution (Protocol, Server, Plugin, Tests) |
+| `FreeChat.slnx` | Buildable solution (Protocol, Server, Plugin, CLI, Tests) |
 
 ## Build and test
 
@@ -30,7 +31,7 @@ dotnet build FreeChat.slnx -c Release
 dotnet test FreeChat.slnx -c Release
 ```
 
-Expected: 0 warnings, 0 errors; 19 server/protocol tests pass.
+Expected: 0 warnings, 0 errors; 24 server/protocol tests pass.
 
 ## Build the plugin
 
@@ -51,6 +52,16 @@ Load it as a Dalamud dev plugin:
 3. `/xlplugins` → Dev Tools → Installed Dev Plugins → enable **FreeChat**
 4. Run `/freechat` to open the server window.
 
+## Build the CLI
+
+```powershell
+dotnet build src\FreeChat.Cli\FreeChat.Cli.csproj -c Release
+dotnet run --project src\FreeChat.Cli -- pair --uri "<freechat://pair?...>"
+```
+
+See [CLI docs](docs/en-US/development/cli.md) and the
+[protocol quick start](docs/en-US/protocol/quickstart.md).
+
 ## Current capabilities
 
 - WSS server with self-signed ECDSA P-256 certificate and public-key pinning
@@ -62,11 +73,12 @@ Load it as a Dalamud dev plugin:
   command blocklist, and echo correlation
 - Plugin UI: tabbed status/pairing/devices/settings/logs, QR + deep link,
   online clients, localized `en-US` / `zh-CN`, configurable blacklist and limits
+- CLI reference client: pair, subscribe/replay, send, ping, decode, JSON debug
+- Bilingual quick-start, error-code table, and conformance cases
 
 ## Not implemented yet
 
-- `SendResult(ECHOED)` and full multi-part acknowledgement (Phase 6)
-- CLI/reference client and conformance runner (Phase 6)
+- `SendResult(ECHOED)` and full multi-part acknowledgement (Phase 7)
 - Browser clients, relay, multi-instance (future)
 
 ## Documentation
@@ -88,7 +100,7 @@ AGPL-3.0; see [LICENSE.md](LICENSE.md).
 一个 Dalamud 插件：在游戏进程内运行 WebSocket 服务端，让本机或局域网内的受信
 客户端接收结构化聊天事件，并通过游戏聊天框发送消息/命令。
 
-> 状态：Phase 5（本地化 UI、配对二维码/深链接、日志、更完整的设置；等待游戏内验证）。
+> 状态：Phase 6（CLI 参考客户端、快速开始文档、一致性测试；等待 CLI 实机检查）。
 > 协议为 `freechat.v1`；客户端由第三方或独立项目实现。
 
 ## 仓库结构
@@ -99,9 +111,10 @@ AGPL-3.0; see [LICENSE.md](LICENSE.md).
 | `src/FreeChat.Protocol` | 生成的 C# 绑定、编解码、常量 |
 | `src/FreeChat.Server` | WSS 传输、配对、会话、过滤、回放 |
 | `src/FreeChat.Dalamud` | Dalamud 插件、聊天采集、配对 UI |
+| `src/FreeChat.Cli` | 配对/订阅/发送/解码参考 CLI |
 | `tests/FreeChat.Server.Tests` | 服务端/协议集成测试 |
 | `docs/` | 中英文协议与开发文档 |
-| `FreeChat.slnx` | 可构建解决方案（Protocol、Server、Plugin、Tests） |
+| `FreeChat.slnx` | 可构建解决方案（Protocol、Server、Plugin、CLI、Tests） |
 
 ## 构建与测试
 
@@ -112,7 +125,7 @@ dotnet build FreeChat.slnx -c Release
 dotnet test FreeChat.slnx -c Release
 ```
 
-预期：0 warning、0 error；19 个服务端/协议测试通过。
+预期：0 warning、0 error；24 个服务端/协议测试通过。
 
 ## 构建插件
 
@@ -133,6 +146,16 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
 3. `/xlplugins` → Dev Tools → Installed Dev Plugins → 启用 **FreeChat**
 4. 运行 `/freechat` 打开服务端窗口
 
+## 构建 CLI
+
+```powershell
+dotnet build src\FreeChat.Cli\FreeChat.Cli.csproj -c Release
+dotnet run --project src\FreeChat.Cli -- pair --uri "<freechat://pair?...>"
+```
+
+见 [CLI 文档](docs/zh-CN/development/cli.md) 和
+[协议快速开始](docs/zh-CN/protocol/quickstart.md)。
+
 ## 当前能力
 
 - WSS 服务端、ECDSA P-256 自签证书、公钥 pinning
@@ -143,11 +166,12 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
 - 通过 `ProcessChatBoxEntry` 发送原始文本/命令，支持 500 字节分段、命令黑名单、echo 关联
 - 插件 UI：状态/配对/设备/设置/日志标签、二维码 + 深链接、在线客户端、
   `en-US` / `zh-CN` 本地化、可配置黑名单和限流
+- CLI 参考客户端：配对、订阅/回放、发送、ping、解码、JSON 调试
+- 中英文快速开始、错误码表、一致性用例
 
 ## 尚未实现
 
-- `SendResult(ECHOED)` 和完整多段回执（Phase 6）
-- CLI/参考客户端、一致性测试 runner（Phase 6）
+- `SendResult(ECHOED)` 和完整多段回执（Phase 7）
 - 浏览器客户端、relay、多实例（以后）
 
 ## 文档

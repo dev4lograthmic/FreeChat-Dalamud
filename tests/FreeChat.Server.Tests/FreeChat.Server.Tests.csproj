@@ -18,5 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\FreeChat.Server\FreeChat.Server.csproj" />
+    <ProjectReference Include="..\..\src\FreeChat.Cli\FreeChat.Cli.csproj" />
   </ItemGroup>
 </Project>

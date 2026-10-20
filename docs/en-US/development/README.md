@@ -6,3 +6,4 @@
 - [FreeChat.Protocol](protocol.md) — C# protocol bindings and codecs.
 - [FreeChat.Dalamud](plugin.md) — Dalamud plugin, chat capture, UI, in-game testing.
 - [Localization](localization.md) — UI JSON catalogs and Crowdin workflow.
+- [FreeChat.CLI](cli.md) — reference client for pairing, subscribe, send, decode.

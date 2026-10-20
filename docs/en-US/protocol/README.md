@@ -4,6 +4,7 @@
 
 - [FreeChat v1 protocol](freechat-v1.md) — transport, security, pairing, messages, filters, sending, errors.
 - [Examples](../../shared/protocol/examples/) — proto3 JSON envelopes for the debug encoding.
+- [Quick start](quickstart.md) — pairing link to live chat in six steps.
 - [Conformance](conformance.md) — test case checklist and current status.
 - [Development](../development/README.md) — server, protocol, and plugin notes.
 - [ADRs](../../../.opencode/adr/) — architecture decision records.
