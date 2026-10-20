@@ -371,7 +371,7 @@ message Envelope {
 4. `exclude_log_kinds` 包含 `log_kind`：丢弃。
 5. `keyword` 非空：`ChatEvent.text` 必须包含该子串（大小写由 `case_sensitive` 决定）。
 6. `regex` 非空：必须匹配 `ChatEvent.text`。
-7. `include_own=false`：丢弃 `outgoing=true` 的消息。
+7. `include_own=false`：丢弃 `outgoing=true` 的消息（未设置时默认包含自己发的消息）。
 8. `include_battle=false`：丢弃 `ChatCategory.BATTLE`（以及 `source=STRUCTURED` 且分类为战斗的消息）。
 
 规则：

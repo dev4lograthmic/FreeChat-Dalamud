@@ -422,7 +422,8 @@ All `ChatFilter` conditions are ANDed:
 5. `keyword` non-empty: `ChatEvent.text` must contain the substring (case
    sensitivity controlled by `case_sensitive`).
 6. `regex` non-empty: must match `ChatEvent.text`.
-7. `include_own=false`: drop messages with `outgoing=true`.
+7. `include_own=false`: drop messages with `outgoing=true` (unset defaults to
+   including own messages).
 8. `include_battle=false`: drop `ChatCategory.BATTLE` (and structured battle
    messages).
 

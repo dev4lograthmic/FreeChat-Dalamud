@@ -73,7 +73,8 @@ message ChatFilter {
   string keyword = 5;
   string regex = 6;
   bool case_sensitive = 7;
-  bool include_own = 8;
+  // If unset, own messages are included. Set explicitly to false to exclude.
+  optional bool include_own = 8;
   bool include_battle = 9;
 
   reserved 10 to 15;

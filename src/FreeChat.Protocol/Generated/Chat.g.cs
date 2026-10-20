@@ -48,67 +48,68 @@ namespace FreeChat.Protocol.V1 {
             "cnlUcnVuY2F0ZWQSNgoXcmVxdWVzdGVkX2Zyb21fc2VxdWVuY2UYASABKANS",
             "FXJlcXVlc3RlZEZyb21TZXF1ZW5jZRInCg9vbGRlc3Rfc2VxdWVuY2UYAiAB",
             "KANSDm9sZGVzdFNlcXVlbmNlEicKD2xhdGVzdF9zZXF1ZW5jZRgDIAEoA1IO",
-            "bGF0ZXN0U2VxdWVuY2VKBAgEEBAinQMKCkNoYXRGaWx0ZXISSAoSaW5jbHVk",
+            "bGF0ZXN0U2VxdWVuY2VKBAgEEBAisgMKCkNoYXRGaWx0ZXISSAoSaW5jbHVk",
             "ZV9jYXRlZ29yaWVzGAEgAygOMhkuZnJlZWNoYXQudjEuQ2hhdENhdGVnb3J5",
             "UhFpbmNsdWRlQ2F0ZWdvcmllcxJIChJleGNsdWRlX2NhdGVnb3JpZXMYAiAD",
             "KA4yGS5mcmVlY2hhdC52MS5DaGF0Q2F0ZWdvcnlSEWV4Y2x1ZGVDYXRlZ29y",
             "aWVzEioKEWluY2x1ZGVfbG9nX2tpbmRzGAMgAygNUg9pbmNsdWRlTG9nS2lu",
             "ZHMSKgoRZXhjbHVkZV9sb2dfa2luZHMYBCADKA1SD2V4Y2x1ZGVMb2dLaW5k",
             "cxIYCgdrZXl3b3JkGAUgASgJUgdrZXl3b3JkEhQKBXJlZ2V4GAYgASgJUgVy",
-            "ZWdleBIlCg5jYXNlX3NlbnNpdGl2ZRgHIAEoCFINY2FzZVNlbnNpdGl2ZRIf",
-            "CgtpbmNsdWRlX293bhgIIAEoCFIKaW5jbHVkZU93bhIlCg5pbmNsdWRlX2Jh",
-            "dHRsZRgJIAEoCFINaW5jbHVkZUJhdHRsZUoECAoQECL4BgoJQ2hhdEV2ZW50",
-            "Eh0KCm1lc3NhZ2VfaWQYASABKAlSCW1lc3NhZ2VJZBIaCghzZXF1ZW5jZRgC",
-            "IAEoA1IIc2VxdWVuY2USOAoJdGltZXN0YW1wGAMgASgLMhouZ29vZ2xlLnBy",
-            "b3RvYnVmLlRpbWVzdGFtcFIJdGltZXN0YW1wEjIKB2NoYW5uZWwYBCABKA4y",
-            "GC5mcmVlY2hhdC52MS5DaGF0Q2hhbm5lbFIHY2hhbm5lbBIZCghsb2dfa2lu",
-            "ZBgFIAEoDVIHbG9nS2luZBIvCgZzb3VyY2UYBiABKA4yFy5mcmVlY2hhdC52",
-            "MS5DaGF0U291cmNlUgZzb3VyY2USMQoGc2VuZGVyGAcgASgLMhkuZnJlZWNo",
-            "YXQudjEuQ2hhcmFjdGVyUmVmUgZzZW5kZXISEgoEdGV4dBgIIAEoCVIEdGV4",
-            "dBIdCgpyYXdfc2VuZGVyGAkgASgMUglyYXdTZW5kZXISHwoLcmF3X21lc3Nh",
-            "Z2UYCiABKAxSCnJhd01lc3NhZ2USMAoIc2VnbWVudHMYCyADKAsyFC5mcmVl",
-            "Y2hhdC52MS5TZWdtZW50UghzZWdtZW50cxIaCghvdXRnb2luZxgMIAEoCFII",
-            "b3V0Z29pbmcSNgoJdGVsbF9wZWVyGA0gASgLMhkuZnJlZWNoYXQudjEuQ2hh",
-            "cmFjdGVyUmVmUgh0ZWxsUGVlchIhCgxjaGFubmVsX25hbWUYDiABKAlSC2No",
-            "YW5uZWxOYW1lEioKEW9yaWdpbl9yZXF1ZXN0X2lkGA8gASgJUg9vcmlnaW5S",
-            "ZXF1ZXN0SWQSMwoTb3JpZ2luYWxfcmF3X3NlbmRlchgQIAEoDEgAUhFvcmln",
-            "aW5hbFJhd1NlbmRlcogBARI1ChRvcmlnaW5hbF9yYXdfbWVzc2FnZRgRIAEo",
-            "DEgBUhJvcmlnaW5hbFJhd01lc3NhZ2WIAQESKAoNb3JpZ2luYWxfdGV4dBgS",
-            "IAEoCUgCUgxvcmlnaW5hbFRleHSIAQESOwoMY29udGVudF9tb2RlGBMgASgO",
-            "MhguZnJlZWNoYXQudjEuQ29udGVudE1vZGVSC2NvbnRlbnRNb2RlQhYKFF9v",
-            "cmlnaW5hbF9yYXdfc2VuZGVyQhcKFV9vcmlnaW5hbF9yYXdfbWVzc2FnZUIQ",
-            "Cg5fb3JpZ2luYWxfdGV4dEoECBQQICLAAwoHU2VnbWVudBIsCgVzdHlsZRgB",
-            "IAEoCzIWLmZyZWVjaGF0LnYxLlRleHRTdHlsZVIFc3R5bGUSLgoEdGV4dBgK",
-            "IAEoCzIYLmZyZWVjaGF0LnYxLlRleHRTZWdtZW50SABSBHRleHQSLgoEaWNv",
-            "bhgLIAEoCzIYLmZyZWVjaGF0LnYxLkljb25TZWdtZW50SABSBGljb24SLgoE",
-            "aXRlbRgMIAEoCzIYLmZyZWVjaGF0LnYxLkl0ZW1TZWdtZW50SABSBGl0ZW0S",
-            "KwoDbWFwGA0gASgLMhcuZnJlZWNoYXQudjEuTWFwU2VnbWVudEgAUgNtYXAS",
-            "SgoOYXV0b190cmFuc2xhdGUYDiABKAsyIS5mcmVlY2hhdC52MS5BdXRvVHJh",
-            "bnNsYXRlU2VnbWVudEgAUg1hdXRvVHJhbnNsYXRlEjQKBnBsYXllchgPIAEo",
-            "CzIaLmZyZWVjaGF0LnYxLlBsYXllclNlZ21lbnRIAFIGcGxheWVyEjQKBnN0",
-            "YXR1cxgQIAEoCzIaLmZyZWVjaGF0LnYxLlN0YXR1c1NlZ21lbnRIAFIGc3Rh",
-            "dHVzQgYKBGtpbmRKBAgCEApKBAgRECAiIQoLVGV4dFNlZ21lbnQSEgoEdGV4",
-            "dBgBIAEoCVIEdGV4dCImCgtJY29uU2VnbWVudBIXCgdpY29uX2lkGAEgASgN",
-            "UgZpY29uSWQi/AIKC0l0ZW1TZWdtZW50EhcKB2l0ZW1faWQYASABKA1SBml0",
-            "ZW1JZBIOCgJocRgCIAEoCFICaHESGwoJaXRlbV9raW5kGAMgASgNUghpdGVt",
-            "S2luZBISCgRuYW1lGAQgASgJUgRuYW1lEiAKC2Rlc2NyaXB0aW9uGAUgASgJ",
-            "UgtkZXNjcmlwdGlvbhIXCgdpY29uX2lkGAYgASgNUgZpY29uSWQSHQoKaXRl",
-            "bV9sZXZlbBgHIAEoDVIJaXRlbUxldmVsEh8KC2VxdWlwX2xldmVsGAggASgN",
-            "UgplcXVpcExldmVsEhYKBnJhcml0eRgJIAEoDVIGcmFyaXR5EhoKCGNhdGVn",
-            "b3J5GAogASgJUghjYXRlZ29yeRIjCg1tYXRlcmlhX3Nsb3RzGAsgASgNUgxt",
-            "YXRlcmlhU2xvdHMSKQoQYWR2YW5jZWRfbWVsZGluZxgMIAEoCFIPYWR2YW5j",
-            "ZWRNZWxkaW5nEhQKBXN0YXRzGA0gAygJUgVzdGF0cyLKAQoKTWFwU2VnbWVu",
-            "dBIVCgZtYXBfaWQYASABKA1SBW1hcElkEiEKDHRlcnJpdG9yeV9pZBgCIAEo",
-            "DVILdGVycml0b3J5SWQSDAoBeBgDIAEoAlIBeBIMCgF5GAQgASgCUgF5Eh0K",
-            "CnBsYWNlX25hbWUYBSABKAlSCXBsYWNlTmFtZRImCg9tYXBfZmlsZW5hbWVf",
-            "aWQYBiABKAlSDW1hcEZpbGVuYW1lSWQSHwoLc2l6ZV9mYWN0b3IYByABKA1S",
-            "CnNpemVGYWN0b3IiKgoUQXV0b1RyYW5zbGF0ZVNlZ21lbnQSEgoEdGV4dBgB",
-            "IAEoCVIEdGV4dCJ8Cg1QbGF5ZXJTZWdtZW50EhIKBG5hbWUYASABKAlSBG5h",
-            "bWUSGQoId29ybGRfaWQYAiABKA1SB3dvcmxkSWQSHQoKd29ybGRfbmFtZRgD",
-            "IAEoCVIJd29ybGROYW1lEh0KCmNvbnRlbnRfaWQYBCABKARSCWNvbnRlbnRJ",
-            "ZCJZCg1TdGF0dXNTZWdtZW50EhsKCXN0YXR1c19pZBgBIAEoDVIIc3RhdHVz",
-            "SWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIXCgdpY29uX2lkGAMgASgNUgZpY29u",
-            "SWRCF6oCFEZyZWVDaGF0LlByb3RvY29sLlYxYgZwcm90bzM="));
+            "ZWdleBIlCg5jYXNlX3NlbnNpdGl2ZRgHIAEoCFINY2FzZVNlbnNpdGl2ZRIk",
+            "CgtpbmNsdWRlX293bhgIIAEoCEgAUgppbmNsdWRlT3duiAEBEiUKDmluY2x1",
+            "ZGVfYmF0dGxlGAkgASgIUg1pbmNsdWRlQmF0dGxlQg4KDF9pbmNsdWRlX293",
+            "bkoECAoQECL4BgoJQ2hhdEV2ZW50Eh0KCm1lc3NhZ2VfaWQYASABKAlSCW1l",
+            "c3NhZ2VJZBIaCghzZXF1ZW5jZRgCIAEoA1IIc2VxdWVuY2USOAoJdGltZXN0",
+            "YW1wGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJdGltZXN0",
+            "YW1wEjIKB2NoYW5uZWwYBCABKA4yGC5mcmVlY2hhdC52MS5DaGF0Q2hhbm5l",
+            "bFIHY2hhbm5lbBIZCghsb2dfa2luZBgFIAEoDVIHbG9nS2luZBIvCgZzb3Vy",
+            "Y2UYBiABKA4yFy5mcmVlY2hhdC52MS5DaGF0U291cmNlUgZzb3VyY2USMQoG",
+            "c2VuZGVyGAcgASgLMhkuZnJlZWNoYXQudjEuQ2hhcmFjdGVyUmVmUgZzZW5k",
+            "ZXISEgoEdGV4dBgIIAEoCVIEdGV4dBIdCgpyYXdfc2VuZGVyGAkgASgMUgly",
+            "YXdTZW5kZXISHwoLcmF3X21lc3NhZ2UYCiABKAxSCnJhd01lc3NhZ2USMAoI",
+            "c2VnbWVudHMYCyADKAsyFC5mcmVlY2hhdC52MS5TZWdtZW50UghzZWdtZW50",
+            "cxIaCghvdXRnb2luZxgMIAEoCFIIb3V0Z29pbmcSNgoJdGVsbF9wZWVyGA0g",
+            "ASgLMhkuZnJlZWNoYXQudjEuQ2hhcmFjdGVyUmVmUgh0ZWxsUGVlchIhCgxj",
+            "aGFubmVsX25hbWUYDiABKAlSC2NoYW5uZWxOYW1lEioKEW9yaWdpbl9yZXF1",
+            "ZXN0X2lkGA8gASgJUg9vcmlnaW5SZXF1ZXN0SWQSMwoTb3JpZ2luYWxfcmF3",
+            "X3NlbmRlchgQIAEoDEgAUhFvcmlnaW5hbFJhd1NlbmRlcogBARI1ChRvcmln",
+            "aW5hbF9yYXdfbWVzc2FnZRgRIAEoDEgBUhJvcmlnaW5hbFJhd01lc3NhZ2WI",
+            "AQESKAoNb3JpZ2luYWxfdGV4dBgSIAEoCUgCUgxvcmlnaW5hbFRleHSIAQES",
+            "OwoMY29udGVudF9tb2RlGBMgASgOMhguZnJlZWNoYXQudjEuQ29udGVudE1v",
+            "ZGVSC2NvbnRlbnRNb2RlQhYKFF9vcmlnaW5hbF9yYXdfc2VuZGVyQhcKFV9v",
+            "cmlnaW5hbF9yYXdfbWVzc2FnZUIQCg5fb3JpZ2luYWxfdGV4dEoECBQQICLA",
+            "AwoHU2VnbWVudBIsCgVzdHlsZRgBIAEoCzIWLmZyZWVjaGF0LnYxLlRleHRT",
+            "dHlsZVIFc3R5bGUSLgoEdGV4dBgKIAEoCzIYLmZyZWVjaGF0LnYxLlRleHRT",
+            "ZWdtZW50SABSBHRleHQSLgoEaWNvbhgLIAEoCzIYLmZyZWVjaGF0LnYxLklj",
+            "b25TZWdtZW50SABSBGljb24SLgoEaXRlbRgMIAEoCzIYLmZyZWVjaGF0LnYx",
+            "Lkl0ZW1TZWdtZW50SABSBGl0ZW0SKwoDbWFwGA0gASgLMhcuZnJlZWNoYXQu",
+            "djEuTWFwU2VnbWVudEgAUgNtYXASSgoOYXV0b190cmFuc2xhdGUYDiABKAsy",
+            "IS5mcmVlY2hhdC52MS5BdXRvVHJhbnNsYXRlU2VnbWVudEgAUg1hdXRvVHJh",
+            "bnNsYXRlEjQKBnBsYXllchgPIAEoCzIaLmZyZWVjaGF0LnYxLlBsYXllclNl",
+            "Z21lbnRIAFIGcGxheWVyEjQKBnN0YXR1cxgQIAEoCzIaLmZyZWVjaGF0LnYx",
+            "LlN0YXR1c1NlZ21lbnRIAFIGc3RhdHVzQgYKBGtpbmRKBAgCEApKBAgRECAi",
+            "IQoLVGV4dFNlZ21lbnQSEgoEdGV4dBgBIAEoCVIEdGV4dCImCgtJY29uU2Vn",
+            "bWVudBIXCgdpY29uX2lkGAEgASgNUgZpY29uSWQi/AIKC0l0ZW1TZWdtZW50",
+            "EhcKB2l0ZW1faWQYASABKA1SBml0ZW1JZBIOCgJocRgCIAEoCFICaHESGwoJ",
+            "aXRlbV9raW5kGAMgASgNUghpdGVtS2luZBISCgRuYW1lGAQgASgJUgRuYW1l",
+            "EiAKC2Rlc2NyaXB0aW9uGAUgASgJUgtkZXNjcmlwdGlvbhIXCgdpY29uX2lk",
+            "GAYgASgNUgZpY29uSWQSHQoKaXRlbV9sZXZlbBgHIAEoDVIJaXRlbUxldmVs",
+            "Eh8KC2VxdWlwX2xldmVsGAggASgNUgplcXVpcExldmVsEhYKBnJhcml0eRgJ",
+            "IAEoDVIGcmFyaXR5EhoKCGNhdGVnb3J5GAogASgJUghjYXRlZ29yeRIjCg1t",
+            "YXRlcmlhX3Nsb3RzGAsgASgNUgxtYXRlcmlhU2xvdHMSKQoQYWR2YW5jZWRf",
+            "bWVsZGluZxgMIAEoCFIPYWR2YW5jZWRNZWxkaW5nEhQKBXN0YXRzGA0gAygJ",
+            "UgVzdGF0cyLKAQoKTWFwU2VnbWVudBIVCgZtYXBfaWQYASABKA1SBW1hcElk",
+            "EiEKDHRlcnJpdG9yeV9pZBgCIAEoDVILdGVycml0b3J5SWQSDAoBeBgDIAEo",
+            "AlIBeBIMCgF5GAQgASgCUgF5Eh0KCnBsYWNlX25hbWUYBSABKAlSCXBsYWNl",
+            "TmFtZRImCg9tYXBfZmlsZW5hbWVfaWQYBiABKAlSDW1hcEZpbGVuYW1lSWQS",
+            "HwoLc2l6ZV9mYWN0b3IYByABKA1SCnNpemVGYWN0b3IiKgoUQXV0b1RyYW5z",
+            "bGF0ZVNlZ21lbnQSEgoEdGV4dBgBIAEoCVIEdGV4dCJ8Cg1QbGF5ZXJTZWdt",
+            "ZW50EhIKBG5hbWUYASABKAlSBG5hbWUSGQoId29ybGRfaWQYAiABKA1SB3dv",
+            "cmxkSWQSHQoKd29ybGRfbmFtZRgDIAEoCVIJd29ybGROYW1lEh0KCmNvbnRl",
+            "bnRfaWQYBCABKARSCWNvbnRlbnRJZCJZCg1TdGF0dXNTZWdtZW50EhsKCXN0",
+            "YXR1c19pZBgBIAEoDVIIc3RhdHVzSWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIX",
+            "CgdpY29uX2lkGAMgASgNUgZpY29uSWRCF6oCFEZyZWVDaGF0LlByb3RvY29s",
+            "LlYxYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::FreeChat.Protocol.V1.CommonReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -117,7 +118,7 @@ namespace FreeChat.Protocol.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Unsubscribe), global::FreeChat.Protocol.V1.Unsubscribe.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ReplayRequest), global::FreeChat.Protocol.V1.ReplayRequest.Parser, new[]{ "FromSequence", "ToSequence", "Filter" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.HistoryTruncated), global::FreeChat.Protocol.V1.HistoryTruncated.Parser, new[]{ "RequestedFromSequence", "OldestSequence", "LatestSequence" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatFilter), global::FreeChat.Protocol.V1.ChatFilter.Parser, new[]{ "IncludeCategories", "ExcludeCategories", "IncludeLogKinds", "ExcludeLogKinds", "Keyword", "Regex", "CaseSensitive", "IncludeOwn", "IncludeBattle" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatFilter), global::FreeChat.Protocol.V1.ChatFilter.Parser, new[]{ "IncludeCategories", "ExcludeCategories", "IncludeLogKinds", "ExcludeLogKinds", "Keyword", "Regex", "CaseSensitive", "IncludeOwn", "IncludeBattle" }, new[]{ "IncludeOwn" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatEvent), global::FreeChat.Protocol.V1.ChatEvent.Parser, new[]{ "MessageId", "Sequence", "Timestamp", "Channel", "LogKind", "Source", "Sender", "Text", "RawSender", "RawMessage", "Segments", "Outgoing", "TellPeer", "ChannelName", "OriginRequestId", "OriginalRawSender", "OriginalRawMessage", "OriginalText", "ContentMode" }, new[]{ "OriginalRawSender", "OriginalRawMessage", "OriginalText" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Segment), global::FreeChat.Protocol.V1.Segment.Parser, new[]{ "Style", "Text", "Icon", "Item", "Map", "AutoTranslate", "Player", "Status" }, new[]{ "Kind" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.TextSegment), global::FreeChat.Protocol.V1.TextSegment.Parser, new[]{ "Text" }, null, null, null, null),
@@ -1645,6 +1646,7 @@ namespace FreeChat.Protocol.V1 {
   {
     private static readonly pb::MessageParser<ChatFilter> _parser = new pb::MessageParser<ChatFilter>(() => new ChatFilter());
     private pb::UnknownFieldSet _unknownFields;
+    private int _hasBits0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pb::MessageParser<ChatFilter> Parser { get { return _parser; } }
@@ -1672,6 +1674,7 @@ namespace FreeChat.Protocol.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ChatFilter(ChatFilter other) : this() {
+      _hasBits0 = other._hasBits0;
       includeCategories_ = other.includeCategories_.Clone();
       excludeCategories_ = other.excludeCategories_.Clone();
       includeLogKinds_ = other.includeLogKinds_.Clone();
@@ -1772,14 +1775,32 @@ namespace FreeChat.Protocol.V1 {
 
     /// <summary>Field number for the "include_own" field.</summary>
     public const int IncludeOwnFieldNumber = 8;
+    private readonly static bool IncludeOwnDefaultValue = false;
+
     private bool includeOwn_;
+    /// <summary>
+    /// If unset, own messages are included. Set explicitly to false to exclude.
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public bool IncludeOwn {
-      get { return includeOwn_; }
+      get { if ((_hasBits0 & 1) != 0) { return includeOwn_; } else { return IncludeOwnDefaultValue; } }
       set {
+        _hasBits0 |= 1;
         includeOwn_ = value;
       }
+    }
+    /// <summary>Gets whether the "include_own" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasIncludeOwn {
+      get { return (_hasBits0 & 1) != 0; }
+    }
+    /// <summary>Clears the value of the "include_own" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearIncludeOwn() {
+      _hasBits0 &= ~1;
     }
 
     /// <summary>Field number for the "include_battle" field.</summary>
@@ -1832,7 +1853,7 @@ namespace FreeChat.Protocol.V1 {
       if (Keyword.Length != 0) hash ^= Keyword.GetHashCode();
       if (Regex.Length != 0) hash ^= Regex.GetHashCode();
       if (CaseSensitive != false) hash ^= CaseSensitive.GetHashCode();
-      if (IncludeOwn != false) hash ^= IncludeOwn.GetHashCode();
+      if (HasIncludeOwn) hash ^= IncludeOwn.GetHashCode();
       if (IncludeBattle != false) hash ^= IncludeBattle.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1868,7 +1889,7 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(56);
         output.WriteBool(CaseSensitive);
       }
-      if (IncludeOwn != false) {
+      if (HasIncludeOwn) {
         output.WriteRawTag(64);
         output.WriteBool(IncludeOwn);
       }
@@ -1902,7 +1923,7 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(56);
         output.WriteBool(CaseSensitive);
       }
-      if (IncludeOwn != false) {
+      if (HasIncludeOwn) {
         output.WriteRawTag(64);
         output.WriteBool(IncludeOwn);
       }
@@ -1933,7 +1954,7 @@ namespace FreeChat.Protocol.V1 {
       if (CaseSensitive != false) {
         size += 1 + 1;
       }
-      if (IncludeOwn != false) {
+      if (HasIncludeOwn) {
         size += 1 + 1;
       }
       if (IncludeBattle != false) {
@@ -1964,7 +1985,7 @@ namespace FreeChat.Protocol.V1 {
       if (other.CaseSensitive != false) {
         CaseSensitive = other.CaseSensitive;
       }
-      if (other.IncludeOwn != false) {
+      if (other.HasIncludeOwn) {
         IncludeOwn = other.IncludeOwn;
       }
       if (other.IncludeBattle != false) {
