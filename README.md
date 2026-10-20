@@ -60,7 +60,7 @@ dotnet run --project src\FreeChat.Cli -- pair --uri "<freechat://pair?...>"
 ```
 
 See [CLI docs](docs/en-US/development/cli.md) and the
-[protocol quick start](docs/en-US/protocol/quickstart.md).
+[API reference](docs/en-US/api/README.md).
 
 ## Current capabilities
 
@@ -83,9 +83,10 @@ See [CLI docs](docs/en-US/development/cli.md) and the
 
 ## Documentation
 
-- [English docs](docs/en-US/protocol/README.md)
-- [简体中文文档](docs/zh-CN/protocol/README.md)
+- [English API](docs/en-US/api/README.md)
+- [简体中文 API](docs/zh-CN/api/README.md)
 - [Development docs](docs/en-US/development/README.md)
+- [开发文档](docs/zh-CN/development/README.md)
 
 ## License
 
@@ -154,7 +155,7 @@ dotnet run --project src\FreeChat.Cli -- pair --uri "<freechat://pair?...>"
 ```
 
 见 [CLI 文档](docs/zh-CN/development/cli.md) 和
-[协议快速开始](docs/zh-CN/protocol/quickstart.md)。
+[API 参考](docs/zh-CN/api/README.md)。
 
 ## 当前能力
 
@@ -176,8 +177,8 @@ dotnet run --project src\FreeChat.Cli -- pair --uri "<freechat://pair?...>"
 
 ## 文档
 
-- [English docs](docs/en-US/protocol/README.md)
-- [简体中文文档](docs/zh-CN/protocol/README.md)
+- [English API](docs/en-US/api/README.md)
+- [简体中文 API](docs/zh-CN/api/README.md)
 - [开发文档](docs/zh-CN/development/README.md)
 
 ## 许可证

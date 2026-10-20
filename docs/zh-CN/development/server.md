@@ -1,7 +1,5 @@
 # FreeChat.Server
 
-[English](../../en-US/development/server.md)
-
 FreeChat 游戏侧服务端的传输、配对、会话、过滤、回放和背压实现。这个项目
 **不依赖 Dalamud**；插件实现 `IChatSink`，并通过
 `FreeChatServer.PublishChatEvent` 注入聊天事件。
@@ -49,8 +47,3 @@ dotnet test tests\FreeChat.Server.Tests\FreeChat.Server.Tests.csproj -c Release
 
 覆盖：配对、challenge 签名、错误 pin、订阅、过滤、回放、发送、JSON debug、
 设备撤销。
-
-## 相关
-
-- [协议项目](protocol.md)
-- [协议规范](../protocol/freechat-v1.md)

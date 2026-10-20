@@ -1,6 +1,4 @@
-# 插件本地化（简体中文）
-
-[English](../../en-US/development/localization.md)
+# 插件本地化
 
 插件 UI 使用一个扁平 JSON 文案表。
 

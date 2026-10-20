@@ -1,6 +1,6 @@
 # FreeChat CLI
 
-CLI 是 FreeChat v1 协议的小型参考客户端，用于测试和排错，不是产品客户端。
+CLI 是 FreeChat v1 协议的小型参考客户端，用于测试和排错。
 支持配对、订阅、发送、ping 和 envelope 解码。
 
 源码：`src/FreeChat.Cli/`；可执行文件：`freechat`。
@@ -75,7 +75,7 @@ dotnet run --project src\FreeChat.Cli -- subscribe --uri "<链接>" --count 10
 | 选项 | 含义 |
 |---|---|
 | `--sources post,pre,structured,all` | 来源选择，默认 `post` |
-| `--keyword text` | 大小写敏感的子串过滤 |
+| `--keyword text` | 默认大小写不敏感的子串过滤 |
 | `--regex pattern` | 非回溯正则过滤 |
 | `--exclude-own` | 排除自己发出的消息 |
 | `--include-battle` | 包含战斗事件 |
@@ -169,9 +169,3 @@ server id。Unix 下权限为 `0600`；Windows 下是普通用户文件。把它
 - CLI 同时校验 TLS 公钥 pin 和 `ServerInfo` 里的指纹。
 - CLI 不持久化聊天记录，只打印收到的事件。
 - CLI 是参考实现；第三方客户端应直接使用协议文档和生成的绑定。
-
-## 相关
-
-- [协议快速开始](../protocol/quickstart.md)
-- [协议规范](../protocol/freechat-v1.md)
-- [一致性测试](../protocol/conformance.md)

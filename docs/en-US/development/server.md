@@ -1,10 +1,8 @@
 # FreeChat.Server
 
-[简体中文](../../zh-CN/development/server.md)
-
-Transport, pairing, session, filtering, replay, and backpressure for the
-FreeChat game-side server. This project has **no Dalamud dependency**; the plugin
-implements `IChatSink` and injects chat events through
+The transport, pairing, session, filtering, replay, and backpressure
+implementation for the FreeChat game-side server. This project does **not**
+depend on Dalamud; the plugin implements `IChatSink` and injects chat events via
 `FreeChatServer.PublishChatEvent`.
 
 ## Start
@@ -26,19 +24,19 @@ Console.WriteLine($"fingerprint: {TlsCertificate.Hex(server.Fingerprint)}");
 ```
 
 The plugin UI should display `server.Pairing.CurrentCode` and the fingerprint,
-and implement `IPairingApproval` to show a confirmation dialog.
+and implement `IPairingApproval` to show the device approval prompt.
 
-## Main pieces
+## Main types
 
 | Type | Responsibility |
 |---|---|
-| `WebSocketServer` | TCP/TLS/HTTP upgrade/WebSocket framing |
-| `ClientConnection` | Per-connection read/write queues and message limits |
-| `SessionHandler` | Handshake, auth, subscribe, replay, send dispatch |
-| `PairingService` | One-time code, device approval, challenge creation |
+| `WebSocketServer` | TCP/TLS/HTTP Upgrade/WebSocket frames |
+| `ClientConnection` | Per-connection read/write queues and message size limits |
+| `SessionHandler` | Handshake, authentication, subscription, replay, send dispatch |
+| `PairingService` | One-time pairing code, device approval, challenge |
 | `DeviceAuthenticator` | P-256 challenge signature verification |
-| `JsonDeviceStore` | Device public keys; no chat content |
-| `ChatFilterMatcher` | Category/LogKind/keyword/regex filters |
+| `JsonDeviceStore` | Device public keys; never stores chat content |
+| `ChatFilterMatcher` | Category/LogKind/keyword/regex filtering |
 | `ChatBacklog` | Current-session ring buffer and replay |
 | `TokenBucket` | Send rate limiting |
 
@@ -48,11 +46,5 @@ and implement `IPairingApproval` to show a confirmation dialog.
 dotnet test tests\FreeChat.Server.Tests\FreeChat.Server.Tests.csproj -c Release
 ```
 
-The test suite covers pairing, challenge signatures, wrong pin rejection,
-subscriptions, filtering, replay, sending, JSON debug transport, and device
-revocation.
-
-## Related
-
-- [Protocol project](protocol.md)
-- [Protocol specification](../protocol/freechat-v1.md)
+Coverage: pairing, challenge signatures, wrong pin, subscription, filtering,
+replay, sending, JSON debug, and device revocation.

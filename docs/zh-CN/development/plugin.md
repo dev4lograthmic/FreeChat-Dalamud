@@ -1,6 +1,4 @@
-# FreeChat.Dalamud 插件（简体中文）
-
-[English](../../en-US/development/plugin.md)
+# FreeChat.Dalamud 插件
 
 FreeChat 的 Dalamud 适配层：负责插件生命周期、聊天采集、把事件喂给
 `FreeChatServer`，以及配对/设备 UI。
@@ -45,25 +43,7 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
 
 ## 当前限制
 
-- 暂不发送 `SendResult(ECHOED)`；outgoing `ChatEvent.origin_request_id` 已填充，
-  客户端可自行关联。
+- 暂不发送 `SendResult(ECHOED)`；outgoing `ChatEvent.origin_request_id` 已填充，客户端可自行关联。
 - `ChatEvent.Original*` 字段暂未填充。
 - 通讯贝/CWLS 名称暂未解析。
 - 二维码编码的是深链接；可在 **配对** 标签扫码，或复制链接到客户端。
-
-## 游戏内测试
-
-1. 加载插件，运行 `/freechat`。
-2. 打开 **配对**，复制配对码/指纹/深链接，或直接扫码。
-3. 用 FreeChat 客户端（或集成测试工具）连接
-   `wss://<游戏电脑>:14777/ws`。
-4. 在 **配对** 标签里确认设备。
-5. 正常聊天；客户端应收到 `PostHandle` 事件。
-6. 在 **状态** 标签的测试发送里填 `/echo FreeChat test`；游戏应回显，
-   **上次发送** / **上次回显** 应更新。
-7. 在 **设置 → 语言** 切换到 `zh-CN`，确认标签和文案立即变化。
-
-## 相关
-
-- [服务端](server.md)
-- [协议项目](protocol.md)

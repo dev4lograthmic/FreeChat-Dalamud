@@ -1,7 +1,5 @@
 # FreeChat.Protocol
 
-[English](../../en-US/development/protocol.md)
-
 FreeChat v1 的 C# 绑定和共享协议辅助代码。
 
 - `Generated/` 由 `buf generate` 从 `proto/freechat/v1/*.proto` 生成，禁止手改。
@@ -20,5 +18,5 @@ buf generate
 
 ## 相关
 
-- [协议规范](../protocol/freechat-v1.md)
-- [服务端项目](server.md)
+- [插件 API](../api/README.md)
+- [协议源文件](../../../proto/freechat/v1/)
