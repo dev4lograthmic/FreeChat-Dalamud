@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="src/FreeChat.Protocol/FreeChat.Protocol.csproj" />
   <Project Path="src/FreeChat.Server/FreeChat.Server.csproj" />
+  <Project Path="src/FreeChat.Dalamud/FreeChat.Dalamud.csproj" />
   <Project Path="tests/FreeChat.Server.Tests/FreeChat.Server.Tests.csproj" />
 </Solution>

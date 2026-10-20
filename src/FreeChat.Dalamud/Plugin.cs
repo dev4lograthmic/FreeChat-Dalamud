@@ -1,0 +1,109 @@
+using Dalamud.Game.ClientState.Objects.Types;
+using Dalamud.Game.Command;
+using Dalamud.Interface.Windowing;
+using Dalamud.IoC;
+using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
+using FreeChat.Dalamud.Chat;
+using FreeChat.Dalamud.UI;
+
+namespace FreeChat.Dalamud;
+
+public sealed class Plugin : IDalamudPlugin
+{
+    private const string CommandName = "/freechat";
+
+    [PluginService] internal static IDalamudPluginInterface Interface { get; private set; } = null!;
+    [PluginService] internal static IPluginLog Log { get; private set; } = null!;
+    [PluginService] internal static IChatGui ChatGui { get; private set; } = null!;
+    [PluginService] internal static IClientState ClientState { get; private set; } = null!;
+    [PluginService] internal static IObjectTable ObjectTable { get; private set; } = null!;
+    [PluginService] internal static IPlayerState PlayerState { get; private set; } = null!;
+    [PluginService] internal static IDataManager DataManager { get; private set; } = null!;
+    [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
+    [PluginService] internal static IFramework Framework { get; private set; } = null!;
+
+    private readonly WindowSystem windowSystem = new("FreeChat");
+    private readonly MainWindow mainWindow;
+    private bool disposed;
+
+    public Plugin()
+    {
+        this.Configuration = Interface.GetPluginConfig() as Configuration ?? new Configuration();
+        this.Configuration.Initialise(this);
+
+        this.ServerHost = new ServerHost(this.Configuration, Interface, Log);
+        this.ServerHost.Start();
+
+        var factory = new ChatEventFactory(new ChatEnricher(DataManager));
+        this.ChatCapture = new ChatCapture(
+            ChatGui,
+            this.ServerHost,
+            factory,
+            () => this.LocalPlayerName,
+            Log);
+
+        this.mainWindow = new MainWindow(this);
+        this.windowSystem.AddWindow(this.mainWindow);
+        Interface.UiBuilder.Draw += this.windowSystem.Draw;
+        Interface.UiBuilder.OpenConfigUi += this.OpenMainWindow;
+        Interface.UiBuilder.OpenMainUi += this.OpenMainWindow;
+
+        CommandManager.AddHandler(CommandName, new CommandInfo(this.OnCommand)
+        {
+            HelpMessage = "Open the FreeChat server window.",
+        });
+
+        ClientState.Login += this.OnLogin;
+        ClientState.Logout += this.OnLogout;
+        Framework.Update += this.OnFrameworkUpdate;
+
+        if (ClientState.IsLoggedIn && PlayerState.IsLoaded)
+            this.ServerHost.UpdateCharacter(ObjectTable.LocalPlayer);
+
+        Log.Information("FreeChat loaded.");
+    }
+
+    public Configuration Configuration { get; }
+    public ServerHost ServerHost { get; }
+    public ChatCapture ChatCapture { get; }
+    public string? LocalPlayerName => ObjectTable.LocalPlayer?.Name.TextValue;
+
+    public void Dispose()
+    {
+        if (this.disposed)
+            return;
+
+        this.disposed = true;
+        ClientState.Login -= this.OnLogin;
+        ClientState.Logout -= this.OnLogout;
+        Framework.Update -= this.OnFrameworkUpdate;
+        CommandManager.RemoveHandler(CommandName);
+        Interface.UiBuilder.Draw -= this.windowSystem.Draw;
+        Interface.UiBuilder.OpenConfigUi -= this.OpenMainWindow;
+        Interface.UiBuilder.OpenMainUi -= this.OpenMainWindow;
+
+        this.ChatCapture.Dispose();
+        this.ServerHost.Dispose();
+        this.windowSystem.RemoveAllWindows();
+        this.mainWindow.Dispose();
+    }
+
+    private void OnCommand(string command, string args) => this.OpenMainWindow();
+
+    private void OpenMainWindow() => this.mainWindow.IsOpen = true;
+
+    private void OnLogin() => this.ServerHost.UpdateCharacter(ObjectTable.LocalPlayer);
+
+    private void OnLogout(int type, int code)
+    {
+        _ = this.ServerHost.ResetSessionAsync("logout");
+        this.ServerHost.UpdateCharacter(null);
+    }
+
+    private void OnFrameworkUpdate(IFramework framework)
+    {
+        if (ClientState.IsLoggedIn && PlayerState.IsLoaded)
+            this.ServerHost.UpdateCharacter(ObjectTable.LocalPlayer);
+    }
+}

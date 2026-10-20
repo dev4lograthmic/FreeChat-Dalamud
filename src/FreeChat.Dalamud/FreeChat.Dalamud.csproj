@@ -1,0 +1,22 @@
+<Project Sdk="Dalamud.NET.Sdk/15.0.0">
+  <PropertyGroup>
+    <Version>0.1.0.0</Version>
+    <Author>FreeChat</Author>
+    <Name>FreeChat</Name>
+    <Punchline>Receive and send FFXIV chat from your own clients.</Punchline>
+    <Description>Game-side WebSocket server for the FreeChat protocol. Pair a trusted client, receive chat events, and send commands or messages.</Description>
+    <RepoUrl>https://github.com/example/FreeChat-Dalamud</RepoUrl>
+    <Tags>chat;server;lan;websocket</Tags>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>FreeChat.Dalamud</AssemblyName>
+    <RootNamespace>FreeChat.Dalamud</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FreeChat.Protocol\FreeChat.Protocol.csproj" />
+    <ProjectReference Include="..\FreeChat.Server\FreeChat.Server.csproj" />
+  </ItemGroup>
+</Project>
