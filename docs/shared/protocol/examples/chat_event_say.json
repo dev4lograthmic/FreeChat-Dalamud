@@ -1,0 +1,35 @@
+{
+  "chatEvent": {
+    "messageId": "srv-1a2b:sess-9f8e:42",
+    "sequence": "42",
+    "timestamp": "2026-10-20T12:34:56.789Z",
+    "channel": "CHAT_CHANNEL_SAY",
+    "logKind": 10,
+    "source": "CHAT_SOURCE_POST_HANDLE",
+    "sender": {
+      "name": "Someone",
+      "worldId": 86,
+      "worldName": "Typhon",
+      "contentId": "12345678901234567",
+      "isPlayer": true,
+      "isLocal": false
+    },
+    "text": "Hello",
+    "rawSender": "AikDAQIDSGVsbG8=",
+    "rawMessage": "AikDAQIDSGVsbG8=",
+    "segments": [
+      {
+        "style": {
+          "foregroundRgba": 4294967295,
+          "glowRgba": 0,
+          "italic": false
+        },
+        "text": {
+          "text": "Hello"
+        }
+      }
+    ],
+    "outgoing": false,
+    "contentMode": "CONTENT_MODE_CURRENT"
+  }
+}

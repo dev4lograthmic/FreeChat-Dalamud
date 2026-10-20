@@ -1,0 +1,8 @@
+{
+  "requestId": "send-2",
+  "sendResult": {
+    "status": "SEND_STATUS_SUBMITTED",
+    "partIndex": 0,
+    "partCount": 1
+  }
+}

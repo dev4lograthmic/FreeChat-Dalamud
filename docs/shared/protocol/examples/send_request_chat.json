@@ -1,0 +1,15 @@
+{
+  "requestId": "send-2",
+  "sendRequest": {
+    "chat": {
+      "channel": "CHAT_CHANNEL_TELL",
+      "target": {
+        "name": "Friend",
+        "worldId": 86,
+        "worldName": "Typhon",
+        "isPlayer": true
+      },
+      "text": "马上来"
+    }
+  }
+}

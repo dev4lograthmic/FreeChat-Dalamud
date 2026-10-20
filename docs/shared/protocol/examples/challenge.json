@@ -1,0 +1,7 @@
+{
+  "challenge": {
+    "nonce": "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=",
+    "algorithm": "ECDSA_P256_SHA256_P1363",
+    "expiresAt": "2026-10-20T12:35:00Z"
+  }
+}

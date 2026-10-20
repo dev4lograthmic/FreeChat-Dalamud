@@ -1,0 +1,19 @@
+{
+  "welcome": {
+    "server": {
+      "serverId": "srv-1a2b",
+      "serverName": "FreeChat",
+      "protocolVersion": 1,
+      "serverVersion": "0.1.0",
+      "publicKeyFingerprint": "DtOmq5V/9vWaljCkc9MafQT8tGVIuJAWGWmAx+llhPY="
+    },
+    "sessionId": "sess-9f8e",
+    "oldestSequence": "1",
+    "latestSequence": "42",
+    "deviceId": "dev-7f3c2a",
+    "enabledFeatures": [
+      "chat.segments",
+      "filters.regex"
+    ]
+  }
+}

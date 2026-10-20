@@ -1,0 +1,27 @@
+{
+  "chatEvent": {
+    "messageId": "srv-1a2b:sess-9f8e:43",
+    "sequence": "43",
+    "timestamp": "2026-10-20T12:35:10Z",
+    "channel": "CHAT_CHANNEL_TELL",
+    "logKind": 13,
+    "source": "CHAT_SOURCE_POST_HANDLE",
+    "sender": {
+      "name": "Friend",
+      "worldId": 86,
+      "worldName": "Typhon",
+      "isPlayer": true
+    },
+    "text": "Hello",
+    "rawMessage": "AikDAQIDSGVsbG8=",
+    "segments": [],
+    "outgoing": false,
+    "tellPeer": {
+      "name": "Friend",
+      "worldId": 86,
+      "worldName": "Typhon",
+      "isPlayer": true
+    },
+    "contentMode": "CONTENT_MODE_CURRENT"
+  }
+}

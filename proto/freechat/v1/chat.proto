@@ -1,0 +1,185 @@
+syntax = "proto3";
+
+package freechat.v1;
+
+import "freechat/v1/common.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "FreeChat.Protocol.V1";
+
+// ---------------------------------------------------------------------------
+// Subscription / filtering
+// ---------------------------------------------------------------------------
+
+message Subscribe {
+  ChatFilter filter = 1;
+  repeated ChatSource sources = 2;
+  ContentMode content_mode = 3;
+  // Start replay after this sequence. 0 or negative: live only.
+  int64 from_sequence = 4;
+  // Include original_* fields in ChatEvent when ContentMode is CURRENT.
+  bool include_original = 5;
+
+  reserved 6 to 15;
+}
+
+message Subscribed {
+  ChatFilter effective_filter = 1;
+  repeated ChatSource effective_sources = 2;
+  ContentMode effective_content_mode = 3;
+  int64 oldest_sequence = 4;
+  int64 latest_sequence = 5;
+  // True if the requested from_sequence was older than the buffer and replay
+  // started at oldest_sequence.
+  bool replay_truncated = 6;
+  int64 replay_from_sequence = 7;
+
+  reserved 8 to 15;
+}
+
+message Unsubscribe {
+  reserved 1 to 15;
+}
+
+message ReplayRequest {
+  int64 from_sequence = 1;
+  // 0 or negative means "up to latest".
+  int64 to_sequence = 2;
+  // Optional filter override for this replay. If unset, the active
+  // subscription filter is used.
+  ChatFilter filter = 3;
+
+  reserved 4 to 15;
+}
+
+message HistoryTruncated {
+  int64 requested_from_sequence = 1;
+  int64 oldest_sequence = 2;
+  int64 latest_sequence = 3;
+
+  reserved 4 to 15;
+}
+
+// Semantics:
+// - include_* empty means "no include restriction".
+// - exclude_* always wins over include_*.
+// - keyword/regex are ANDed with the channel rules.
+// - regex uses a non-backtracking engine and is rejected if invalid/too long.
+message ChatFilter {
+  repeated ChatCategory include_categories = 1;
+  repeated ChatCategory exclude_categories = 2;
+  repeated uint32 include_log_kinds = 3;
+  repeated uint32 exclude_log_kinds = 4;
+  string keyword = 5;
+  string regex = 6;
+  bool case_sensitive = 7;
+  bool include_own = 8;
+  bool include_battle = 9;
+
+  reserved 10 to 15;
+}
+
+// ---------------------------------------------------------------------------
+// Chat events
+// ---------------------------------------------------------------------------
+
+message ChatEvent {
+  // Stable ID: server_id:session_id:sequence.
+  string message_id = 1;
+  int64 sequence = 2;
+  google.protobuf.Timestamp timestamp = 3;
+  ChatChannel channel = 4;
+  // Raw XivChatType/LogKind value. Always present; use this for channels the
+  // client does not know.
+  uint32 log_kind = 5;
+  ChatSource source = 6;
+  CharacterRef sender = 7;
+  // Plain-text rendering, suitable for search/notifications.
+  string text = 8;
+  // Raw SeString bytes, for lossless rendering/fallback.
+  bytes raw_sender = 9;
+  bytes raw_message = 10;
+  repeated Segment segments = 11;
+  bool outgoing = 12;
+  CharacterRef tell_peer = 13;
+  // Linkshell/CWLS name when known.
+  string channel_name = 14;
+  // Set when this event is the game echo of a SendRequest. Matches the
+  // Envelope.request_id of that request.
+  string origin_request_id = 15;
+  // Only present when requested (ContentMode.ORIGINAL or include_original).
+  optional bytes original_raw_sender = 16;
+  optional bytes original_raw_message = 17;
+  optional string original_text = 18;
+  ContentMode content_mode = 19;
+
+  reserved 20 to 31;
+}
+
+// A styled run of text or a structured inline payload. Clients that do not
+// understand a segment kind should fall back to ChatEvent.text/raw_message.
+message Segment {
+  TextStyle style = 1;
+  oneof kind {
+    TextSegment text = 10;
+    IconSegment icon = 11;
+    ItemSegment item = 12;
+    MapSegment map = 13;
+    AutoTranslateSegment auto_translate = 14;
+    PlayerSegment player = 15;
+    StatusSegment status = 16;
+  }
+
+  reserved 2 to 9, 17 to 31;
+}
+
+message TextSegment {
+  string text = 1;
+}
+
+message IconSegment {
+  uint32 icon_id = 1;
+}
+
+message ItemSegment {
+  uint32 item_id = 1;
+  bool hq = 2;
+  uint32 item_kind = 3;
+  string name = 4;
+  string description = 5;
+  uint32 icon_id = 6;
+  uint32 item_level = 7;
+  uint32 equip_level = 8;
+  uint32 rarity = 9;
+  string category = 10;
+  uint32 materia_slots = 11;
+  bool advanced_melding = 12;
+  repeated string stats = 13;
+}
+
+message MapSegment {
+  uint32 map_id = 1;
+  uint32 territory_id = 2;
+  float x = 3;
+  float y = 4;
+  string place_name = 5;
+  string map_filename_id = 6;
+  uint32 size_factor = 7;
+}
+
+message AutoTranslateSegment {
+  string text = 1;
+}
+
+message PlayerSegment {
+  string name = 1;
+  uint32 world_id = 2;
+  string world_name = 3;
+  uint64 content_id = 4;
+}
+
+message StatusSegment {
+  uint32 status_id = 1;
+  string name = 2;
+  uint32 icon_id = 3;
+}

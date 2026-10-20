@@ -1,0 +1,17 @@
+{
+  "requestId": "c-1",
+  "clientHello": {
+    "protocolVersion": 1,
+    "clientName": "FreeChat CLI",
+    "clientVersion": "0.1.0",
+    "platform": "cli",
+    "deviceId": "dev-7f3c2a",
+    "devicePublicKey": "BAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PD0+P0A=",
+    "pairingCode": "482913",
+    "resumeFromSequence": "0",
+    "capabilities": [
+      "chat.segments",
+      "filters.regex"
+    ]
+  }
+}

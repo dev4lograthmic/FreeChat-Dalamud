@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package freechat.v1;
+
+import "freechat/v1/auth.proto";
+import "freechat/v1/chat.proto";
+import "freechat/v1/common.proto";
+import "freechat/v1/send.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "FreeChat.Protocol.V1";
+
+// One Envelope per WebSocket binary frame (protobuf) or text frame (debug
+// proto3 JSON). `request_id` correlates requests and their replies; it is
+// opaque, client-generated, and echoed by the server.
+message Envelope {
+  string request_id = 1;
+
+  oneof payload {
+    // Handshake / authentication.
+    ClientHello client_hello = 10;
+    Welcome welcome = 11;
+    PairingRequired pairing_required = 12;
+    PairRequest pair_request = 13;
+    PairResult pair_result = 14;
+    Challenge challenge = 15;
+    ChallengeResponse challenge_response = 16;
+    AuthError auth_error = 17;
+
+    // Session / subscription.
+    Subscribe subscribe = 20;
+    Subscribed subscribed = 21;
+    Unsubscribe unsubscribe = 22;
+    ReplayRequest replay_request = 23;
+    HistoryTruncated history_truncated = 24;
+
+    // Chat stream.
+    ChatEvent chat_event = 25;
+
+    // Sending.
+    SendRequest send_request = 26;
+    SendResult send_result = 27;
+    SendCancel send_cancel = 28;
+
+    // Control.
+    Ping ping = 30;
+    Pong pong = 31;
+    Error error = 32;
+    SessionEnded session_ended = 33;
+    ServerShutdown server_shutdown = 34;
+    RateLimitInfo rate_limit = 35;
+  }
+
+  reserved 2 to 9, 18 to 19, 29, 36 to 63;
+}
+
+message Ping {
+  bytes nonce = 1;
+  google.protobuf.Timestamp client_time = 2;
+
+  reserved 3 to 7;
+}
+
+message Pong {
+  bytes nonce = 1;
+  google.protobuf.Timestamp server_time = 2;
+
+  reserved 3 to 7;
+}
+
+message Error {
+  ErrorCode code = 1;
+  string message = 2;
+  uint32 retry_after_ms = 3;
+
+  reserved 4 to 7;
+}
+
+message SessionEnded {
+  // logout / character_changed / plugin_unloaded / game_exit
+  string reason = 1;
+  google.protobuf.Timestamp ended_at = 2;
+
+  reserved 3 to 7;
+}
+
+message ServerShutdown {
+  string reason = 1;
+  uint32 retry_after_ms = 2;
+
+  reserved 3 to 7;
+}
+
+message RateLimitInfo {
+  // global / connection / send / pairing
+  string scope = 1;
+  uint32 limit = 2;
+  uint32 remaining = 3;
+  uint32 reset_after_ms = 4;
+
+  reserved 5 to 7;
+}

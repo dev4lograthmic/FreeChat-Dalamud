@@ -1,0 +1,26 @@
+{
+  "requestId": "c-4",
+  "subscribe": {
+    "filter": {
+      "includeCategories": [
+        "CHAT_CATEGORY_PLAYER_CHAT",
+        "CHAT_CATEGORY_TELL",
+        "CHAT_CATEGORY_SYSTEM"
+      ],
+      "excludeCategories": [],
+      "includeLogKinds": [],
+      "excludeLogKinds": [],
+      "keyword": "",
+      "regex": "",
+      "caseSensitive": false,
+      "includeOwn": true,
+      "includeBattle": false
+    },
+    "sources": [
+      "CHAT_SOURCE_POST_HANDLE"
+    ],
+    "contentMode": "CONTENT_MODE_CURRENT",
+    "fromSequence": "0",
+    "includeOriginal": false
+  }
+}

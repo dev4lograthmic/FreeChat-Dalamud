@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package freechat.v1;
+
+import "freechat/v1/common.proto";
+
+option csharp_namespace = "FreeChat.Protocol.V1";
+
+// A send request. Use raw_text to behave exactly like typing in the game chat
+// box (including slash commands, subject to the server command blacklist), or
+// chat to let the server build a safe channel/tell prefix.
+message SendRequest {
+  oneof content {
+    string raw_text = 1;
+    ChatSend chat = 2;
+  }
+
+  reserved 3 to 15;
+}
+
+message ChatSend {
+  ChatChannel channel = 1;
+  // Required for CHAT_CHANNEL_TELL; ignored otherwise.
+  CharacterRef target = 2;
+  string text = 3;
+
+  reserved 4 to 15;
+}
+
+// Emitted for each stage of a send request. Correlate with Envelope.request_id.
+// QUEUED and SUBMITTED can be followed by ECHOED; any terminal status ends the
+// request. Multi-part sends use part_index/part_count.
+message SendResult {
+  SendStatus status = 1;
+  ErrorCode error = 2;
+  string message = 3;
+  int32 part_index = 4;
+  int32 part_count = 5;
+  int32 queue_position = 6;
+  // Set on ECHOED: the ChatEvent.message_id of the game echo.
+  string origin_message_id = 7;
+
+  reserved 8 to 15;
+}
+
+// Cancels queued parts of a send request. Envelope.request_id is the cancel
+// request; target_request_id is the request to cancel.
+message SendCancel {
+  string target_request_id = 1;
+
+  reserved 2 to 15;
+}

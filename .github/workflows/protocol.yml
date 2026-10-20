@@ -1,0 +1,40 @@
+name: Protocol
+
+on:
+  pull_request:
+    paths:
+      - "proto/**"
+      - "buf.yaml"
+      - "buf.gen.yaml"
+      - "docs/en-US/protocol/**"
+      - "docs/zh-CN/protocol/**"
+      - "docs/shared/protocol/**"
+      - "scripts/validate_examples.py"
+      - ".github/workflows/protocol.yml"
+  push:
+    branches: [dev, master]
+    paths:
+      - "proto/**"
+      - "buf.yaml"
+      - "buf.gen.yaml"
+      - "docs/en-US/protocol/**"
+      - "docs/zh-CN/protocol/**"
+      - "docs/shared/protocol/**"
+      - "scripts/validate_examples.py"
+      - ".github/workflows/protocol.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-setup-action@v1
+      - name: Lint protobuf
+        run: buf lint
+      - name: Build protobuf
+        run: buf build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate JSON examples
+        run: python3 scripts/validate_examples.py

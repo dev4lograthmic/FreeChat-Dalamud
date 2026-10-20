@@ -1,0 +1,192 @@
+syntax = "proto3";
+
+package freechat.v1;
+
+option csharp_namespace = "FreeChat.Protocol.V1";
+
+// ---------------------------------------------------------------------------
+// Chat channels
+//
+// `ChatChannel` is the normalized channel used by clients for display and
+// filtering. `ChatEvent.log_kind` always carries the raw XivChatType/LogKind
+// value so clients can handle channels added by future game patches.
+// ---------------------------------------------------------------------------
+enum ChatChannel {
+  CHAT_CHANNEL_UNSPECIFIED = 0;
+  CHAT_CHANNEL_SAY = 1;
+  CHAT_CHANNEL_SHOUT = 2;
+  CHAT_CHANNEL_YELL = 3;
+  CHAT_CHANNEL_TELL = 4;
+  CHAT_CHANNEL_PARTY = 5;
+  CHAT_CHANNEL_ALLIANCE = 6;
+  CHAT_CHANNEL_FREE_COMPANY = 7;
+  CHAT_CHANNEL_LINKSHELL_1 = 8;
+  CHAT_CHANNEL_LINKSHELL_2 = 9;
+  CHAT_CHANNEL_LINKSHELL_3 = 10;
+  CHAT_CHANNEL_LINKSHELL_4 = 11;
+  CHAT_CHANNEL_LINKSHELL_5 = 12;
+  CHAT_CHANNEL_LINKSHELL_6 = 13;
+  CHAT_CHANNEL_LINKSHELL_7 = 14;
+  CHAT_CHANNEL_LINKSHELL_8 = 15;
+  CHAT_CHANNEL_CROSS_LINKSHELL_1 = 16;
+  CHAT_CHANNEL_CROSS_LINKSHELL_2 = 17;
+  CHAT_CHANNEL_CROSS_LINKSHELL_3 = 18;
+  CHAT_CHANNEL_CROSS_LINKSHELL_4 = 19;
+  CHAT_CHANNEL_CROSS_LINKSHELL_5 = 20;
+  CHAT_CHANNEL_CROSS_LINKSHELL_6 = 21;
+  CHAT_CHANNEL_CROSS_LINKSHELL_7 = 22;
+  CHAT_CHANNEL_CROSS_LINKSHELL_8 = 23;
+  CHAT_CHANNEL_NOVICE_NETWORK = 24;
+  CHAT_CHANNEL_PVP_TEAM = 25;
+  CHAT_CHANNEL_SYSTEM = 26;
+  CHAT_CHANNEL_ERROR = 27;
+  CHAT_CHANNEL_NPC = 28;
+  CHAT_CHANNEL_BATTLE = 29;
+  CHAT_CHANNEL_LOOT = 30;
+  CHAT_CHANNEL_PROGRESS = 31;
+  CHAT_CHANNEL_ECHO = 32;
+  CHAT_CHANNEL_EMOTE = 33;
+  CHAT_CHANNEL_OTHER = 34;
+}
+
+// Coarse categories used by UI filters and chat-tab-like presets.
+enum ChatCategory {
+  CHAT_CATEGORY_UNSPECIFIED = 0;
+  CHAT_CATEGORY_PLAYER_CHAT = 1;
+  CHAT_CATEGORY_TELL = 2;
+  CHAT_CATEGORY_PARTY = 3;
+  CHAT_CATEGORY_ALLIANCE = 4;
+  CHAT_CATEGORY_FREE_COMPANY = 5;
+  CHAT_CATEGORY_LINKSHELL = 6;
+  CHAT_CATEGORY_CROSS_LINKSHELL = 7;
+  CHAT_CATEGORY_NOVICE_NETWORK = 8;
+  CHAT_CATEGORY_PVP_TEAM = 9;
+  CHAT_CATEGORY_SYSTEM = 10;
+  CHAT_CATEGORY_ERROR = 11;
+  CHAT_CATEGORY_NPC = 12;
+  CHAT_CATEGORY_BATTLE = 13;
+  CHAT_CATEGORY_LOOT = 14;
+  CHAT_CATEGORY_PROGRESS = 15;
+  CHAT_CATEGORY_ECHO = 16;
+  CHAT_CATEGORY_EMOTE = 17;
+  CHAT_CATEGORY_OTHER = 18;
+}
+
+// Which game event pipeline produced a ChatEvent.
+enum ChatSource {
+  CHAT_SOURCE_UNSPECIFIED = 0;
+  // IChatGui.ChatMessage: before other plugins handle/suppress the message.
+  CHAT_SOURCE_PRE_HANDLE = 1;
+  // IChatGui.ChatMessageUnhandled: after handling, i.e. what the player sees.
+  CHAT_SOURCE_POST_HANDLE = 2;
+  // IChatGui.LogMessage: structured LogMessage-sheet entries (battle/system).
+  CHAT_SOURCE_STRUCTURED = 3;
+}
+
+// Whether ChatEvent.text/raw_*/segments reflect the current (possibly
+// plugin-modified) message or the original message before modification.
+enum ContentMode {
+  CONTENT_MODE_UNSPECIFIED = 0;
+  CONTENT_MODE_CURRENT = 1;
+  CONTENT_MODE_ORIGINAL = 2;
+}
+
+// Status of a send request. A request can emit multiple SendResult messages:
+// QUEUED -> SUBMITTED -> ECHOED (or a terminal failure status).
+enum SendStatus {
+  SEND_STATUS_UNSPECIFIED = 0;
+  SEND_STATUS_QUEUED = 1;
+  SEND_STATUS_SUBMITTED = 2;
+  SEND_STATUS_ECHOED = 3;
+  SEND_STATUS_FAILED = 4;
+  SEND_STATUS_BLOCKED = 5;
+  SEND_STATUS_RATE_LIMITED = 6;
+  SEND_STATUS_QUEUE_FULL = 7;
+  SEND_STATUS_CANCELLED = 8;
+}
+
+enum ErrorCode {
+  ERROR_CODE_UNSPECIFIED = 0;
+  ERROR_CODE_INVALID_REQUEST = 1;
+  ERROR_CODE_UNAUTHENTICATED = 2;
+  ERROR_CODE_PAIRING_REQUIRED = 3;
+  ERROR_CODE_PAIRING_INVALID = 4;
+  ERROR_CODE_PAIRING_EXPIRED = 5;
+  ERROR_CODE_PAIRING_RATE_LIMITED = 6;
+  ERROR_CODE_DEVICE_REVOKED = 7;
+  ERROR_CODE_PROTOCOL_MISMATCH = 8;
+  ERROR_CODE_UNSUPPORTED_ENCODING = 9;
+  ERROR_CODE_UNSUPPORTED_VERSION = 10;
+  ERROR_CODE_NOT_SUBSCRIBED = 11;
+  ERROR_CODE_FILTER_INVALID = 12;
+  ERROR_CODE_REGEX_INVALID = 13;
+  ERROR_CODE_TEXT_TOO_LONG = 14;
+  ERROR_CODE_COMMAND_BLOCKED = 15;
+  ERROR_CODE_NOT_LOGGED_IN = 16;
+  ERROR_CODE_CHANNEL_UNAVAILABLE = 17;
+  ERROR_CODE_TELL_TARGET_INVALID = 18;
+  ERROR_CODE_QUEUE_FULL = 19;
+  ERROR_CODE_RATE_LIMITED = 20;
+  ERROR_CODE_SLOW_CONSUMER = 21;
+  ERROR_CODE_INTERNAL = 22;
+  ERROR_CODE_SHUTTING_DOWN = 23;
+  ERROR_CODE_HISTORY_UNAVAILABLE = 24;
+}
+
+// WebSocket close codes. 1000-1013 are standard; 4000-4999 are application
+// specific. The server sends the matching code in the WebSocket close frame
+// and, where useful, an Error/auth payload before closing.
+enum CloseCode {
+  CLOSE_CODE_UNSPECIFIED = 0;
+  CLOSE_CODE_NORMAL = 1000;
+  CLOSE_CODE_GOING_AWAY = 1001;
+  CLOSE_CODE_PROTOCOL_ERROR = 1002;
+  CLOSE_CODE_UNSUPPORTED_DATA = 1003;
+  CLOSE_CODE_POLICY_VIOLATION = 1008;
+  CLOSE_CODE_MESSAGE_TOO_BIG = 1009;
+  CLOSE_CODE_INTERNAL_ERROR = 1011;
+  CLOSE_CODE_TRY_AGAIN_LATER = 1013;
+  CLOSE_CODE_AUTH_FAILED = 4001;
+  CLOSE_CODE_PAIRING_REQUIRED = 4002;
+  CLOSE_CODE_DEVICE_REVOKED = 4003;
+  CLOSE_CODE_PROTOCOL_MISMATCH = 4004;
+  CLOSE_CODE_SLOW_CONSUMER = 4005;
+  CLOSE_CODE_SERVER_SHUTDOWN = 4006;
+}
+
+// Identity of a player, NPC, or system sender.
+message CharacterRef {
+  string name = 1;
+  uint32 world_id = 2;
+  string world_name = 3;
+  uint64 content_id = 4;
+  bool is_player = 5;
+  // True when this is the local player's character.
+  bool is_local = 6;
+}
+
+// Styling for a run of text. Colors are 0xRRGGBBAA. A zero color means
+// "use the channel/client default".
+message TextStyle {
+  uint32 foreground_rgba = 1;
+  uint32 glow_rgba = 2;
+  bool italic = 3;
+}
+
+message ServerCapabilities {
+  repeated string features = 1;
+  uint32 max_message_bytes = 2;
+  uint32 max_clients = 3;
+  uint32 max_send_queue = 4;
+  uint32 max_send_bytes = 5;
+  uint32 backlog_messages = 6;
+  uint32 backlog_bytes = 7;
+  uint32 rate_limit_window_ms = 8;
+  uint32 rate_limit_max = 9;
+  repeated ChatSource supported_sources = 10;
+  repeated ChatChannel supported_channels = 11;
+}
+
+message ClientCapabilities {
+  repeated string features = 1;
+}

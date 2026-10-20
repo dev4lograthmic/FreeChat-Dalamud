@@ -1,0 +1,8 @@
+{
+  "requestId": "send-3",
+  "error": {
+    "code": "ERROR_CODE_COMMAND_BLOCKED",
+    "message": "Command /logout is blocked by server policy.",
+    "retryAfterMs": 0
+  }
+}

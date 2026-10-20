@@ -1,0 +1,9 @@
+{
+  "requestId": "send-2",
+  "sendResult": {
+    "status": "SEND_STATUS_ECHOED",
+    "partIndex": 0,
+    "partCount": 1,
+    "originMessageId": "srv-1a2b:sess-9f8e:44"
+  }
+}

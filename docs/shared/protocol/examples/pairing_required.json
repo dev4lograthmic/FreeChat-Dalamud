@@ -1,0 +1,58 @@
+{
+  "pairingRequired": {
+    "server": {
+      "serverId": "srv-1a2b",
+      "serverName": "FreeChat",
+      "character": {
+        "name": "Someone",
+        "worldId": 86,
+        "worldName": "Typhon",
+        "contentId": "12345678901234567",
+        "isPlayer": true,
+        "isLocal": true
+      },
+      "protocolVersion": 1,
+      "serverVersion": "0.1.0",
+      "publicKeyFingerprint": "DtOmq5V/9vWaljCkc9MafQT8tGVIuJAWGWmAx+llhPY=",
+      "capabilities": {
+        "features": [
+          "chat.segments",
+          "chat.raw",
+          "filters.regex",
+          "replay.sequence",
+          "send.raw",
+          "send.structured",
+          "send.echo",
+          "tls.pinning.sha256"
+        ],
+        "maxMessageBytes": 1048576,
+        "maxClients": 32,
+        "maxSendQueue": 128,
+        "maxSendBytes": 65536,
+        "backlogMessages": 5000,
+        "backlogBytes": 33554432,
+        "rateLimitWindowMs": 1000,
+        "rateLimitMax": 4,
+        "supportedSources": [
+          "CHAT_SOURCE_POST_HANDLE",
+          "CHAT_SOURCE_PRE_HANDLE",
+          "CHAT_SOURCE_STRUCTURED"
+        ],
+        "supportedChannels": [
+          "CHAT_CHANNEL_SAY",
+          "CHAT_CHANNEL_SHOUT",
+          "CHAT_CHANNEL_YELL",
+          "CHAT_CHANNEL_TELL",
+          "CHAT_CHANNEL_PARTY",
+          "CHAT_CHANNEL_ALLIANCE",
+          "CHAT_CHANNEL_FREE_COMPANY",
+          "CHAT_CHANNEL_SYSTEM"
+        ]
+      },
+      "serverTime": "2026-10-20T12:34:56.789Z"
+    },
+    "reason": "unknown_device",
+    "expiresAt": "2026-10-20T12:40:00Z",
+    "codeLength": 6
+  }
+}

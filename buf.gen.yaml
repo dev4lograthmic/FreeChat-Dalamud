@@ -1,0 +1,11 @@
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  # C# bindings for FreeChat.Protocol. Requires network access to the Buf
+  # Schema Registry remote plugin; the repo build may alternatively generate
+  # these with Grpc.Tools from the same .proto files.
+  - remote: buf.build/protocolbuffers/csharp
+    out: src/FreeChat.Protocol/Generated
+    opt:
+      - file_extension=.g.cs
