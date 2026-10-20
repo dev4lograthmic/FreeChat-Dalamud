@@ -1,78 +1,158 @@
-> ⚠️ **Don't click Fork!**
-> 
-> This is a GitHub Template repo. If you want to use this for a plugin, [use this template][new-repo] to make a new repo!
->
-> ![image](https://github.com/goatcorp/SamplePlugin/assets/16760685/d9732094-e1ed-4769-a70b-58ed2b92580c)
+# FreeChat-Dalamud
 
-# SamplePlugin
+**English** · [简体中文](#简体中文)
 
-[![Use This Template badge](https://img.shields.io/badge/Use%20This%20Template-0?logo=github&labelColor=grey)][new-repo]
+A Dalamud plugin that runs a game-side WebSocket server for FINAL FANTASY XIV.
+Trusted clients on the same machine or LAN can receive structured chat events
+and send messages or commands through the game chat box.
 
+> Status: Phase 3 (Dalamud receive adapter + UI). Sending is wired in Phase 4.
+> The protocol is `freechat.v1`; clients are third-party/separate projects.
 
-Simple example plugin for Dalamud.
+## Repository layout
 
-This is not designed to be the simplest possible example, but it is also not designed to cover everything you might want to do. For more detailed questions, come ask in [the Discord](https://discord.gg/holdshift).
+| Path | Purpose |
+|---|---|
+| `proto/freechat/v1/` | Protocol source of truth (protobuf) |
+| `src/FreeChat.Protocol` | Generated C# bindings, codecs, constants |
+| `src/FreeChat.Server` | WSS transport, pairing, sessions, filters, replay |
+| `src/FreeChat.Dalamud` | Dalamud plugin, chat capture, pairing UI |
+| `tests/FreeChat.Server.Tests` | Server/protocol integration tests |
+| `docs/` | Bilingual protocol and development documentation |
+| `FreeChat.slnx` | Buildable solution (Protocol, Server, Plugin, Tests) |
 
-## Main Points
+## Build and test
 
-* Simple functional plugin
-  * Slash command
-  * Main UI
-  * Settings UI
-  * Image loading
-  * Plugin json
-* Simple, slightly-improved plugin configuration handling
-* Project organization
-  * Copies all necessary plugin files to the output directory
-    * Does not copy dependencies that are provided by dalamud
-    * Output directory can be zipped directly and have exactly what is required
-  * Hides data files from visual studio to reduce clutter
-    * Also allows having data files in different paths than VS would usually allow if done in the IDE directly
+Windows PowerShell:
 
+```powershell
+dotnet build FreeChat.slnx -c Release
+dotnet test FreeChat.slnx -c Release
+```
 
-The intention is less that any of this is used directly in other projects, and more to show how similar things can be done.
+Expected: 0 warnings, 0 errors; 15 server/protocol tests pass.
 
-## How To Use
+## Build the plugin
 
-### Getting Started
+```powershell
+dotnet build src\FreeChat.Dalamud\FreeChat.Dalamud.csproj -c Debug
+```
 
-To begin, [clone this template repository][new-repo] to your own GitHub account. This will automatically bring in everything you need to get a jumpstart on development. You do not need to fork this repository unless you intend to contribute modifications to it.
+Output:
 
-Be sure to also check out the [Dalamud Developer Docs][dalamud-docs] for helpful information about building your own plugin. The Developer Docs includes helpful information about all sorts of things, including [how to submit][submit] your newly-created plugin to the official repository. Assuming you use this template repository, the provided project build configuration and license are already chosen to make everything a breeze.
+```
+src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
+```
 
-[new-repo]: https://github.com/new?template_name=SamplePlugin&template_owner=goatcorp
-[dalamud-docs]: https://dalamud.dev
-[submit]: https://dalamud.dev/plugin-publishing/submission
+Load it as a Dalamud dev plugin:
 
-### Prerequisites
+1. `/xlsettings` → Experimental → Dev Plugin Locations
+2. Add the DLL path above.
+3. `/xlplugins` → Dev Tools → Installed Dev Plugins → enable **FreeChat**
+4. Run `/freechat` to open the server window.
 
-SamplePlugin assumes all the following prerequisites are met:
+## Current capabilities
 
-* XIVLauncher, FINAL FANTASY XIV, and Dalamud have all been installed and the game has been run with Dalamud at least once.
-* XIVLauncher is installed to its default directories and configurations.
-  * If a custom path is required for Dalamud's dev directory, it must be set with the `DALAMUD_HOME` environment variable.
-* A .NET Core 8 SDK has been installed and configured, or is otherwise available. (In most cases, the IDE will take care of this.)
+- WSS server with self-signed ECDSA P-256 certificate and public-key pinning
+- QR/deep-link-compatible pairing code, device approval, challenge-response
+- Receive `ChatMessage`, `ChatMessageUnhandled`, and `LogMessage`
+- Structured `ChatEvent` with raw SeString, text, styles, item/map/player/status
+- Per-connection filters, current-session replay, send rate limiting
+- Plugin UI: status, fingerprint, pairing code, devices, capture counters
 
-### Building
+## Not implemented yet
 
-1. Open up `SamplePlugin.sln` in your C# editor of choice (likely [Visual Studio](https://visualstudio.microsoft.com) or [JetBrains Rider](https://www.jetbrains.com/rider/)).
-2. Build the solution. By default, this will build a `Debug` build, but you can switch to `Release` in your IDE.
-3. The resulting plugin can be found at `SamplePlugin/bin/x64/Debug/SamplePlugin.dll` (or `Release` if appropriate.)
+- Sending real chat/commands (Phase 4)
+- Localized UI and full log panel (Phase 5)
+- CLI/reference client and conformance runner (Phase 6)
+- Browser clients, relay, multi-instance (future)
 
-### Activating in-game
+## Documentation
 
-1. Launch the game and use `/xlsettings` in chat or `xlsettings` in the Dalamud Console to open up the Dalamud settings.
-    * In here, go to `Experimental`, and add the full path to the `SamplePlugin.dll` to the list of Dev Plugin Locations.
-2. Next, use `/xlplugins` (chat) or `xlplugins` (console) to open up the Plugin Installer.
-    * In here, go to `Dev Tools > Installed Dev Plugins`, and the `SamplePlugin` should be visible. Enable it.
-3. You should now be able to use `/pmycommand` (chat) or `pmycommand` (console)!
+- [English docs](docs/en-US/protocol/README.md)
+- [简体中文文档](docs/zh-CN/protocol/README.md)
+- [Development docs](docs/en-US/development/README.md)
 
-Note that you only need to add it to the Dev Plugin Locations once (Step 1); it is preserved afterwards. You can disable, enable, or load your plugin on startup through the Plugin Installer.
+## License
 
-### Reconfiguring for your own uses
+AGPL-3.0; see [LICENSE.md](LICENSE.md).
 
-Replace all references to `SamplePlugin` in all the files and filenames with your desired name, then start building the plugin of your dreams. You'll figure it out 😁
+---
 
-Dalamud will load the JSON file (by default, `SamplePlugin/SamplePlugin.json`) next to your DLL and use it for metadata, including the description for your plugin in the Plugin Installer. Make sure to update this with information relevant to _your_ plugin!
+# 简体中文
 
-All participation in this repository is governed by our [Code of Conduct](https://dalamud.dev/code-of-conduct). If you used AI tooling at any point, review the [AI Usage Policy](https://dalamud.dev/plugin-publishing/ai-policy) and disclose your level of AI use. Entirely AI-generated submissions will be rejected, and undisclosed AI use may result in a ban.
+[English](#freechat-dalamud)
+
+一个 Dalamud 插件：在游戏进程内运行 WebSocket 服务端，让本机或局域网内的受信
+客户端接收结构化聊天事件，并通过游戏聊天框发送消息/命令。
+
+> 状态：Phase 3（Dalamud 接收适配 + UI）。发送在 Phase 4 接入。
+> 协议为 `freechat.v1`；客户端由第三方或独立项目实现。
+
+## 仓库结构
+
+| 路径 | 用途 |
+|---|---|
+| `proto/freechat/v1/` | 协议源文件（protobuf） |
+| `src/FreeChat.Protocol` | 生成的 C# 绑定、编解码、常量 |
+| `src/FreeChat.Server` | WSS 传输、配对、会话、过滤、回放 |
+| `src/FreeChat.Dalamud` | Dalamud 插件、聊天采集、配对 UI |
+| `tests/FreeChat.Server.Tests` | 服务端/协议集成测试 |
+| `docs/` | 中英文协议与开发文档 |
+| `FreeChat.slnx` | 可构建解决方案（Protocol、Server、Plugin、Tests） |
+
+## 构建与测试
+
+Windows PowerShell：
+
+```powershell
+dotnet build FreeChat.slnx -c Release
+dotnet test FreeChat.slnx -c Release
+```
+
+预期：0 warning、0 error；15 个服务端/协议测试通过。
+
+## 构建插件
+
+```powershell
+dotnet build src\FreeChat.Dalamud\FreeChat.Dalamud.csproj -c Debug
+```
+
+输出：
+
+```
+src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
+```
+
+作为 Dalamud Dev Plugin 加载：
+
+1. `/xlsettings` → Experimental → Dev Plugin Locations
+2. 添加上面的 DLL 路径
+3. `/xlplugins` → Dev Tools → Installed Dev Plugins → 启用 **FreeChat**
+4. 运行 `/freechat` 打开服务端窗口
+
+## 当前能力
+
+- WSS 服务端、ECDSA P-256 自签证书、公钥 pinning
+- 配对码/深链接、设备确认、challenge-response
+- 接收 `ChatMessage`、`ChatMessageUnhandled`、`LogMessage`
+- 结构化 `ChatEvent`：原始 SeString、文本、样式、物品/地图/玩家/状态
+- 每连接过滤、当前会话回放、发送限流
+- 插件 UI：状态、指纹、配对码、设备、捕获计数
+
+## 尚未实现
+
+- 真实聊天/命令发送（Phase 4）
+- UI 本地化、完整日志面板（Phase 5）
+- CLI/参考客户端、一致性测试 runner（Phase 6）
+- 浏览器客户端、relay、多实例（以后）
+
+## 文档
+
+- [English docs](docs/en-US/protocol/README.md)
+- [简体中文文档](docs/zh-CN/protocol/README.md)
+- [开发文档](docs/zh-CN/development/README.md)
+
+## 许可证
+
+AGPL-3.0；见 [LICENSE.md](LICENSE.md)。
