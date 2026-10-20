@@ -5,6 +5,7 @@
 - [FreeChat v1 协议](freechat-v1.md) — 传输、安全、配对、消息、过滤、发送、错误。
 - [示例](../../shared/protocol/examples/) — debug 编码使用的 proto3 JSON 信封。
 - [一致性测试](conformance.md) — 用例清单与当前状态。
+- [开发文档](../development/server.md) — 服务端核心和协议项目说明。
 - [ADR](../../../.opencode/adr/) — 架构决策记录。
 
 ## 协议源文件
@@ -25,7 +26,8 @@ buf generate
 ```
 
 输出到 `src/FreeChat.Protocol/Generated/`，由 `FreeChat.Protocol` 项目配合
-`Google.Protobuf` 运行时使用；项目文件在 Phase 2 添加。生成文件不要手工修改。
+`Google.Protobuf` 运行时使用；见[协议项目](../development/protocol.md)。
+生成文件不要手工修改。
 
 ## 版本
 

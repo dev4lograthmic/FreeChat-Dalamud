@@ -5,6 +5,7 @@
 - [FreeChat v1 protocol](freechat-v1.md) — transport, security, pairing, messages, filters, sending, errors.
 - [Examples](../../shared/protocol/examples/) — proto3 JSON envelopes for the debug encoding.
 - [Conformance](conformance.md) — test case checklist and current status.
+- [Development](../development/server.md) — server core and protocol project notes.
 - [ADRs](../../../.opencode/adr/) — architecture decision records.
 
 ## Source of truth
@@ -27,8 +28,8 @@ buf generate
 
 This writes C# bindings to `src/FreeChat.Protocol/Generated/`. The
 `FreeChat.Protocol` project consumes them with the `Google.Protobuf` runtime;
-the project file is added in Phase 2. Generated files must not be edited by
-hand.
+see [protocol project](../development/protocol.md). Generated files
+must not be edited by hand.
 
 ## Versioning
 
