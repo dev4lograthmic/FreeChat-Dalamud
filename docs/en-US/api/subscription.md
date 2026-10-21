@@ -130,6 +130,9 @@ When `fromSequence > 0`:
 2. It replays events with `sequence > fromSequence` in ascending order.
 3. It then continues with live events.
 
+Replay applies both the current `ChatFilter` and the effective `sources`.
+An explicit `ReplayRequest` also uses the current subscription sources.
+
 If the requested range is too old:
 
 ```json

@@ -289,6 +289,52 @@ public sealed class ServerIntegrationTests
     }
 
     [Fact]
+    public async Task Replay_HonorsSubscriptionSources()
+    {
+        await using var context = await TestServerContext.StartAsync();
+        context.Server.PublishChatEvent(TestKeys.Chat("pre", ChatSource.PreHandle));
+        context.Server.PublishChatEvent(TestKeys.Chat("post", ChatSource.PostHandle));
+        context.Server.PublishChatEvent(TestKeys.Chat("structured", ChatSource.Structured));
+
+        var (key, publicKey) = TestKeys.Create();
+        await using var session = await PairAsync(context, publicKey);
+        await SubscribeAsync(session.Client, fromSequence: 1);
+
+        var replay = await session.Client.ReceiveAsync();
+        Assert.Equal(Envelope.PayloadOneofCase.ChatEvent, replay.PayloadCase);
+        Assert.Equal("post", replay.ChatEvent.Text);
+        Assert.Equal(ChatSource.PostHandle, replay.ChatEvent.Source);
+
+        Assert.Null(await session.Client.TryReceiveAsync(TimeSpan.FromMilliseconds(500)));
+        key.Dispose();
+    }
+
+    [Fact]
+    public async Task ExplicitReplay_HonorsCurrentSubscriptionSources()
+    {
+        await using var context = await TestServerContext.StartAsync();
+        context.Server.PublishChatEvent(TestKeys.Chat("pre", ChatSource.PreHandle));
+        context.Server.PublishChatEvent(TestKeys.Chat("post", ChatSource.PostHandle));
+        context.Server.PublishChatEvent(TestKeys.Chat("structured", ChatSource.Structured));
+
+        var (key, publicKey) = TestKeys.Create();
+        await using var session = await PairAsync(context, publicKey);
+        await SubscribeAsync(session.Client);
+
+        await session.Client.SendAsync(new Envelope
+        {
+            RequestId = "replay",
+            ReplayRequest = new ReplayRequest { FromSequence = 0 },
+        });
+
+        var replay = await session.Client.ReceiveAsync();
+        Assert.Equal("post", replay.ChatEvent.Text);
+        Assert.Equal(ChatSource.PostHandle, replay.ChatEvent.Source);
+        Assert.Null(await session.Client.TryReceiveAsync(TimeSpan.FromMilliseconds(500)));
+        key.Dispose();
+    }
+
+    [Fact]
     public async Task JsonDebug_Transport_Works()
     {
         await using var context = await TestServerContext.StartAsync();

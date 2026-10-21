@@ -126,6 +126,8 @@ CHAT_CATEGORY_OTHER
 2. 按 sequence 升序回放 `sequence > fromSequence` 的事件。
 3. 回放完成后继续实时推送。
 
+回放同时应用当前 `ChatFilter` 和订阅的 `sources`；显式 `ReplayRequest` 也使用当前订阅的 sources。
+
 如果请求过旧：
 
 ```json

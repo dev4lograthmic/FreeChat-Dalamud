@@ -331,7 +331,7 @@ internal sealed class SessionHandler : IAsyncDisposable
         }).ConfigureAwait(false);
 
         if (from > 0)
-            await this.ReplayAsync(matcher, from, null, cancellationToken).ConfigureAwait(false);
+            await this.ReplayAsync(matcher, requestedSources, from, null, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task HandleReplayRequestAsync(Envelope envelope, CancellationToken cancellationToken)
@@ -358,11 +358,15 @@ internal sealed class SessionHandler : IAsyncDisposable
 
         var from = envelope.ReplayRequest.FromSequence;
         var to = envelope.ReplayRequest.ToSequence > 0 ? envelope.ReplayRequest.ToSequence : (long?)null;
-        await this.ReplayAsync(matcher, from, to, cancellationToken).ConfigureAwait(false);
+        ChatSource[] replaySources;
+        lock (this.gate)
+            replaySources = this.sources;
+        await this.ReplayAsync(matcher, replaySources, from, to, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task ReplayAsync(
         ChatFilterMatcher matcher,
+        IReadOnlyCollection<ChatSource> sources,
         long fromSequence,
         long? toSequence,
         CancellationToken cancellationToken)
@@ -393,6 +397,8 @@ internal sealed class SessionHandler : IAsyncDisposable
             cancellationToken.ThrowIfCancellationRequested();
             if (entry.Event.Sequence > end)
                 break;
+            if (!sources.Contains(entry.Event.Source))
+                continue;
             if (matcher.Matches(entry.Event))
                 await this.SendChatAsync(entry.Event).ConfigureAwait(false);
         }
