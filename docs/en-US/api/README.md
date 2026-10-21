@@ -51,7 +51,7 @@ A runnable reference implementation is in
 | [Transport](transport.md) | WSS, subprotocols, TLS pinning, envelopes, framing, limits, timeouts |
 | [Authentication](auth.md) | Deep links, ClientHello, pairing, challenge, Welcome |
 | [Subscriptions](subscription.md) | Subscribe, filters, replay, HistoryTruncated, session handling |
-| [Chat events](chat-events.md) | ChatEvent fields, channels, sources, segments, echo correlation |
+| [Chat events](chat-events.md) | ChatEvent fields, channels, sources, chunks/segments, echo correlation |
 | [Sending](send.md) | raw_text, structured channels, queue, rate limits, SendResult, cancel |
 | [Errors](errors.md) | ErrorCode, SendStatus, CloseCode, slow consumers |
 | [Examples](examples.md) | proto3 JSON examples, CLI examples, minimal client flow |
@@ -90,6 +90,9 @@ strings:
 
 ```text
 chat.segments
+chat.chunks
+chat.chunks.party_finder
+chat.chunks.quest
 chat.raw
 chat.original
 chat.sources.pre_handle

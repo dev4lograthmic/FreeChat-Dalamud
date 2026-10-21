@@ -67,7 +67,8 @@ See [CLI docs](docs/en-US/development/cli.md) and the
 - WSS server with self-signed ECDSA P-256 certificate and public-key pinning
 - QR/deep-link-compatible pairing code, device approval, challenge-response
 - Receive `ChatMessage`, `ChatMessageUnhandled`, and `LogMessage`
-- Structured `ChatEvent` with raw SeString, text, styles, item/map/player/status
+- Structured `ChatEvent` with raw SeString, text, styles, and link-aware chunks
+  for item/map/party-finder/quest/player/status/auto-translate
 - Per-connection filters, current-session replay, send rate limiting
 - Send raw text/commands via `ProcessChatBoxEntry`, with 500-byte splitting,
   command blocklist, and echo correlation
@@ -162,7 +163,8 @@ dotnet run --project src\FreeChat.Cli -- pair --uri "<freechat://pair?...>"
 - WSS 服务端、ECDSA P-256 自签证书、公钥 pinning
 - 配对码/深链接、设备确认、challenge-response
 - 接收 `ChatMessage`、`ChatMessageUnhandled`、`LogMessage`
-- 结构化 `ChatEvent`：原始 SeString、文本、样式、物品/地图/玩家/状态
+- 结构化 `ChatEvent`：原始 SeString、文本、样式，以及物品/地图/招募/任务/
+  玩家/状态/自动翻译的富文本 chunks
 - 每连接过滤、当前会话回放、发送限流
 - 通过 `ProcessChatBoxEntry` 发送原始文本/命令，支持 500 字节分段、命令黑名单、echo 关联
 - 插件 UI：状态/配对/设备/设置/日志标签、二维码 + 深链接、在线客户端、

@@ -1,0 +1,66 @@
+{
+  "chatEvent": {
+    "messageId": "srv-1a2b:sess-9f8e:43",
+    "sequence": "43",
+    "timestamp": "2026-10-20T12:35:10.123Z",
+    "channel": "CHAT_CHANNEL_SAY",
+    "logKind": 10,
+    "source": "CHAT_SOURCE_POST_HANDLE",
+    "sender": {
+      "name": "Someone",
+      "worldId": 86,
+      "worldName": "Typhon",
+      "isPlayer": true,
+      "isLocal": false
+    },
+    "text": "Meet at Limsa Lominsa (12.3, 45.6).",
+    "rawSender": "AikDAQIDSGVsbG8=",
+    "rawMessage": "AikDAQIDSGVsbG8=",
+    "segments": [
+      {
+        "text": {
+          "text": "Meet at Limsa Lominsa."
+        }
+      },
+      {
+        "map": {
+          "mapId": 123,
+          "territoryId": 456,
+          "x": 12.3,
+          "y": 45.6,
+          "placeName": "Limsa Lominsa",
+          "mapFilenameId": "s1t1",
+          "sizeFactor": 100
+        }
+      }
+    ],
+    "chunks": [
+      {
+        "text": {
+          "text": "Meet at "
+        }
+      },
+      {
+        "text": {
+          "text": "Limsa Lominsa (12.3, 45.6)",
+          "map": {
+            "mapId": 123,
+            "territoryId": 456,
+            "x": 12.3,
+            "y": 45.6,
+            "placeName": "Limsa Lominsa",
+            "mapFilenameId": "s1t1",
+            "sizeFactor": 100
+          }
+        }
+      },
+      {
+        "text": {
+          "text": "."
+        }
+      }
+    ],
+    "outgoing": false,
+    "contentMode": "CONTENT_MODE_CURRENT"
+  }
+}

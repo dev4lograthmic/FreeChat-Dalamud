@@ -9,6 +9,9 @@ public static class ProtocolConstants
     public static readonly string[] DefaultFeatures =
     [
         "chat.segments",
+        "chat.chunks",
+        "chat.chunks.party_finder",
+        "chat.chunks.quest",
         "chat.raw",
         "chat.original",
         "chat.sources.pre_handle",

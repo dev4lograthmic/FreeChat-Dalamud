@@ -113,6 +113,10 @@ message ChatEvent {
   optional bytes original_raw_message = 17;
   optional string original_text = 18;
   ContentMode content_mode = 19;
+  // Canonical rich-text representation. Each text chunk carries its own
+  // display text and optional link metadata, so clients never need character
+  // offsets to place a link. Prefer this over segments when non-empty.
+  repeated ChatChunk chunks = 32;
 
   reserved 20 to 31;
 }
@@ -129,9 +133,41 @@ message Segment {
     AutoTranslateSegment auto_translate = 14;
     PlayerSegment player = 15;
     StatusSegment status = 16;
+    // Compatibility path for clients that render segments. New clients use
+    // ChatEvent.chunks, where the same metadata is attached to display text.
+    PartyFinderSegment party_finder = 32;
+    QuestSegment quest = 33;
   }
 
   reserved 2 to 9, 17 to 31;
+}
+
+// A chunk is one drawable run. Text chunks are the only chunks that can carry
+// an inline link; the link applies to exactly that chunk's text.
+message ChatChunk {
+  TextStyle style = 1;
+  oneof kind {
+    ChatTextChunk text = 2;
+    ChatIconChunk icon = 3;
+  }
+}
+
+message ChatTextChunk {
+  // Display text for this run. For links this is the clickable label.
+  string text = 1;
+  oneof link {
+    ItemSegment item = 2;
+    MapSegment map = 3;
+    PartyFinderSegment party_finder = 4;
+    QuestSegment quest = 5;
+    PlayerSegment player = 6;
+    StatusSegment status = 7;
+    AutoTranslateSegment auto_translate = 8;
+  }
+}
+
+message ChatIconChunk {
+  uint32 icon_id = 1;
 }
 
 message TextSegment {
@@ -183,4 +219,20 @@ message StatusSegment {
   uint32 status_id = 1;
   string name = 2;
   uint32 icon_id = 3;
+}
+
+message PartyFinderSegment {
+  uint32 listing_id = 1;
+  PartyFinderLinkType link_type = 2;
+}
+
+enum PartyFinderLinkType {
+  PARTY_FINDER_LINK_TYPE_UNSPECIFIED = 0;
+  PARTY_FINDER_LINK_TYPE_LIMITED_TO_HOME_WORLD = 1;
+  PARTY_FINDER_LINK_TYPE_NOTIFICATION = 2;
+}
+
+message QuestSegment {
+  uint32 quest_id = 1;
+  string name = 2;
 }

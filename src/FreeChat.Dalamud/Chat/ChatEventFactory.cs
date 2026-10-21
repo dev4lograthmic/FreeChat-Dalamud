@@ -38,7 +38,9 @@ public sealed class ChatEventFactory
 
         try
         {
-            chatEvent.Segments.AddRange(this.enricher.Convert(message.Message));
+            var enrichment = this.enricher.Enrich(message.Message);
+            chatEvent.Segments.AddRange(enrichment.Segments);
+            chatEvent.Chunks.AddRange(enrichment.Chunks);
         }
         catch
         {
@@ -68,7 +70,8 @@ public sealed class ChatEventFactory
             IsLocal = localPlayerName is not null && sourceEntity?.Name.ToString() == localPlayerName,
         };
 
-        return new ChatEvent
+        var text = message.FormatLogMessageForDebugging().ExtractText();
+        var chatEvent = new ChatEvent
         {
             Channel = sourceEntity is not null || message.TargetEntity is not null
                 ? ChatChannel.Battle
@@ -76,11 +79,21 @@ public sealed class ChatEventFactory
             LogKind = 0,
             Source = ChatSource.Structured,
             Sender = sender,
-            Text = message.FormatLogMessageForDebugging().ExtractText(),
+            Text = text,
             Outgoing = false,
             ContentMode = ContentMode.Current,
             Timestamp = Timestamp.FromDateTimeOffset(DateTimeOffset.UtcNow),
         };
+
+        if (!string.IsNullOrEmpty(text))
+        {
+            chatEvent.Chunks.Add(new ChatChunk
+            {
+                Text = new ChatTextChunk { Text = text },
+            });
+        }
+
+        return chatEvent;
     }
 
     private static CharacterRef CreateCharacter(SeString sender, string? localPlayerName)

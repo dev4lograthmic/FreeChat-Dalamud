@@ -16,6 +16,12 @@ buf generate
 
 生成的 C# 类型使用 `FreeChat.Protocol.V1` 命名空间。
 
+## 聊天 chunks
+
+`ChatEvent.chunks` 是首选的富文本表示。每个 `ChatTextChunk` 自带显示文本和
+可选链接；客户端按顺序渲染，不需要字符 offset。`segments` 继续用于兼容旧
+客户端，两者由同一次 SeString 遍历生成。
+
 ## 相关
 
 - [插件 API](../api/README.md)

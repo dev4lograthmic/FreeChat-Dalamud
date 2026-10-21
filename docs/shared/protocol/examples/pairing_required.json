@@ -17,6 +17,9 @@
       "capabilities": {
         "features": [
           "chat.segments",
+          "chat.chunks",
+          "chat.chunks.party_finder",
+          "chat.chunks.quest",
           "chat.raw",
           "filters.regex",
           "replay.sequence",

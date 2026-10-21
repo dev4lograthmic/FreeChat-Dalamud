@@ -13,6 +13,9 @@
     "deviceId": "dev-7f3c2a",
     "enabledFeatures": [
       "chat.segments",
+      "chat.chunks",
+      "chat.chunks.party_finder",
+      "chat.chunks.quest",
       "filters.regex"
     ]
   }

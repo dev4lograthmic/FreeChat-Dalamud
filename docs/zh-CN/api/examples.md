@@ -15,6 +15,7 @@
 | [subscribe.json](../../shared/protocol/examples/subscribe.json) | 订阅 |
 | [chat_event_say.json](../../shared/protocol/examples/chat_event_say.json) | Say 事件 |
 | [chat_event_tell.json](../../shared/protocol/examples/chat_event_tell.json) | Tell 事件 |
+| [chat_event_map.json](../../shared/protocol/examples/chat_event_map.json) | 地图链接的 chunks 表示 |
 | [send_request_raw.json](../../shared/protocol/examples/send_request_raw.json) | raw 发送 |
 | [send_request_chat.json](../../shared/protocol/examples/send_request_chat.json) | 结构化发送 |
 | [send_result_submitted.json](../../shared/protocol/examples/send_result_submitted.json) | 提交回执 |

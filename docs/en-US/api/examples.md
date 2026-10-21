@@ -15,6 +15,7 @@ These examples are language-neutral and use proto3 JSON:
 | [subscribe.json](../../shared/protocol/examples/subscribe.json) | Subscription |
 | [chat_event_say.json](../../shared/protocol/examples/chat_event_say.json) | Say event |
 | [chat_event_tell.json](../../shared/protocol/examples/chat_event_tell.json) | Tell event |
+| [chat_event_map.json](../../shared/protocol/examples/chat_event_map.json) | Map link rendered as chunks |
 | [send_request_raw.json](../../shared/protocol/examples/send_request_raw.json) | Raw send |
 | [send_request_chat.json](../../shared/protocol/examples/send_request_chat.json) | Structured send |
 | [send_result_submitted.json](../../shared/protocol/examples/send_result_submitted.json) | Submitted result |

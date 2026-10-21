@@ -48,7 +48,7 @@
 | [传输与连接](transport.md) | WSS、子协议、TLS pinning、Envelope、分帧、限制、超时 |
 | [认证与配对](auth.md) | 深链接、ClientHello、PairRequest、Challenge、Welcome |
 | [订阅与回放](subscription.md) | Subscribe、过滤器、回放、HistoryTruncated、会话重置 |
-| [聊天事件](chat-events.md) | ChatEvent 字段、频道、来源、Segment、回显关联 |
+| [聊天事件](chat-events.md) | ChatEvent 字段、频道、来源、Chunks/Segments、回显关联 |
 | [发送消息](send.md) | raw_text、结构化频道、队列、限流、SendResult、取消 |
 | [错误与关闭](errors.md) | ErrorCode、SendStatus、CloseCode、慢消费者 |
 | [示例](examples.md) | proto3 JSON 示例、CLI 示例、最小客户端流程 |
@@ -86,6 +86,9 @@
 
 ```text
 chat.segments
+chat.chunks
+chat.chunks.party_finder
+chat.chunks.quest
 chat.raw
 chat.original
 chat.sources.pre_handle

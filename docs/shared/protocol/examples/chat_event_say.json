@@ -29,6 +29,18 @@
         }
       }
     ],
+    "chunks": [
+      {
+        "style": {
+          "foregroundRgba": 4294967295,
+          "glowRgba": 0,
+          "italic": false
+        },
+        "text": {
+          "text": "Hello"
+        }
+      }
+    ],
     "outgoing": false,
     "contentMode": "CONTENT_MODE_CURRENT"
   }

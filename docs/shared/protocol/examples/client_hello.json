@@ -11,6 +11,9 @@
     "resumeFromSequence": "0",
     "capabilities": [
       "chat.segments",
+      "chat.chunks",
+      "chat.chunks.party_finder",
+      "chat.chunks.quest",
       "filters.regex"
     ]
   }

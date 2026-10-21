@@ -35,6 +35,26 @@ public sealed class ConformanceTests
             Style = new TextStyle { ForegroundRgba = 0xFFFFFFFF },
             Text = new TextSegment { Text = "Hello" },
         });
+        envelope.ChatEvent.Chunks.Add(new ChatChunk
+        {
+            Style = new TextStyle { ForegroundRgba = 0xFFFFFFFF },
+            Text = new ChatTextChunk { Text = "Hello" },
+        });
+        envelope.ChatEvent.Chunks.Add(new ChatChunk
+        {
+            Text = new ChatTextChunk
+            {
+                Text = "Limsa Lominsa (12.3, 45.6)",
+                Map = new MapSegment
+                {
+                    MapId = 123,
+                    TerritoryId = 456,
+                    X = 12.3f,
+                    Y = 45.6f,
+                    PlaceName = "Limsa Lominsa",
+                },
+            },
+        });
 
         var protobuf = EnvelopeCodec.Encode(envelope, json: false);
         var json = EnvelopeCodec.Encode(envelope, json: true);
@@ -48,11 +68,16 @@ public sealed class ConformanceTests
         Assert.Equal(ChatChannel.Say, decodedProtobuf.ChatEvent.Channel);
         Assert.Equal("Hello", decodedProtobuf.ChatEvent.Text);
         Assert.Single(decodedProtobuf.ChatEvent.Segments);
+        Assert.Equal(2, decodedProtobuf.ChatEvent.Chunks.Count);
+        Assert.Equal("Limsa Lominsa (12.3, 45.6)", decodedProtobuf.ChatEvent.Chunks[1].Text.Text);
+        Assert.Equal(123u, decodedProtobuf.ChatEvent.Chunks[1].Text.Map.MapId);
 
         Assert.Equal(decodedProtobuf.ChatEvent.Text, decodedJson.ChatEvent.Text);
         Assert.Equal(decodedProtobuf.ChatEvent.Sender.Name, decodedJson.ChatEvent.Sender.Name);
         Assert.Equal(decodedProtobuf.ChatEvent.Segments.Count, decodedJson.ChatEvent.Segments.Count);
+        Assert.Equal(decodedProtobuf.ChatEvent.Chunks.Count, decodedJson.ChatEvent.Chunks.Count);
         Assert.Contains("\"chatEvent\"", Encoding.UTF8.GetString(json), StringComparison.Ordinal);
+        Assert.Contains("\"chunks\"", Encoding.UTF8.GetString(json), StringComparison.Ordinal);
         Assert.Contains("\"requestId\"", Encoding.UTF8.GetString(json), StringComparison.Ordinal);
     }
 
@@ -64,6 +89,9 @@ public sealed class ConformanceTests
         Assert.Equal("freechat.v1.json", ProtocolConstants.JsonSubProtocol);
         Assert.Contains("tls.pinning.sha256", ProtocolConstants.DefaultFeatures);
         Assert.Contains("send.structured", ProtocolConstants.DefaultFeatures);
+        Assert.Contains("chat.chunks", ProtocolConstants.DefaultFeatures);
+        Assert.Contains("chat.chunks.party_finder", ProtocolConstants.DefaultFeatures);
+        Assert.Contains("chat.chunks.quest", ProtocolConstants.DefaultFeatures);
     }
 
     [Fact]

@@ -18,6 +18,14 @@ buf generate
 
 Generated C# types use the `FreeChat.Protocol.V1` namespace.
 
+## Chat chunks
+
+`ChatEvent.chunks` is the preferred rich-text representation. Each
+`ChatTextChunk` contains its own display text and an optional link; clients
+render the chunks in order and do not need character offsets. `segments`
+remains for backward compatibility, and both are produced from one SeString
+traversal.
+
 ## Related
 
 - [Plugin API](../api/README.md)

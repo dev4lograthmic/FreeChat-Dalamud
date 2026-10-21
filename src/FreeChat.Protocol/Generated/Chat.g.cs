@@ -58,7 +58,7 @@ namespace FreeChat.Protocol.V1 {
             "ZWdleBIlCg5jYXNlX3NlbnNpdGl2ZRgHIAEoCFINY2FzZVNlbnNpdGl2ZRIk",
             "CgtpbmNsdWRlX293bhgIIAEoCEgAUgppbmNsdWRlT3duiAEBEiUKDmluY2x1",
             "ZGVfYmF0dGxlGAkgASgIUg1pbmNsdWRlQmF0dGxlQg4KDF9pbmNsdWRlX293",
-            "bkoECAoQECL4BgoJQ2hhdEV2ZW50Eh0KCm1lc3NhZ2VfaWQYASABKAlSCW1l",
+            "bkoECAoQECKoBwoJQ2hhdEV2ZW50Eh0KCm1lc3NhZ2VfaWQYASABKAlSCW1l",
             "c3NhZ2VJZBIaCghzZXF1ZW5jZRgCIAEoA1IIc2VxdWVuY2USOAoJdGltZXN0",
             "YW1wGAMgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIJdGltZXN0",
             "YW1wEjIKB2NoYW5uZWwYBCABKA4yGC5mcmVlY2hhdC52MS5DaGF0Q2hhbm5l",
@@ -76,63 +76,102 @@ namespace FreeChat.Protocol.V1 {
             "aW5hbF9yYXdfbWVzc2FnZRgRIAEoDEgBUhJvcmlnaW5hbFJhd01lc3NhZ2WI",
             "AQESKAoNb3JpZ2luYWxfdGV4dBgSIAEoCUgCUgxvcmlnaW5hbFRleHSIAQES",
             "OwoMY29udGVudF9tb2RlGBMgASgOMhguZnJlZWNoYXQudjEuQ29udGVudE1v",
-            "ZGVSC2NvbnRlbnRNb2RlQhYKFF9vcmlnaW5hbF9yYXdfc2VuZGVyQhcKFV9v",
-            "cmlnaW5hbF9yYXdfbWVzc2FnZUIQCg5fb3JpZ2luYWxfdGV4dEoECBQQICLA",
-            "AwoHU2VnbWVudBIsCgVzdHlsZRgBIAEoCzIWLmZyZWVjaGF0LnYxLlRleHRT",
-            "dHlsZVIFc3R5bGUSLgoEdGV4dBgKIAEoCzIYLmZyZWVjaGF0LnYxLlRleHRT",
-            "ZWdtZW50SABSBHRleHQSLgoEaWNvbhgLIAEoCzIYLmZyZWVjaGF0LnYxLklj",
-            "b25TZWdtZW50SABSBGljb24SLgoEaXRlbRgMIAEoCzIYLmZyZWVjaGF0LnYx",
-            "Lkl0ZW1TZWdtZW50SABSBGl0ZW0SKwoDbWFwGA0gASgLMhcuZnJlZWNoYXQu",
-            "djEuTWFwU2VnbWVudEgAUgNtYXASSgoOYXV0b190cmFuc2xhdGUYDiABKAsy",
-            "IS5mcmVlY2hhdC52MS5BdXRvVHJhbnNsYXRlU2VnbWVudEgAUg1hdXRvVHJh",
-            "bnNsYXRlEjQKBnBsYXllchgPIAEoCzIaLmZyZWVjaGF0LnYxLlBsYXllclNl",
-            "Z21lbnRIAFIGcGxheWVyEjQKBnN0YXR1cxgQIAEoCzIaLmZyZWVjaGF0LnYx",
-            "LlN0YXR1c1NlZ21lbnRIAFIGc3RhdHVzQgYKBGtpbmRKBAgCEApKBAgRECAi",
-            "IQoLVGV4dFNlZ21lbnQSEgoEdGV4dBgBIAEoCVIEdGV4dCImCgtJY29uU2Vn",
-            "bWVudBIXCgdpY29uX2lkGAEgASgNUgZpY29uSWQi/AIKC0l0ZW1TZWdtZW50",
-            "EhcKB2l0ZW1faWQYASABKA1SBml0ZW1JZBIOCgJocRgCIAEoCFICaHESGwoJ",
-            "aXRlbV9raW5kGAMgASgNUghpdGVtS2luZBISCgRuYW1lGAQgASgJUgRuYW1l",
-            "EiAKC2Rlc2NyaXB0aW9uGAUgASgJUgtkZXNjcmlwdGlvbhIXCgdpY29uX2lk",
-            "GAYgASgNUgZpY29uSWQSHQoKaXRlbV9sZXZlbBgHIAEoDVIJaXRlbUxldmVs",
-            "Eh8KC2VxdWlwX2xldmVsGAggASgNUgplcXVpcExldmVsEhYKBnJhcml0eRgJ",
-            "IAEoDVIGcmFyaXR5EhoKCGNhdGVnb3J5GAogASgJUghjYXRlZ29yeRIjCg1t",
-            "YXRlcmlhX3Nsb3RzGAsgASgNUgxtYXRlcmlhU2xvdHMSKQoQYWR2YW5jZWRf",
-            "bWVsZGluZxgMIAEoCFIPYWR2YW5jZWRNZWxkaW5nEhQKBXN0YXRzGA0gAygJ",
-            "UgVzdGF0cyLKAQoKTWFwU2VnbWVudBIVCgZtYXBfaWQYASABKA1SBW1hcElk",
-            "EiEKDHRlcnJpdG9yeV9pZBgCIAEoDVILdGVycml0b3J5SWQSDAoBeBgDIAEo",
-            "AlIBeBIMCgF5GAQgASgCUgF5Eh0KCnBsYWNlX25hbWUYBSABKAlSCXBsYWNl",
-            "TmFtZRImCg9tYXBfZmlsZW5hbWVfaWQYBiABKAlSDW1hcEZpbGVuYW1lSWQS",
-            "HwoLc2l6ZV9mYWN0b3IYByABKA1SCnNpemVGYWN0b3IiKgoUQXV0b1RyYW5z",
-            "bGF0ZVNlZ21lbnQSEgoEdGV4dBgBIAEoCVIEdGV4dCJ8Cg1QbGF5ZXJTZWdt",
-            "ZW50EhIKBG5hbWUYASABKAlSBG5hbWUSGQoId29ybGRfaWQYAiABKA1SB3dv",
-            "cmxkSWQSHQoKd29ybGRfbmFtZRgDIAEoCVIJd29ybGROYW1lEh0KCmNvbnRl",
-            "bnRfaWQYBCABKARSCWNvbnRlbnRJZCJZCg1TdGF0dXNTZWdtZW50EhsKCXN0",
-            "YXR1c19pZBgBIAEoDVIIc3RhdHVzSWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIX",
-            "CgdpY29uX2lkGAMgASgNUgZpY29uSWRCF6oCFEZyZWVDaGF0LlByb3RvY29s",
-            "LlYxYgZwcm90bzM="));
+            "ZGVSC2NvbnRlbnRNb2RlEi4KBmNodW5rcxggIAMoCzIWLmZyZWVjaGF0LnYx",
+            "LkNoYXRDaHVua1IGY2h1bmtzQhYKFF9vcmlnaW5hbF9yYXdfc2VuZGVyQhcK",
+            "FV9vcmlnaW5hbF9yYXdfbWVzc2FnZUIQCg5fb3JpZ2luYWxfdGV4dEoECBQQ",
+            "ICK5BAoHU2VnbWVudBIsCgVzdHlsZRgBIAEoCzIWLmZyZWVjaGF0LnYxLlRl",
+            "eHRTdHlsZVIFc3R5bGUSLgoEdGV4dBgKIAEoCzIYLmZyZWVjaGF0LnYxLlRl",
+            "eHRTZWdtZW50SABSBHRleHQSLgoEaWNvbhgLIAEoCzIYLmZyZWVjaGF0LnYx",
+            "Lkljb25TZWdtZW50SABSBGljb24SLgoEaXRlbRgMIAEoCzIYLmZyZWVjaGF0",
+            "LnYxLkl0ZW1TZWdtZW50SABSBGl0ZW0SKwoDbWFwGA0gASgLMhcuZnJlZWNo",
+            "YXQudjEuTWFwU2VnbWVudEgAUgNtYXASSgoOYXV0b190cmFuc2xhdGUYDiAB",
+            "KAsyIS5mcmVlY2hhdC52MS5BdXRvVHJhbnNsYXRlU2VnbWVudEgAUg1hdXRv",
+            "VHJhbnNsYXRlEjQKBnBsYXllchgPIAEoCzIaLmZyZWVjaGF0LnYxLlBsYXll",
+            "clNlZ21lbnRIAFIGcGxheWVyEjQKBnN0YXR1cxgQIAEoCzIaLmZyZWVjaGF0",
+            "LnYxLlN0YXR1c1NlZ21lbnRIAFIGc3RhdHVzEkQKDHBhcnR5X2ZpbmRlchgg",
+            "IAEoCzIfLmZyZWVjaGF0LnYxLlBhcnR5RmluZGVyU2VnbWVudEgAUgtwYXJ0",
+            "eUZpbmRlchIxCgVxdWVzdBghIAEoCzIZLmZyZWVjaGF0LnYxLlF1ZXN0U2Vn",
+            "bWVudEgAUgVxdWVzdEIGCgRraW5kSgQIAhAKSgQIERAgIqUBCglDaGF0Q2h1",
+            "bmsSLAoFc3R5bGUYASABKAsyFi5mcmVlY2hhdC52MS5UZXh0U3R5bGVSBXN0",
+            "eWxlEjAKBHRleHQYAiABKAsyGi5mcmVlY2hhdC52MS5DaGF0VGV4dENodW5r",
+            "SABSBHRleHQSMAoEaWNvbhgDIAEoCzIaLmZyZWVjaGF0LnYxLkNoYXRJY29u",
+            "Q2h1bmtIAFIEaWNvbkIGCgRraW5kIrkDCg1DaGF0VGV4dENodW5rEhIKBHRl",
+            "eHQYASABKAlSBHRleHQSLgoEaXRlbRgCIAEoCzIYLmZyZWVjaGF0LnYxLkl0",
+            "ZW1TZWdtZW50SABSBGl0ZW0SKwoDbWFwGAMgASgLMhcuZnJlZWNoYXQudjEu",
+            "TWFwU2VnbWVudEgAUgNtYXASRAoMcGFydHlfZmluZGVyGAQgASgLMh8uZnJl",
+            "ZWNoYXQudjEuUGFydHlGaW5kZXJTZWdtZW50SABSC3BhcnR5RmluZGVyEjEK",
+            "BXF1ZXN0GAUgASgLMhkuZnJlZWNoYXQudjEuUXVlc3RTZWdtZW50SABSBXF1",
+            "ZXN0EjQKBnBsYXllchgGIAEoCzIaLmZyZWVjaGF0LnYxLlBsYXllclNlZ21l",
+            "bnRIAFIGcGxheWVyEjQKBnN0YXR1cxgHIAEoCzIaLmZyZWVjaGF0LnYxLlN0",
+            "YXR1c1NlZ21lbnRIAFIGc3RhdHVzEkoKDmF1dG9fdHJhbnNsYXRlGAggASgL",
+            "MiEuZnJlZWNoYXQudjEuQXV0b1RyYW5zbGF0ZVNlZ21lbnRIAFINYXV0b1Ry",
+            "YW5zbGF0ZUIGCgRsaW5rIigKDUNoYXRJY29uQ2h1bmsSFwoHaWNvbl9pZBgB",
+            "IAEoDVIGaWNvbklkIiEKC1RleHRTZWdtZW50EhIKBHRleHQYASABKAlSBHRl",
+            "eHQiJgoLSWNvblNlZ21lbnQSFwoHaWNvbl9pZBgBIAEoDVIGaWNvbklkIvwC",
+            "CgtJdGVtU2VnbWVudBIXCgdpdGVtX2lkGAEgASgNUgZpdGVtSWQSDgoCaHEY",
+            "AiABKAhSAmhxEhsKCWl0ZW1fa2luZBgDIAEoDVIIaXRlbUtpbmQSEgoEbmFt",
+            "ZRgEIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgFIAEoCVILZGVzY3JpcHRp",
+            "b24SFwoHaWNvbl9pZBgGIAEoDVIGaWNvbklkEh0KCml0ZW1fbGV2ZWwYByAB",
+            "KA1SCWl0ZW1MZXZlbBIfCgtlcXVpcF9sZXZlbBgIIAEoDVIKZXF1aXBMZXZl",
+            "bBIWCgZyYXJpdHkYCSABKA1SBnJhcml0eRIaCghjYXRlZ29yeRgKIAEoCVII",
+            "Y2F0ZWdvcnkSIwoNbWF0ZXJpYV9zbG90cxgLIAEoDVIMbWF0ZXJpYVNsb3Rz",
+            "EikKEGFkdmFuY2VkX21lbGRpbmcYDCABKAhSD2FkdmFuY2VkTWVsZGluZxIU",
+            "CgVzdGF0cxgNIAMoCVIFc3RhdHMiygEKCk1hcFNlZ21lbnQSFQoGbWFwX2lk",
+            "GAEgASgNUgVtYXBJZBIhCgx0ZXJyaXRvcnlfaWQYAiABKA1SC3RlcnJpdG9y",
+            "eUlkEgwKAXgYAyABKAJSAXgSDAoBeRgEIAEoAlIBeRIdCgpwbGFjZV9uYW1l",
+            "GAUgASgJUglwbGFjZU5hbWUSJgoPbWFwX2ZpbGVuYW1lX2lkGAYgASgJUg1t",
+            "YXBGaWxlbmFtZUlkEh8KC3NpemVfZmFjdG9yGAcgASgNUgpzaXplRmFjdG9y",
+            "IioKFEF1dG9UcmFuc2xhdGVTZWdtZW50EhIKBHRleHQYASABKAlSBHRleHQi",
+            "fAoNUGxheWVyU2VnbWVudBISCgRuYW1lGAEgASgJUgRuYW1lEhkKCHdvcmxk",
+            "X2lkGAIgASgNUgd3b3JsZElkEh0KCndvcmxkX25hbWUYAyABKAlSCXdvcmxk",
+            "TmFtZRIdCgpjb250ZW50X2lkGAQgASgEUgljb250ZW50SWQiWQoNU3RhdHVz",
+            "U2VnbWVudBIbCglzdGF0dXNfaWQYASABKA1SCHN0YXR1c0lkEhIKBG5hbWUY",
+            "AiABKAlSBG5hbWUSFwoHaWNvbl9pZBgDIAEoDVIGaWNvbklkInIKElBhcnR5",
+            "RmluZGVyU2VnbWVudBIdCgpsaXN0aW5nX2lkGAEgASgNUglsaXN0aW5nSWQS",
+            "PQoJbGlua190eXBlGAIgASgOMiAuZnJlZWNoYXQudjEuUGFydHlGaW5kZXJM",
+            "aW5rVHlwZVIIbGlua1R5cGUiPQoMUXVlc3RTZWdtZW50EhkKCHF1ZXN0X2lk",
+            "GAEgASgNUgdxdWVzdElkEhIKBG5hbWUYAiABKAlSBG5hbWUqmAEKE1BhcnR5",
+            "RmluZGVyTGlua1R5cGUSJgoiUEFSVFlfRklOREVSX0xJTktfVFlQRV9VTlNQ",
+            "RUNJRklFRBAAEjAKLFBBUlRZX0ZJTkRFUl9MSU5LX1RZUEVfTElNSVRFRF9U",
+            "T19IT01FX1dPUkxEEAESJwojUEFSVFlfRklOREVSX0xJTktfVFlQRV9OT1RJ",
+            "RklDQVRJT04QAkIXqgIURnJlZUNoYXQuUHJvdG9jb2wuVjFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::FreeChat.Protocol.V1.CommonReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::FreeChat.Protocol.V1.PartyFinderLinkType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Subscribe), global::FreeChat.Protocol.V1.Subscribe.Parser, new[]{ "Filter", "Sources", "ContentMode", "FromSequence", "IncludeOriginal" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Subscribed), global::FreeChat.Protocol.V1.Subscribed.Parser, new[]{ "EffectiveFilter", "EffectiveSources", "EffectiveContentMode", "OldestSequence", "LatestSequence", "ReplayTruncated", "ReplayFromSequence" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Unsubscribe), global::FreeChat.Protocol.V1.Unsubscribe.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ReplayRequest), global::FreeChat.Protocol.V1.ReplayRequest.Parser, new[]{ "FromSequence", "ToSequence", "Filter" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.HistoryTruncated), global::FreeChat.Protocol.V1.HistoryTruncated.Parser, new[]{ "RequestedFromSequence", "OldestSequence", "LatestSequence" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatFilter), global::FreeChat.Protocol.V1.ChatFilter.Parser, new[]{ "IncludeCategories", "ExcludeCategories", "IncludeLogKinds", "ExcludeLogKinds", "Keyword", "Regex", "CaseSensitive", "IncludeOwn", "IncludeBattle" }, new[]{ "IncludeOwn" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatEvent), global::FreeChat.Protocol.V1.ChatEvent.Parser, new[]{ "MessageId", "Sequence", "Timestamp", "Channel", "LogKind", "Source", "Sender", "Text", "RawSender", "RawMessage", "Segments", "Outgoing", "TellPeer", "ChannelName", "OriginRequestId", "OriginalRawSender", "OriginalRawMessage", "OriginalText", "ContentMode" }, new[]{ "OriginalRawSender", "OriginalRawMessage", "OriginalText" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Segment), global::FreeChat.Protocol.V1.Segment.Parser, new[]{ "Style", "Text", "Icon", "Item", "Map", "AutoTranslate", "Player", "Status" }, new[]{ "Kind" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatEvent), global::FreeChat.Protocol.V1.ChatEvent.Parser, new[]{ "MessageId", "Sequence", "Timestamp", "Channel", "LogKind", "Source", "Sender", "Text", "RawSender", "RawMessage", "Segments", "Outgoing", "TellPeer", "ChannelName", "OriginRequestId", "OriginalRawSender", "OriginalRawMessage", "OriginalText", "ContentMode", "Chunks" }, new[]{ "OriginalRawSender", "OriginalRawMessage", "OriginalText" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Segment), global::FreeChat.Protocol.V1.Segment.Parser, new[]{ "Style", "Text", "Icon", "Item", "Map", "AutoTranslate", "Player", "Status", "PartyFinder", "Quest" }, new[]{ "Kind" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatChunk), global::FreeChat.Protocol.V1.ChatChunk.Parser, new[]{ "Style", "Text", "Icon" }, new[]{ "Kind" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatTextChunk), global::FreeChat.Protocol.V1.ChatTextChunk.Parser, new[]{ "Text", "Item", "Map", "PartyFinder", "Quest", "Player", "Status", "AutoTranslate" }, new[]{ "Link" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ChatIconChunk), global::FreeChat.Protocol.V1.ChatIconChunk.Parser, new[]{ "IconId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.TextSegment), global::FreeChat.Protocol.V1.TextSegment.Parser, new[]{ "Text" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.IconSegment), global::FreeChat.Protocol.V1.IconSegment.Parser, new[]{ "IconId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.ItemSegment), global::FreeChat.Protocol.V1.ItemSegment.Parser, new[]{ "ItemId", "Hq", "ItemKind", "Name", "Description", "IconId", "ItemLevel", "EquipLevel", "Rarity", "Category", "MateriaSlots", "AdvancedMelding", "Stats" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.MapSegment), global::FreeChat.Protocol.V1.MapSegment.Parser, new[]{ "MapId", "TerritoryId", "X", "Y", "PlaceName", "MapFilenameId", "SizeFactor" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.AutoTranslateSegment), global::FreeChat.Protocol.V1.AutoTranslateSegment.Parser, new[]{ "Text" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.PlayerSegment), global::FreeChat.Protocol.V1.PlayerSegment.Parser, new[]{ "Name", "WorldId", "WorldName", "ContentId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.StatusSegment), global::FreeChat.Protocol.V1.StatusSegment.Parser, new[]{ "StatusId", "Name", "IconId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.StatusSegment), global::FreeChat.Protocol.V1.StatusSegment.Parser, new[]{ "StatusId", "Name", "IconId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.PartyFinderSegment), global::FreeChat.Protocol.V1.PartyFinderSegment.Parser, new[]{ "ListingId", "LinkType" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.QuestSegment), global::FreeChat.Protocol.V1.QuestSegment.Parser, new[]{ "QuestId", "Name" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
+  #region Enums
+  public enum PartyFinderLinkType {
+    [pbr::OriginalName("PARTY_FINDER_LINK_TYPE_UNSPECIFIED")] Unspecified = 0,
+    [pbr::OriginalName("PARTY_FINDER_LINK_TYPE_LIMITED_TO_HOME_WORLD")] LimitedToHomeWorld = 1,
+    [pbr::OriginalName("PARTY_FINDER_LINK_TYPE_NOTIFICATION")] Notification = 2,
+  }
+
+  #endregion
+
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class Subscribe : pb::IMessage<Subscribe>
@@ -2170,6 +2209,7 @@ namespace FreeChat.Protocol.V1 {
       originalRawMessage_ = other.originalRawMessage_;
       originalText_ = other.originalText_;
       contentMode_ = other.contentMode_;
+      chunks_ = other.chunks_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2471,6 +2511,22 @@ namespace FreeChat.Protocol.V1 {
       }
     }
 
+    /// <summary>Field number for the "chunks" field.</summary>
+    public const int ChunksFieldNumber = 32;
+    private static readonly pb::FieldCodec<global::FreeChat.Protocol.V1.ChatChunk> _repeated_chunks_codec
+        = pb::FieldCodec.ForMessage(258, global::FreeChat.Protocol.V1.ChatChunk.Parser);
+    private readonly pbc::RepeatedField<global::FreeChat.Protocol.V1.ChatChunk> chunks_ = new pbc::RepeatedField<global::FreeChat.Protocol.V1.ChatChunk>();
+    /// <summary>
+    /// Canonical rich-text representation. Each text chunk carries its own
+    /// display text and optional link metadata, so clients never need character
+    /// offsets to place a link. Prefer this over segments when non-empty.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::FreeChat.Protocol.V1.ChatChunk> Chunks {
+      get { return chunks_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -2505,6 +2561,7 @@ namespace FreeChat.Protocol.V1 {
       if (OriginalRawMessage != other.OriginalRawMessage) return false;
       if (OriginalText != other.OriginalText) return false;
       if (ContentMode != other.ContentMode) return false;
+      if(!chunks_.Equals(other.chunks_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2531,6 +2588,7 @@ namespace FreeChat.Protocol.V1 {
       if (HasOriginalRawMessage) hash ^= OriginalRawMessage.GetHashCode();
       if (HasOriginalText) hash ^= OriginalText.GetHashCode();
       if (ContentMode != global::FreeChat.Protocol.V1.ContentMode.Unspecified) hash ^= ContentMode.GetHashCode();
+      hash ^= chunks_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2622,6 +2680,7 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(152, 1);
         output.WriteEnum((int) ContentMode);
       }
+      chunks_.WriteTo(output, _repeated_chunks_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2705,6 +2764,7 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(152, 1);
         output.WriteEnum((int) ContentMode);
       }
+      chunks_.WriteTo(ref output, _repeated_chunks_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2770,6 +2830,7 @@ namespace FreeChat.Protocol.V1 {
       if (ContentMode != global::FreeChat.Protocol.V1.ContentMode.Unspecified) {
         size += 2 + pb::CodedOutputStream.ComputeEnumSize((int) ContentMode);
       }
+      size += chunks_.CalculateSize(_repeated_chunks_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -2846,6 +2907,7 @@ namespace FreeChat.Protocol.V1 {
       if (other.ContentMode != global::FreeChat.Protocol.V1.ContentMode.Unspecified) {
         ContentMode = other.ContentMode;
       }
+      chunks_.Add(other.chunks_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -2948,6 +3010,10 @@ namespace FreeChat.Protocol.V1 {
           }
           case 152: {
             ContentMode = (global::FreeChat.Protocol.V1.ContentMode) input.ReadEnum();
+            break;
+          }
+          case 258: {
+            chunks_.AddEntriesFrom(input, _repeated_chunks_codec);
             break;
           }
         }
@@ -3054,6 +3120,10 @@ namespace FreeChat.Protocol.V1 {
             ContentMode = (global::FreeChat.Protocol.V1.ContentMode) input.ReadEnum();
             break;
           }
+          case 258: {
+            chunks_.AddEntriesFrom(ref input, _repeated_chunks_codec);
+            break;
+          }
         }
       }
     }
@@ -3122,6 +3192,12 @@ namespace FreeChat.Protocol.V1 {
           break;
         case KindOneofCase.Status:
           Status = other.Status.Clone();
+          break;
+        case KindOneofCase.PartyFinder:
+          PartyFinder = other.PartyFinder.Clone();
+          break;
+        case KindOneofCase.Quest:
+          Quest = other.Quest.Clone();
           break;
       }
 
@@ -3230,6 +3306,34 @@ namespace FreeChat.Protocol.V1 {
       }
     }
 
+    /// <summary>Field number for the "party_finder" field.</summary>
+    public const int PartyFinderFieldNumber = 32;
+    /// <summary>
+    /// Compatibility path for clients that render segments. New clients use
+    /// ChatEvent.chunks, where the same metadata is attached to display text.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.PartyFinderSegment PartyFinder {
+      get { return kindCase_ == KindOneofCase.PartyFinder ? (global::FreeChat.Protocol.V1.PartyFinderSegment) kind_ : null; }
+      set {
+        kind_ = value;
+        kindCase_ = value == null ? KindOneofCase.None : KindOneofCase.PartyFinder;
+      }
+    }
+
+    /// <summary>Field number for the "quest" field.</summary>
+    public const int QuestFieldNumber = 33;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.QuestSegment Quest {
+      get { return kindCase_ == KindOneofCase.Quest ? (global::FreeChat.Protocol.V1.QuestSegment) kind_ : null; }
+      set {
+        kind_ = value;
+        kindCase_ = value == null ? KindOneofCase.None : KindOneofCase.Quest;
+      }
+    }
+
     private object kind_;
     /// <summary>Enum of possible cases for the "kind" oneof.</summary>
     public enum KindOneofCase {
@@ -3241,6 +3345,8 @@ namespace FreeChat.Protocol.V1 {
       AutoTranslate = 14,
       Player = 15,
       Status = 16,
+      PartyFinder = 32,
+      Quest = 33,
     }
     private KindOneofCase kindCase_ = KindOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3279,6 +3385,8 @@ namespace FreeChat.Protocol.V1 {
       if (!object.Equals(AutoTranslate, other.AutoTranslate)) return false;
       if (!object.Equals(Player, other.Player)) return false;
       if (!object.Equals(Status, other.Status)) return false;
+      if (!object.Equals(PartyFinder, other.PartyFinder)) return false;
+      if (!object.Equals(Quest, other.Quest)) return false;
       if (KindCase != other.KindCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -3295,6 +3403,8 @@ namespace FreeChat.Protocol.V1 {
       if (kindCase_ == KindOneofCase.AutoTranslate) hash ^= AutoTranslate.GetHashCode();
       if (kindCase_ == KindOneofCase.Player) hash ^= Player.GetHashCode();
       if (kindCase_ == KindOneofCase.Status) hash ^= Status.GetHashCode();
+      if (kindCase_ == KindOneofCase.PartyFinder) hash ^= PartyFinder.GetHashCode();
+      if (kindCase_ == KindOneofCase.Quest) hash ^= Quest.GetHashCode();
       hash ^= (int) kindCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -3346,6 +3456,14 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(130, 1);
         output.WriteMessage(Status);
       }
+      if (kindCase_ == KindOneofCase.PartyFinder) {
+        output.WriteRawTag(130, 2);
+        output.WriteMessage(PartyFinder);
+      }
+      if (kindCase_ == KindOneofCase.Quest) {
+        output.WriteRawTag(138, 2);
+        output.WriteMessage(Quest);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3388,6 +3506,14 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(130, 1);
         output.WriteMessage(Status);
       }
+      if (kindCase_ == KindOneofCase.PartyFinder) {
+        output.WriteRawTag(130, 2);
+        output.WriteMessage(PartyFinder);
+      }
+      if (kindCase_ == KindOneofCase.Quest) {
+        output.WriteRawTag(138, 2);
+        output.WriteMessage(Quest);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3421,6 +3547,12 @@ namespace FreeChat.Protocol.V1 {
       }
       if (kindCase_ == KindOneofCase.Status) {
         size += 2 + pb::CodedOutputStream.ComputeMessageSize(Status);
+      }
+      if (kindCase_ == KindOneofCase.PartyFinder) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PartyFinder);
+      }
+      if (kindCase_ == KindOneofCase.Quest) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(Quest);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3482,6 +3614,18 @@ namespace FreeChat.Protocol.V1 {
             Status = new global::FreeChat.Protocol.V1.StatusSegment();
           }
           Status.MergeFrom(other.Status);
+          break;
+        case KindOneofCase.PartyFinder:
+          if (PartyFinder == null) {
+            PartyFinder = new global::FreeChat.Protocol.V1.PartyFinderSegment();
+          }
+          PartyFinder.MergeFrom(other.PartyFinder);
+          break;
+        case KindOneofCase.Quest:
+          if (Quest == null) {
+            Quest = new global::FreeChat.Protocol.V1.QuestSegment();
+          }
+          Quest.MergeFrom(other.Quest);
           break;
       }
 
@@ -3574,6 +3718,24 @@ namespace FreeChat.Protocol.V1 {
             Status = subBuilder;
             break;
           }
+          case 258: {
+            global::FreeChat.Protocol.V1.PartyFinderSegment subBuilder = new global::FreeChat.Protocol.V1.PartyFinderSegment();
+            if (kindCase_ == KindOneofCase.PartyFinder) {
+              subBuilder.MergeFrom(PartyFinder);
+            }
+            input.ReadMessage(subBuilder);
+            PartyFinder = subBuilder;
+            break;
+          }
+          case 266: {
+            global::FreeChat.Protocol.V1.QuestSegment subBuilder = new global::FreeChat.Protocol.V1.QuestSegment();
+            if (kindCase_ == KindOneofCase.Quest) {
+              subBuilder.MergeFrom(Quest);
+            }
+            input.ReadMessage(subBuilder);
+            Quest = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -3663,6 +3825,1165 @@ namespace FreeChat.Protocol.V1 {
             Status = subBuilder;
             break;
           }
+          case 258: {
+            global::FreeChat.Protocol.V1.PartyFinderSegment subBuilder = new global::FreeChat.Protocol.V1.PartyFinderSegment();
+            if (kindCase_ == KindOneofCase.PartyFinder) {
+              subBuilder.MergeFrom(PartyFinder);
+            }
+            input.ReadMessage(subBuilder);
+            PartyFinder = subBuilder;
+            break;
+          }
+          case 266: {
+            global::FreeChat.Protocol.V1.QuestSegment subBuilder = new global::FreeChat.Protocol.V1.QuestSegment();
+            if (kindCase_ == KindOneofCase.Quest) {
+              subBuilder.MergeFrom(Quest);
+            }
+            input.ReadMessage(subBuilder);
+            Quest = subBuilder;
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// A chunk is one drawable run. Text chunks are the only chunks that can carry
+  /// an inline link; the link applies to exactly that chunk's text.
+  /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class ChatChunk : pb::IMessage<ChatChunk>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChatChunk> _parser = new pb::MessageParser<ChatChunk>(() => new ChatChunk());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChatChunk> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatChunk() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatChunk(ChatChunk other) : this() {
+      style_ = other.style_ != null ? other.style_.Clone() : null;
+      switch (other.KindCase) {
+        case KindOneofCase.Text:
+          Text = other.Text.Clone();
+          break;
+        case KindOneofCase.Icon:
+          Icon = other.Icon.Clone();
+          break;
+      }
+
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatChunk Clone() {
+      return new ChatChunk(this);
+    }
+
+    /// <summary>Field number for the "style" field.</summary>
+    public const int StyleFieldNumber = 1;
+    private global::FreeChat.Protocol.V1.TextStyle style_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.TextStyle Style {
+      get { return style_; }
+      set {
+        style_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "text" field.</summary>
+    public const int TextFieldNumber = 2;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.ChatTextChunk Text {
+      get { return kindCase_ == KindOneofCase.Text ? (global::FreeChat.Protocol.V1.ChatTextChunk) kind_ : null; }
+      set {
+        kind_ = value;
+        kindCase_ = value == null ? KindOneofCase.None : KindOneofCase.Text;
+      }
+    }
+
+    /// <summary>Field number for the "icon" field.</summary>
+    public const int IconFieldNumber = 3;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.ChatIconChunk Icon {
+      get { return kindCase_ == KindOneofCase.Icon ? (global::FreeChat.Protocol.V1.ChatIconChunk) kind_ : null; }
+      set {
+        kind_ = value;
+        kindCase_ = value == null ? KindOneofCase.None : KindOneofCase.Icon;
+      }
+    }
+
+    private object kind_;
+    /// <summary>Enum of possible cases for the "kind" oneof.</summary>
+    public enum KindOneofCase {
+      None = 0,
+      Text = 2,
+      Icon = 3,
+    }
+    private KindOneofCase kindCase_ = KindOneofCase.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public KindOneofCase KindCase {
+      get { return kindCase_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearKind() {
+      kindCase_ = KindOneofCase.None;
+      kind_ = null;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChatChunk);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChatChunk other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Style, other.Style)) return false;
+      if (!object.Equals(Text, other.Text)) return false;
+      if (!object.Equals(Icon, other.Icon)) return false;
+      if (KindCase != other.KindCase) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (style_ != null) hash ^= Style.GetHashCode();
+      if (kindCase_ == KindOneofCase.Text) hash ^= Text.GetHashCode();
+      if (kindCase_ == KindOneofCase.Icon) hash ^= Icon.GetHashCode();
+      hash ^= (int) kindCase_;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (style_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Style);
+      }
+      if (kindCase_ == KindOneofCase.Text) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Text);
+      }
+      if (kindCase_ == KindOneofCase.Icon) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Icon);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (style_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Style);
+      }
+      if (kindCase_ == KindOneofCase.Text) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Text);
+      }
+      if (kindCase_ == KindOneofCase.Icon) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Icon);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (style_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Style);
+      }
+      if (kindCase_ == KindOneofCase.Text) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Text);
+      }
+      if (kindCase_ == KindOneofCase.Icon) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Icon);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChatChunk other) {
+      if (other == null) {
+        return;
+      }
+      if (other.style_ != null) {
+        if (style_ == null) {
+          Style = new global::FreeChat.Protocol.V1.TextStyle();
+        }
+        Style.MergeFrom(other.Style);
+      }
+      switch (other.KindCase) {
+        case KindOneofCase.Text:
+          if (Text == null) {
+            Text = new global::FreeChat.Protocol.V1.ChatTextChunk();
+          }
+          Text.MergeFrom(other.Text);
+          break;
+        case KindOneofCase.Icon:
+          if (Icon == null) {
+            Icon = new global::FreeChat.Protocol.V1.ChatIconChunk();
+          }
+          Icon.MergeFrom(other.Icon);
+          break;
+      }
+
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (style_ == null) {
+              Style = new global::FreeChat.Protocol.V1.TextStyle();
+            }
+            input.ReadMessage(Style);
+            break;
+          }
+          case 18: {
+            global::FreeChat.Protocol.V1.ChatTextChunk subBuilder = new global::FreeChat.Protocol.V1.ChatTextChunk();
+            if (kindCase_ == KindOneofCase.Text) {
+              subBuilder.MergeFrom(Text);
+            }
+            input.ReadMessage(subBuilder);
+            Text = subBuilder;
+            break;
+          }
+          case 26: {
+            global::FreeChat.Protocol.V1.ChatIconChunk subBuilder = new global::FreeChat.Protocol.V1.ChatIconChunk();
+            if (kindCase_ == KindOneofCase.Icon) {
+              subBuilder.MergeFrom(Icon);
+            }
+            input.ReadMessage(subBuilder);
+            Icon = subBuilder;
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (style_ == null) {
+              Style = new global::FreeChat.Protocol.V1.TextStyle();
+            }
+            input.ReadMessage(Style);
+            break;
+          }
+          case 18: {
+            global::FreeChat.Protocol.V1.ChatTextChunk subBuilder = new global::FreeChat.Protocol.V1.ChatTextChunk();
+            if (kindCase_ == KindOneofCase.Text) {
+              subBuilder.MergeFrom(Text);
+            }
+            input.ReadMessage(subBuilder);
+            Text = subBuilder;
+            break;
+          }
+          case 26: {
+            global::FreeChat.Protocol.V1.ChatIconChunk subBuilder = new global::FreeChat.Protocol.V1.ChatIconChunk();
+            if (kindCase_ == KindOneofCase.Icon) {
+              subBuilder.MergeFrom(Icon);
+            }
+            input.ReadMessage(subBuilder);
+            Icon = subBuilder;
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class ChatTextChunk : pb::IMessage<ChatTextChunk>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChatTextChunk> _parser = new pb::MessageParser<ChatTextChunk>(() => new ChatTextChunk());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChatTextChunk> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[9]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatTextChunk() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatTextChunk(ChatTextChunk other) : this() {
+      text_ = other.text_;
+      switch (other.LinkCase) {
+        case LinkOneofCase.Item:
+          Item = other.Item.Clone();
+          break;
+        case LinkOneofCase.Map:
+          Map = other.Map.Clone();
+          break;
+        case LinkOneofCase.PartyFinder:
+          PartyFinder = other.PartyFinder.Clone();
+          break;
+        case LinkOneofCase.Quest:
+          Quest = other.Quest.Clone();
+          break;
+        case LinkOneofCase.Player:
+          Player = other.Player.Clone();
+          break;
+        case LinkOneofCase.Status:
+          Status = other.Status.Clone();
+          break;
+        case LinkOneofCase.AutoTranslate:
+          AutoTranslate = other.AutoTranslate.Clone();
+          break;
+      }
+
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatTextChunk Clone() {
+      return new ChatTextChunk(this);
+    }
+
+    /// <summary>Field number for the "text" field.</summary>
+    public const int TextFieldNumber = 1;
+    private string text_ = "";
+    /// <summary>
+    /// Display text for this run. For links this is the clickable label.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Text {
+      get { return text_; }
+      set {
+        text_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "item" field.</summary>
+    public const int ItemFieldNumber = 2;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.ItemSegment Item {
+      get { return linkCase_ == LinkOneofCase.Item ? (global::FreeChat.Protocol.V1.ItemSegment) link_ : null; }
+      set {
+        link_ = value;
+        linkCase_ = value == null ? LinkOneofCase.None : LinkOneofCase.Item;
+      }
+    }
+
+    /// <summary>Field number for the "map" field.</summary>
+    public const int MapFieldNumber = 3;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.MapSegment Map {
+      get { return linkCase_ == LinkOneofCase.Map ? (global::FreeChat.Protocol.V1.MapSegment) link_ : null; }
+      set {
+        link_ = value;
+        linkCase_ = value == null ? LinkOneofCase.None : LinkOneofCase.Map;
+      }
+    }
+
+    /// <summary>Field number for the "party_finder" field.</summary>
+    public const int PartyFinderFieldNumber = 4;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.PartyFinderSegment PartyFinder {
+      get { return linkCase_ == LinkOneofCase.PartyFinder ? (global::FreeChat.Protocol.V1.PartyFinderSegment) link_ : null; }
+      set {
+        link_ = value;
+        linkCase_ = value == null ? LinkOneofCase.None : LinkOneofCase.PartyFinder;
+      }
+    }
+
+    /// <summary>Field number for the "quest" field.</summary>
+    public const int QuestFieldNumber = 5;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.QuestSegment Quest {
+      get { return linkCase_ == LinkOneofCase.Quest ? (global::FreeChat.Protocol.V1.QuestSegment) link_ : null; }
+      set {
+        link_ = value;
+        linkCase_ = value == null ? LinkOneofCase.None : LinkOneofCase.Quest;
+      }
+    }
+
+    /// <summary>Field number for the "player" field.</summary>
+    public const int PlayerFieldNumber = 6;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.PlayerSegment Player {
+      get { return linkCase_ == LinkOneofCase.Player ? (global::FreeChat.Protocol.V1.PlayerSegment) link_ : null; }
+      set {
+        link_ = value;
+        linkCase_ = value == null ? LinkOneofCase.None : LinkOneofCase.Player;
+      }
+    }
+
+    /// <summary>Field number for the "status" field.</summary>
+    public const int StatusFieldNumber = 7;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.StatusSegment Status {
+      get { return linkCase_ == LinkOneofCase.Status ? (global::FreeChat.Protocol.V1.StatusSegment) link_ : null; }
+      set {
+        link_ = value;
+        linkCase_ = value == null ? LinkOneofCase.None : LinkOneofCase.Status;
+      }
+    }
+
+    /// <summary>Field number for the "auto_translate" field.</summary>
+    public const int AutoTranslateFieldNumber = 8;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.AutoTranslateSegment AutoTranslate {
+      get { return linkCase_ == LinkOneofCase.AutoTranslate ? (global::FreeChat.Protocol.V1.AutoTranslateSegment) link_ : null; }
+      set {
+        link_ = value;
+        linkCase_ = value == null ? LinkOneofCase.None : LinkOneofCase.AutoTranslate;
+      }
+    }
+
+    private object link_;
+    /// <summary>Enum of possible cases for the "link" oneof.</summary>
+    public enum LinkOneofCase {
+      None = 0,
+      Item = 2,
+      Map = 3,
+      PartyFinder = 4,
+      Quest = 5,
+      Player = 6,
+      Status = 7,
+      AutoTranslate = 8,
+    }
+    private LinkOneofCase linkCase_ = LinkOneofCase.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LinkOneofCase LinkCase {
+      get { return linkCase_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void ClearLink() {
+      linkCase_ = LinkOneofCase.None;
+      link_ = null;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChatTextChunk);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChatTextChunk other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Text != other.Text) return false;
+      if (!object.Equals(Item, other.Item)) return false;
+      if (!object.Equals(Map, other.Map)) return false;
+      if (!object.Equals(PartyFinder, other.PartyFinder)) return false;
+      if (!object.Equals(Quest, other.Quest)) return false;
+      if (!object.Equals(Player, other.Player)) return false;
+      if (!object.Equals(Status, other.Status)) return false;
+      if (!object.Equals(AutoTranslate, other.AutoTranslate)) return false;
+      if (LinkCase != other.LinkCase) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Text.Length != 0) hash ^= Text.GetHashCode();
+      if (linkCase_ == LinkOneofCase.Item) hash ^= Item.GetHashCode();
+      if (linkCase_ == LinkOneofCase.Map) hash ^= Map.GetHashCode();
+      if (linkCase_ == LinkOneofCase.PartyFinder) hash ^= PartyFinder.GetHashCode();
+      if (linkCase_ == LinkOneofCase.Quest) hash ^= Quest.GetHashCode();
+      if (linkCase_ == LinkOneofCase.Player) hash ^= Player.GetHashCode();
+      if (linkCase_ == LinkOneofCase.Status) hash ^= Status.GetHashCode();
+      if (linkCase_ == LinkOneofCase.AutoTranslate) hash ^= AutoTranslate.GetHashCode();
+      hash ^= (int) linkCase_;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Text.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Text);
+      }
+      if (linkCase_ == LinkOneofCase.Item) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Item);
+      }
+      if (linkCase_ == LinkOneofCase.Map) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Map);
+      }
+      if (linkCase_ == LinkOneofCase.PartyFinder) {
+        output.WriteRawTag(34);
+        output.WriteMessage(PartyFinder);
+      }
+      if (linkCase_ == LinkOneofCase.Quest) {
+        output.WriteRawTag(42);
+        output.WriteMessage(Quest);
+      }
+      if (linkCase_ == LinkOneofCase.Player) {
+        output.WriteRawTag(50);
+        output.WriteMessage(Player);
+      }
+      if (linkCase_ == LinkOneofCase.Status) {
+        output.WriteRawTag(58);
+        output.WriteMessage(Status);
+      }
+      if (linkCase_ == LinkOneofCase.AutoTranslate) {
+        output.WriteRawTag(66);
+        output.WriteMessage(AutoTranslate);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Text.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Text);
+      }
+      if (linkCase_ == LinkOneofCase.Item) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Item);
+      }
+      if (linkCase_ == LinkOneofCase.Map) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Map);
+      }
+      if (linkCase_ == LinkOneofCase.PartyFinder) {
+        output.WriteRawTag(34);
+        output.WriteMessage(PartyFinder);
+      }
+      if (linkCase_ == LinkOneofCase.Quest) {
+        output.WriteRawTag(42);
+        output.WriteMessage(Quest);
+      }
+      if (linkCase_ == LinkOneofCase.Player) {
+        output.WriteRawTag(50);
+        output.WriteMessage(Player);
+      }
+      if (linkCase_ == LinkOneofCase.Status) {
+        output.WriteRawTag(58);
+        output.WriteMessage(Status);
+      }
+      if (linkCase_ == LinkOneofCase.AutoTranslate) {
+        output.WriteRawTag(66);
+        output.WriteMessage(AutoTranslate);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Text.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Text);
+      }
+      if (linkCase_ == LinkOneofCase.Item) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Item);
+      }
+      if (linkCase_ == LinkOneofCase.Map) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Map);
+      }
+      if (linkCase_ == LinkOneofCase.PartyFinder) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PartyFinder);
+      }
+      if (linkCase_ == LinkOneofCase.Quest) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Quest);
+      }
+      if (linkCase_ == LinkOneofCase.Player) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Player);
+      }
+      if (linkCase_ == LinkOneofCase.Status) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Status);
+      }
+      if (linkCase_ == LinkOneofCase.AutoTranslate) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AutoTranslate);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChatTextChunk other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Text.Length != 0) {
+        Text = other.Text;
+      }
+      switch (other.LinkCase) {
+        case LinkOneofCase.Item:
+          if (Item == null) {
+            Item = new global::FreeChat.Protocol.V1.ItemSegment();
+          }
+          Item.MergeFrom(other.Item);
+          break;
+        case LinkOneofCase.Map:
+          if (Map == null) {
+            Map = new global::FreeChat.Protocol.V1.MapSegment();
+          }
+          Map.MergeFrom(other.Map);
+          break;
+        case LinkOneofCase.PartyFinder:
+          if (PartyFinder == null) {
+            PartyFinder = new global::FreeChat.Protocol.V1.PartyFinderSegment();
+          }
+          PartyFinder.MergeFrom(other.PartyFinder);
+          break;
+        case LinkOneofCase.Quest:
+          if (Quest == null) {
+            Quest = new global::FreeChat.Protocol.V1.QuestSegment();
+          }
+          Quest.MergeFrom(other.Quest);
+          break;
+        case LinkOneofCase.Player:
+          if (Player == null) {
+            Player = new global::FreeChat.Protocol.V1.PlayerSegment();
+          }
+          Player.MergeFrom(other.Player);
+          break;
+        case LinkOneofCase.Status:
+          if (Status == null) {
+            Status = new global::FreeChat.Protocol.V1.StatusSegment();
+          }
+          Status.MergeFrom(other.Status);
+          break;
+        case LinkOneofCase.AutoTranslate:
+          if (AutoTranslate == null) {
+            AutoTranslate = new global::FreeChat.Protocol.V1.AutoTranslateSegment();
+          }
+          AutoTranslate.MergeFrom(other.AutoTranslate);
+          break;
+      }
+
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Text = input.ReadString();
+            break;
+          }
+          case 18: {
+            global::FreeChat.Protocol.V1.ItemSegment subBuilder = new global::FreeChat.Protocol.V1.ItemSegment();
+            if (linkCase_ == LinkOneofCase.Item) {
+              subBuilder.MergeFrom(Item);
+            }
+            input.ReadMessage(subBuilder);
+            Item = subBuilder;
+            break;
+          }
+          case 26: {
+            global::FreeChat.Protocol.V1.MapSegment subBuilder = new global::FreeChat.Protocol.V1.MapSegment();
+            if (linkCase_ == LinkOneofCase.Map) {
+              subBuilder.MergeFrom(Map);
+            }
+            input.ReadMessage(subBuilder);
+            Map = subBuilder;
+            break;
+          }
+          case 34: {
+            global::FreeChat.Protocol.V1.PartyFinderSegment subBuilder = new global::FreeChat.Protocol.V1.PartyFinderSegment();
+            if (linkCase_ == LinkOneofCase.PartyFinder) {
+              subBuilder.MergeFrom(PartyFinder);
+            }
+            input.ReadMessage(subBuilder);
+            PartyFinder = subBuilder;
+            break;
+          }
+          case 42: {
+            global::FreeChat.Protocol.V1.QuestSegment subBuilder = new global::FreeChat.Protocol.V1.QuestSegment();
+            if (linkCase_ == LinkOneofCase.Quest) {
+              subBuilder.MergeFrom(Quest);
+            }
+            input.ReadMessage(subBuilder);
+            Quest = subBuilder;
+            break;
+          }
+          case 50: {
+            global::FreeChat.Protocol.V1.PlayerSegment subBuilder = new global::FreeChat.Protocol.V1.PlayerSegment();
+            if (linkCase_ == LinkOneofCase.Player) {
+              subBuilder.MergeFrom(Player);
+            }
+            input.ReadMessage(subBuilder);
+            Player = subBuilder;
+            break;
+          }
+          case 58: {
+            global::FreeChat.Protocol.V1.StatusSegment subBuilder = new global::FreeChat.Protocol.V1.StatusSegment();
+            if (linkCase_ == LinkOneofCase.Status) {
+              subBuilder.MergeFrom(Status);
+            }
+            input.ReadMessage(subBuilder);
+            Status = subBuilder;
+            break;
+          }
+          case 66: {
+            global::FreeChat.Protocol.V1.AutoTranslateSegment subBuilder = new global::FreeChat.Protocol.V1.AutoTranslateSegment();
+            if (linkCase_ == LinkOneofCase.AutoTranslate) {
+              subBuilder.MergeFrom(AutoTranslate);
+            }
+            input.ReadMessage(subBuilder);
+            AutoTranslate = subBuilder;
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Text = input.ReadString();
+            break;
+          }
+          case 18: {
+            global::FreeChat.Protocol.V1.ItemSegment subBuilder = new global::FreeChat.Protocol.V1.ItemSegment();
+            if (linkCase_ == LinkOneofCase.Item) {
+              subBuilder.MergeFrom(Item);
+            }
+            input.ReadMessage(subBuilder);
+            Item = subBuilder;
+            break;
+          }
+          case 26: {
+            global::FreeChat.Protocol.V1.MapSegment subBuilder = new global::FreeChat.Protocol.V1.MapSegment();
+            if (linkCase_ == LinkOneofCase.Map) {
+              subBuilder.MergeFrom(Map);
+            }
+            input.ReadMessage(subBuilder);
+            Map = subBuilder;
+            break;
+          }
+          case 34: {
+            global::FreeChat.Protocol.V1.PartyFinderSegment subBuilder = new global::FreeChat.Protocol.V1.PartyFinderSegment();
+            if (linkCase_ == LinkOneofCase.PartyFinder) {
+              subBuilder.MergeFrom(PartyFinder);
+            }
+            input.ReadMessage(subBuilder);
+            PartyFinder = subBuilder;
+            break;
+          }
+          case 42: {
+            global::FreeChat.Protocol.V1.QuestSegment subBuilder = new global::FreeChat.Protocol.V1.QuestSegment();
+            if (linkCase_ == LinkOneofCase.Quest) {
+              subBuilder.MergeFrom(Quest);
+            }
+            input.ReadMessage(subBuilder);
+            Quest = subBuilder;
+            break;
+          }
+          case 50: {
+            global::FreeChat.Protocol.V1.PlayerSegment subBuilder = new global::FreeChat.Protocol.V1.PlayerSegment();
+            if (linkCase_ == LinkOneofCase.Player) {
+              subBuilder.MergeFrom(Player);
+            }
+            input.ReadMessage(subBuilder);
+            Player = subBuilder;
+            break;
+          }
+          case 58: {
+            global::FreeChat.Protocol.V1.StatusSegment subBuilder = new global::FreeChat.Protocol.V1.StatusSegment();
+            if (linkCase_ == LinkOneofCase.Status) {
+              subBuilder.MergeFrom(Status);
+            }
+            input.ReadMessage(subBuilder);
+            Status = subBuilder;
+            break;
+          }
+          case 66: {
+            global::FreeChat.Protocol.V1.AutoTranslateSegment subBuilder = new global::FreeChat.Protocol.V1.AutoTranslateSegment();
+            if (linkCase_ == LinkOneofCase.AutoTranslate) {
+              subBuilder.MergeFrom(AutoTranslate);
+            }
+            input.ReadMessage(subBuilder);
+            AutoTranslate = subBuilder;
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class ChatIconChunk : pb::IMessage<ChatIconChunk>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChatIconChunk> _parser = new pb::MessageParser<ChatIconChunk>(() => new ChatIconChunk());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChatIconChunk> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[10]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatIconChunk() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatIconChunk(ChatIconChunk other) : this() {
+      iconId_ = other.iconId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChatIconChunk Clone() {
+      return new ChatIconChunk(this);
+    }
+
+    /// <summary>Field number for the "icon_id" field.</summary>
+    public const int IconIdFieldNumber = 1;
+    private uint iconId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint IconId {
+      get { return iconId_; }
+      set {
+        iconId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChatIconChunk);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChatIconChunk other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (IconId != other.IconId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (IconId != 0) hash ^= IconId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (IconId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(IconId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (IconId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(IconId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (IconId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(IconId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChatIconChunk other) {
+      if (other == null) {
+        return;
+      }
+      if (other.IconId != 0) {
+        IconId = other.IconId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            IconId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            IconId = input.ReadUInt32();
+            break;
+          }
         }
       }
     }
@@ -3685,7 +5006,7 @@ namespace FreeChat.Protocol.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[8]; }
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3883,7 +5204,7 @@ namespace FreeChat.Protocol.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[9]; }
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4081,7 +5402,7 @@ namespace FreeChat.Protocol.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[10]; }
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4712,7 +6033,7 @@ namespace FreeChat.Protocol.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[11]; }
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5132,7 +6453,7 @@ namespace FreeChat.Protocol.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[12]; }
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5330,7 +6651,7 @@ namespace FreeChat.Protocol.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[13]; }
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5639,7 +6960,7 @@ namespace FreeChat.Protocol.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[14]; }
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5887,6 +7208,476 @@ namespace FreeChat.Protocol.V1 {
           }
           case 24: {
             IconId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class PartyFinderSegment : pb::IMessage<PartyFinderSegment>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PartyFinderSegment> _parser = new pb::MessageParser<PartyFinderSegment>(() => new PartyFinderSegment());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<PartyFinderSegment> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[18]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PartyFinderSegment() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PartyFinderSegment(PartyFinderSegment other) : this() {
+      listingId_ = other.listingId_;
+      linkType_ = other.linkType_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PartyFinderSegment Clone() {
+      return new PartyFinderSegment(this);
+    }
+
+    /// <summary>Field number for the "listing_id" field.</summary>
+    public const int ListingIdFieldNumber = 1;
+    private uint listingId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint ListingId {
+      get { return listingId_; }
+      set {
+        listingId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "link_type" field.</summary>
+    public const int LinkTypeFieldNumber = 2;
+    private global::FreeChat.Protocol.V1.PartyFinderLinkType linkType_ = global::FreeChat.Protocol.V1.PartyFinderLinkType.Unspecified;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.PartyFinderLinkType LinkType {
+      get { return linkType_; }
+      set {
+        linkType_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as PartyFinderSegment);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(PartyFinderSegment other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ListingId != other.ListingId) return false;
+      if (LinkType != other.LinkType) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ListingId != 0) hash ^= ListingId.GetHashCode();
+      if (LinkType != global::FreeChat.Protocol.V1.PartyFinderLinkType.Unspecified) hash ^= LinkType.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ListingId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ListingId);
+      }
+      if (LinkType != global::FreeChat.Protocol.V1.PartyFinderLinkType.Unspecified) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) LinkType);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ListingId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(ListingId);
+      }
+      if (LinkType != global::FreeChat.Protocol.V1.PartyFinderLinkType.Unspecified) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) LinkType);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ListingId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ListingId);
+      }
+      if (LinkType != global::FreeChat.Protocol.V1.PartyFinderLinkType.Unspecified) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) LinkType);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(PartyFinderSegment other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ListingId != 0) {
+        ListingId = other.ListingId;
+      }
+      if (other.LinkType != global::FreeChat.Protocol.V1.PartyFinderLinkType.Unspecified) {
+        LinkType = other.LinkType;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ListingId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            LinkType = (global::FreeChat.Protocol.V1.PartyFinderLinkType) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            ListingId = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            LinkType = (global::FreeChat.Protocol.V1.PartyFinderLinkType) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class QuestSegment : pb::IMessage<QuestSegment>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<QuestSegment> _parser = new pb::MessageParser<QuestSegment>(() => new QuestSegment());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<QuestSegment> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::FreeChat.Protocol.V1.ChatReflection.Descriptor.MessageTypes[19]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public QuestSegment() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public QuestSegment(QuestSegment other) : this() {
+      questId_ = other.questId_;
+      name_ = other.name_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public QuestSegment Clone() {
+      return new QuestSegment(this);
+    }
+
+    /// <summary>Field number for the "quest_id" field.</summary>
+    public const int QuestIdFieldNumber = 1;
+    private uint questId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint QuestId {
+      get { return questId_; }
+      set {
+        questId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 2;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as QuestSegment);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(QuestSegment other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (QuestId != other.QuestId) return false;
+      if (Name != other.Name) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (QuestId != 0) hash ^= QuestId.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (QuestId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(QuestId);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (QuestId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(QuestId);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (QuestId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(QuestId);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(QuestSegment other) {
+      if (other == null) {
+        return;
+      }
+      if (other.QuestId != 0) {
+        QuestId = other.QuestId;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            QuestId = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            Name = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            QuestId = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            Name = input.ReadString();
             break;
           }
         }

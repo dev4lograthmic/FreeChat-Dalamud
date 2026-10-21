@@ -22,6 +22,7 @@
     "rawSender": "AikDAQ...",
     "rawMessage": "AikDAQ...",
     "segments": [],
+    "chunks": [],
     "outgoing": false,
     "contentMode": "CONTENT_MODE_CURRENT"
   }
@@ -40,7 +41,8 @@
 | `text` | 纯文本，适合搜索/通知 |
 | `rawSender` | 原始 SeString 字节 |
 | `rawMessage` | 原始 SeString 字节 |
-| `segments` | 结构化片段；解析失败时可能为空 |
+| `segments` | 旧版结构化片段；解析失败时可能为空 |
+| `chunks` | 推荐的富文本 run；文本和链接元数据在同一个 run 中 |
 | `outgoing` | 是否本地玩家发出 |
 | `tellPeer` | 私聊对端（`TELL`） |
 | `channelName` | 通讯贝/CWLS 名称（若已知） |
@@ -81,7 +83,7 @@ timestamp + log_kind + sender + text
 
 做客户端去重。
 
-## 4. Segments
+## 4. Segments（旧版）
 
 `Segment` 使用 oneof 表示片段类型：
 
@@ -89,26 +91,83 @@ timestamp + log_kind + sender + text
 |---|---|
 | `TextSegment` | `text` + `TextStyle`（前景色、描边、斜体） |
 | `IconSegment` | `iconId` |
-| `ItemSegment` | 物品 ID、HQ、名称、描述、图标、等级、品级、稀有度、类别、禁断孔、属性 |
+| `ItemSegment` | 物品 ID、HQ、名称、描述、图标、品级、装备等级、稀有度、类别、禁断孔、禁忌镶嵌、属性 |
 | `MapSegment` | 地图 ID、区域 ID、坐标、地名、地图文件名、缩放 |
 | `AutoTranslateSegment` | 自动翻译文本 |
 | `PlayerSegment` | 玩家名、世界、ContentId |
 | `StatusSegment` | 状态 ID、名称、图标 |
+| `PartyFinderSegment` | 招募 ID、链接类型 |
+| `QuestSegment` | 任务 ID、任务名 |
 
-客户端不认识的片段应回退到 `text` 或 `rawMessage`。
+`segments` 仅为兼容旧客户端保留。它不能表示链接出现在 `text` 的第几个字符；
+独立的链接片段和后面的 `TextSegment` 可能都包含显示文本。新客户端应使用
+`chunks`。
 
-## 5. SeString 与原始数据
+## 5. Chunks（推荐）
+
+`chunks` 是富文本的权威表示。每个 chunk 是一个可绘制 run。文本 chunk 自带
+显示文本，并可携带**只作用于这段文本**的链接元数据：
+
+```json
+{
+  "chunks": [
+    { "text": { "text": "来 " } },
+    {
+      "text": {
+        "text": "利姆萨·罗敏萨 (12.3, 45.6)",
+        "map": {
+          "mapId": 123,
+          "territoryId": 456,
+          "x": 12.3,
+          "y": 45.6,
+          "placeName": "利姆萨·罗敏萨"
+        }
+      }
+    },
+    { "text": { "text": " 吧" } }
+  ]
+}
+```
+
+规则：
+
+- 按 `chunks` 顺序渲染。
+- `ChatTextChunk.text` 就是精确的显示文本；有链接时，这段文本就是可点击标签。
+- `ChatIconChunk.iconId` 是独立图标 run。
+- `style` 作用于该 chunk，复用 `TextStyle`。
+- `ChatTextChunk.link` 可以是 `item`、`map`、`partyFinder`、`quest`、
+  `player`、`status` 或 `autoTranslate`。
+- **不需要字符 offset。** 链接位置就是 chunk 的文本。
+- `ChatEvent.text` 仍然是搜索/通知用的纯文本兜底。
+- 无法取得链接显示文本时，服务端生成可读 fallback（物品名、地名+坐标、
+  任务名或数字 ID）。
+- 解析失败时 `chunks` 可能为空。客户端按以下顺序回退：
+  `chunks` → `segments` → `text` → `rawMessage`。
+
+`PartyFinderSegment` 只保证 `listingId` 和 `linkType`，不包含完整招募详情。
+`QuestSegment` 在游戏数据可用时包含任务名。
+
+能力名称：
+
+```text
+chat.chunks
+chat.chunks.party_finder
+chat.chunks.quest
+```
+
+## 6. SeString 与原始数据
 
 - `rawSender` / `rawMessage` 是游戏原始 SeString 字节。
 - `text` 是服务端提取的纯文本，不保留样式/链接。
-- `segments` 是服务端解析结果；物品/地图元数据可能因游戏语言和数据版本不同。
+- `segments` 和 `chunks` 是服务端解析结果；物品/地图元数据可能因游戏语言和
+  数据版本不同。
 - 解析失败时，服务端仍应发送 `text` + `raw_*`，不阻断事件。
 - 其他插件修改消息时：
   - `POST_HANDLE` + `CURRENT`：玩家最终看到的内容。
   - `POST_HANDLE` + `ORIGINAL`：原始内容。
   - `includeOriginal=true`：同时带 `original_*`。
 
-## 6. 回显关联
+## 7. 回显关联
 
 发送请求后，游戏产生的 outgoing `ChatEvent` 可能带：
 
@@ -130,8 +189,9 @@ timestamp + log_kind + sender + text
 - 服务端会设置 `originRequestId`。
 - 服务端暂不额外发送 `SendResult(ECHOED)`；发送回执通常停在 `SUBMITTED`。
 
-## 7. 示例
+## 8. 示例
 
 - [Say 事件](../../shared/protocol/examples/chat_event_say.json)
 - [Tell 事件](../../shared/protocol/examples/chat_event_tell.json)
+- [地图链接 chunks](../../shared/protocol/examples/chat_event_map.json)
 - [SessionEnded](../../shared/protocol/examples/session_ended.json)
