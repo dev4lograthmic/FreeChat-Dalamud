@@ -33,7 +33,7 @@
 | `sources` | 为空时默认 `POST_HANDLE` |
 | `contentMode` | 未指定时默认 `CURRENT` |
 | `fromSequence` | `<= 0` 只收实时；`> 0` 先回放该 sequence 之后 |
-| `includeOriginal` | 仅 `CURRENT` 时有意义；为 true 时事件附带 `original_*` |
+| `includeOriginal` | 旧标志；`original_*` 在与当前事件不同时自动出现 |
 
 每个连接同一时间只有一个活动订阅；再次发送 `Subscribe` 会替换旧订阅。
 
@@ -41,11 +41,11 @@
 
 | 来源 | 含义 |
 |---|---|
-| `CHAT_SOURCE_PRE_HANDLE` | 其他插件处理前的 `IChatGui.ChatMessage` |
+| `CHAT_SOURCE_PRE_HANDLE` | `IChatGui.ChatMessage`；显示前，但其他插件 handler 可能已修改 |
 | `CHAT_SOURCE_POST_HANDLE` | 最终显示的 `IChatGui.ChatMessageUnhandled`，推荐默认 |
 | `CHAT_SOURCE_STRUCTURED` | `IChatGui.LogMessage`，系统/战斗等结构化日志 |
 
-`PRE_HANDLE` 的消息可能被其他插件修改/抑制；`POST_HANDLE` 更接近玩家最终看到的内容。`STRUCTURED` 与 `POST_HANDLE` 可能重复，客户端应按 `timestamp`、`log_kind` 和内容去重。
+`PRE_HANDLE` 的消息可能被其他插件修改/抑制，且 handler 顺序不保证；当内容不同时可用 `original_*` 查看修改前内容。`POST_HANDLE` 更接近玩家最终看到的内容。`STRUCTURED` 与 `POST_HANDLE` 可能重复，客户端应按 `timestamp`、`log_kind` 和内容去重。
 
 ## 3. 过滤器
 

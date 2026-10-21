@@ -47,9 +47,9 @@
 | `tellPeer` | Tell peer (`TELL`) |
 | `channelName` | Linkshell/CWLS name when known |
 | `originRequestId` | Game echo correlation for a `SendRequest` |
-| `originalRawSender` | Optional original SeString |
-| `originalRawMessage` | Optional original SeString |
-| `originalText` | Optional original text |
+| `originalRawSender` | Original sender SeString; present when it differs from the current stage |
+| `originalRawMessage` | Original message SeString; present when it differs from the current stage |
+| `originalText` | Original plain text; present when it differs from the current stage |
 | `contentMode` | `CURRENT` or `ORIGINAL` |
 
 ## 2. Channels and log_kind
@@ -72,7 +72,7 @@ Common channels: `SAY`, `SHOUT`, `YELL`, `TELL`, `PARTY`, `ALLIANCE`,
 
 | Source | Description |
 |---|---|
-| `PRE_HANDLE` | Before other plugins; may be modified or suppressed |
+| `PRE_HANDLE` | `ChatMessage` stage; other plugin handlers may already have modified it |
 | `POST_HANDLE` | Final display; recommended default |
 | `STRUCTURED` | `LogMessage` structured system/battle logs |
 
@@ -164,12 +164,16 @@ chat.chunks.quest
 - `text` is server-extracted plain text; it does not preserve styles/links.
 - `segments` and `chunks` are server-parsed; item/map metadata may differ by
   game language and data version.
+- `original_*` captures the message before plugin modifications. It is emitted
+  only when the original differs from `text`/`raw_message`; `text` always
+  describes the current stage (`PRE_HANDLE` or `POST_HANDLE`).
 - If parsing fails, the server still sends `text` + `raw_*` and does not drop
   the event.
 - When another plugin modifies a message:
   - `POST_HANDLE` + `CURRENT`: what the player finally sees.
   - `POST_HANDLE` + `ORIGINAL`: original content.
-  - `includeOriginal=true`: include `original_*` alongside the current fields.
+  - `includeOriginal=true` is a legacy request flag; `original_*` is now
+    emitted automatically when it differs from the current stage.
 
 ## 7. Echo correlation
 

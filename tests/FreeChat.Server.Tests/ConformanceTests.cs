@@ -1,6 +1,7 @@
 using System.Text;
 using FreeChat.Protocol;
 using FreeChat.Protocol.V1;
+using Google.Protobuf;
 using Xunit;
 
 namespace FreeChat.Server.Tests;
@@ -20,7 +21,9 @@ public sealed class ConformanceTests
                 Channel = ChatChannel.Say,
                 LogKind = 10,
                 Source = ChatSource.PostHandle,
-                Text = "Hello",
+                Text = "[MOD] Hello",
+                OriginalText = "Hello",
+                OriginalRawMessage = ByteString.CopyFromUtf8("Hello"),
                 Sender = new CharacterRef
                 {
                     Name = "Someone",
@@ -33,12 +36,12 @@ public sealed class ConformanceTests
         envelope.ChatEvent.Segments.Add(new Segment
         {
             Style = new TextStyle { ForegroundRgba = 0xFFFFFFFF },
-            Text = new TextSegment { Text = "Hello" },
+            Text = new TextSegment { Text = "[MOD] Hello" },
         });
         envelope.ChatEvent.Chunks.Add(new ChatChunk
         {
             Style = new TextStyle { ForegroundRgba = 0xFFFFFFFF },
-            Text = new ChatTextChunk { Text = "Hello" },
+            Text = new ChatTextChunk { Text = "[MOD] Hello" },
         });
         envelope.ChatEvent.Chunks.Add(new ChatChunk
         {
@@ -66,7 +69,9 @@ public sealed class ConformanceTests
         Assert.Equal("srv:sess:42", decodedProtobuf.ChatEvent.MessageId);
         Assert.Equal(42, decodedProtobuf.ChatEvent.Sequence);
         Assert.Equal(ChatChannel.Say, decodedProtobuf.ChatEvent.Channel);
-        Assert.Equal("Hello", decodedProtobuf.ChatEvent.Text);
+        Assert.Equal("[MOD] Hello", decodedProtobuf.ChatEvent.Text);
+        Assert.Equal("Hello", decodedProtobuf.ChatEvent.OriginalText);
+        Assert.Equal("Hello", decodedProtobuf.ChatEvent.OriginalRawMessage.ToStringUtf8());
         Assert.Single(decodedProtobuf.ChatEvent.Segments);
         Assert.Equal(2, decodedProtobuf.ChatEvent.Chunks.Count);
         Assert.Equal("Limsa Lominsa (12.3, 45.6)", decodedProtobuf.ChatEvent.Chunks[1].Text.Text);

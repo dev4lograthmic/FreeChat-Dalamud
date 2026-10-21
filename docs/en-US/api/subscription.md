@@ -33,7 +33,7 @@ After authentication, clients send `Subscribe` before receiving chat events.
 | `sources` | Empty defaults to `POST_HANDLE` |
 | `contentMode` | Defaults to `CURRENT` |
 | `fromSequence` | `<= 0` is live only; `> 0` replays after that sequence |
-| `includeOriginal` | Only meaningful for `CURRENT`; when true, events include `original_*` |
+| `includeOriginal` | Legacy flag; `original_*` is emitted automatically when it differs from the current event |
 
 Each connection has one active subscription. Sending `Subscribe` again replaces
 the previous subscription.
@@ -42,11 +42,11 @@ the previous subscription.
 
 | Source | Meaning |
 |---|---|
-| `CHAT_SOURCE_PRE_HANDLE` | `IChatGui.ChatMessage` before other plugins handle it |
+| `CHAT_SOURCE_PRE_HANDLE` | `IChatGui.ChatMessage`; before display, but other plugin handlers may already have modified it |
 | `CHAT_SOURCE_POST_HANDLE` | `IChatGui.ChatMessageUnhandled`, what the player finally sees; recommended default |
 | `CHAT_SOURCE_STRUCTURED` | `IChatGui.LogMessage`, structured system/battle logs |
 
-`PRE_HANDLE` messages may be modified or suppressed by other plugins.
+`PRE_HANDLE` messages may be modified or suppressed by other plugins. Event handler order is not guaranteed; use `original_*` to see the pre-modification content when it differs.
 `POST_HANDLE` is closer to what the player sees. `STRUCTURED` may duplicate
 `POST_HANDLE`; clients should deduplicate by `timestamp`, `log_kind`, and
 content.

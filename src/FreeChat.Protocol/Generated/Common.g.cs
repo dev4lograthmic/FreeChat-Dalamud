@@ -213,7 +213,9 @@ namespace FreeChat.Protocol.V1 {
   public enum ChatSource {
     [pbr::OriginalName("CHAT_SOURCE_UNSPECIFIED")] Unspecified = 0,
     /// <summary>
-    /// IChatGui.ChatMessage: before other plugins handle/suppress the message.
+    /// IChatGui.ChatMessage: before the game displays the message. Other
+    /// plugin handlers may already have modified it, depending on registration
+    /// order; original_* preserves the pre-modification content when different.
     /// </summary>
     [pbr::OriginalName("CHAT_SOURCE_PRE_HANDLE")] PreHandle = 1,
     /// <summary>

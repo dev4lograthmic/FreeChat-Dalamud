@@ -276,7 +276,8 @@ namespace FreeChat.Protocol.V1 {
     public const int IncludeOriginalFieldNumber = 5;
     private bool includeOriginal_;
     /// <summary>
-    /// Include original_* fields in ChatEvent when ContentMode is CURRENT.
+    /// Legacy request flag. Original fields are emitted automatically when the
+    /// original message/sender differs from the current stage.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2424,7 +2425,9 @@ namespace FreeChat.Protocol.V1 {
 
     private pb::ByteString originalRawSender_;
     /// <summary>
-    /// Only present when requested (ContentMode.ORIGINAL or include_original).
+    /// Original message/sender before plugins modified them. These fields are
+    /// present when the original differs from the current stage; they do not
+    /// change the terminal/current semantics of text/raw_message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]

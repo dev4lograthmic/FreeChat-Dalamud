@@ -47,9 +47,9 @@
 | `tellPeer` | 私聊对端（`TELL`） |
 | `channelName` | 通讯贝/CWLS 名称（若已知） |
 | `originRequestId` | 若是某次 `SendRequest` 的游戏回显，带该请求 ID |
-| `originalRawSender` | 可选的原始 SeString |
-| `originalRawMessage` | 可选的原始 SeString |
-| `originalText` | 可选的原始文本 |
+| `originalRawSender` | 插件修改前的原始发送者 SeString；与当前阶段不同时存在 |
+| `originalRawMessage` | 插件修改前的原始消息 SeString；与当前阶段不同时存在 |
+| `originalText` | 插件修改前的原始纯文本；与当前阶段不同时存在 |
 | `contentMode` | `CURRENT` 或 `ORIGINAL` |
 
 ## 2. 频道与 log_kind
@@ -71,7 +71,7 @@
 
 | 来源 | 说明 |
 |---|---|
-| `PRE_HANDLE` | 其他插件处理前；可能被后续插件 suppress/修改 |
+| `PRE_HANDLE` | `ChatMessage` 阶段；其他插件 handler 可能已修改 |
 | `POST_HANDLE` | 最终显示；推荐默认 |
 | `STRUCTURED` | `LogMessage` 结构化系统/战斗日志 |
 
@@ -161,11 +161,14 @@ chat.chunks.quest
 - `text` 是服务端提取的纯文本，不保留样式/链接。
 - `segments` 和 `chunks` 是服务端解析结果；物品/地图元数据可能因游戏语言和
   数据版本不同。
+- `original_*` 表示插件修改前的内容；只有与当前 `text`/`raw_message` 不同时
+  才会出现。`text` 始终表示当前阶段（`PRE_HANDLE` 或 `POST_HANDLE`）的内容。
 - 解析失败时，服务端仍应发送 `text` + `raw_*`，不阻断事件。
 - 其他插件修改消息时：
   - `POST_HANDLE` + `CURRENT`：玩家最终看到的内容。
   - `POST_HANDLE` + `ORIGINAL`：原始内容。
-  - `includeOriginal=true`：同时带 `original_*`。
+  - `includeOriginal=true` 是旧请求标志；`original_*` 现在会在与当前阶段
+    不同时自动出现。
 
 ## 7. 回显关联
 

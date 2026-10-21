@@ -75,7 +75,9 @@ enum ChatCategory {
 // Which game event pipeline produced a ChatEvent.
 enum ChatSource {
   CHAT_SOURCE_UNSPECIFIED = 0;
-  // IChatGui.ChatMessage: before other plugins handle/suppress the message.
+  // IChatGui.ChatMessage: before the game displays the message. Other
+  // plugin handlers may already have modified it, depending on registration
+  // order; original_* preserves the pre-modification content when different.
   CHAT_SOURCE_PRE_HANDLE = 1;
   // IChatGui.ChatMessageUnhandled: after handling, i.e. what the player sees.
   CHAT_SOURCE_POST_HANDLE = 2;

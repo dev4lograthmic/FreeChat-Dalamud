@@ -54,6 +54,8 @@ public sealed class ChatEventFactory
             // Keep text/raw even if a payload cannot be enriched.
         }
 
+        SetOriginalFields(chatEvent, message);
+
         if (kind is (ushort)XivChatType.TellIncoming or (ushort)XivChatType.TellOutgoing
             && sender.IsPlayer)
         {
@@ -61,6 +63,27 @@ public sealed class ChatEventFactory
         }
 
         return chatEvent;
+    }
+
+    /// <summary>
+    /// Captures the message/sender before other plugins modified them. The
+    /// original fields are only emitted when they differ from the current
+    /// stage, so unmodified events keep their existing shape.
+    /// </summary>
+    private static void SetOriginalFields(ChatEvent chatEvent, IChatMessage message)
+    {
+        var currentMessage = message.Message.Encode();
+        var originalMessage = (ReadOnlySpan<byte>)message.OriginalMessage;
+        if (!currentMessage.AsSpan().SequenceEqual(originalMessage))
+        {
+            chatEvent.OriginalText = message.OriginalMessage.ExtractText();
+            chatEvent.OriginalRawMessage = ByteString.CopyFrom(originalMessage.ToArray());
+        }
+
+        var currentSender = message.Sender.Encode();
+        var originalSender = (ReadOnlySpan<byte>)message.OriginalSender;
+        if (!currentSender.AsSpan().SequenceEqual(originalSender))
+            chatEvent.OriginalRawSender = ByteString.CopyFrom(originalSender.ToArray());
     }
 
     public ChatEvent CreateStructured(ILogMessage message, string? localPlayerName)
