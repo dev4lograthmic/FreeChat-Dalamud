@@ -54,7 +54,7 @@
 | Status | Meaning |
 |---|---|
 | `SEND_STATUS_UNSPECIFIED` | Unspecified |
-| `SEND_STATUS_QUEUED` | Queued |
+| `SEND_STATUS_QUEUED` | Reserved; not currently emitted |
 | `SEND_STATUS_SUBMITTED` | Terminal; game accepted input, not delivery |
 | `SEND_STATUS_ECHOED` | Optional best-effort echo notification |
 | `SEND_STATUS_FAILED` | Failed |

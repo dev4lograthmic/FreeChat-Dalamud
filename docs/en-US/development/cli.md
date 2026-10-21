@@ -109,8 +109,21 @@ Channel names: `say`, `party`, `shout`, `yell`, `alliance`, `fc`, `ls1`…`ls8`,
 
 `--raw` is limited to 500 UTF-8 bytes and is subject to the server command
 blocklist. `--channel`/`--text` is split by the server at 500 bytes per part.
-`SUBMITTED` means the game accepted the input; it does not prove the other
-player received it.
+`SUBMITTED` is terminal and means the game accepted the input; it does not
+prove the other player received it. Add `--wait-echo` to keep the connection
+open for up to 3 seconds and print a best-effort `ECHOED` notification if the
+game echo is matched.
+
+## Friends and presence
+
+```powershell
+dotnet run --project src\FreeChat.Cli -- friends --uri "<link>" --page-size 32
+dotnet run --project src\FreeChat.Cli -- presence --uri "<link>" --content-id <id>
+```
+
+These commands require the corresponding social APIs to be enabled in the
+plugin. `friends` prints page/status summaries; add `--print-json` for full
+proto3 JSON.
 
 ## Ping
 

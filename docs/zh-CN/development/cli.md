@@ -104,8 +104,18 @@ dotnet run --project src\FreeChat.Cli -- send --uri "<链接>" `
 `ls1`…`ls8`、`cwls1`…`cwls8`、`novice`、`pvp`、`tell`。
 
 `--raw` 最多 500 UTF-8 字节，并受服务端命令黑名单限制。`--channel`/`--text`
-由服务端按每段 500 字节拆分。`SUBMITTED` 只表示游戏接受了输入，不代表对方
-已经收到。
+由服务端按每段 500 字节拆分。`SUBMITTED` 是终止状态，只表示游戏接受了输入，
+不代表对方已经收到。加 `--wait-echo` 可让 CLI 保持连接最多 3 秒，在匹配到游戏
+回显时打印尽力而为的 `ECHOED`。
+
+## 好友与在线状态
+
+```powershell
+dotnet run --project src\FreeChat.Cli -- friends --uri "<link>" --page-size 32
+dotnet run --project src\FreeChat.Cli -- presence --uri "<link>" --content-id <id>
+```
+
+需要先在插件中开启对应社交 API。`friends` 默认只打印分页/状态摘要；加 `--print-json` 可查看完整 proto3 JSON。
 
 ## Ping
 

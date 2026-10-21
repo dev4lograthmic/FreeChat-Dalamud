@@ -251,7 +251,10 @@ internal sealed class FreeChatClient : IAsyncDisposable
         }
     }
 
-    public async Task<SendResult> SendAsync(SendRequest request, CancellationToken cancellationToken)
+    public async Task<SendResult> SendAsync(
+        SendRequest request,
+        CancellationToken cancellationToken,
+        bool waitEcho = false)
     {
         var requestId = NewRequestId();
         await this.SendEnvelopeAsync(new Envelope
@@ -260,9 +263,30 @@ internal sealed class FreeChatClient : IAsyncDisposable
             SendRequest = request,
         }, cancellationToken).ConfigureAwait(false);
 
+        SendResult? submitted = null;
         while (true)
         {
-            var envelope = await this.ReceiveAsync(cancellationToken).ConfigureAwait(false);
+            Envelope envelope;
+            if (submitted is not null && waitEcho)
+            {
+                using var echoTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                echoTimeout.CancelAfter(TimeSpan.FromSeconds(3));
+                try
+                {
+                    envelope = await this.ReceiveAsync(echoTimeout.Token).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+                {
+                    if (!this.printJson)
+                        Console.WriteLine("No echo observed within 3 seconds.");
+                    return submitted;
+                }
+            }
+            else
+            {
+                envelope = await this.ReceiveAsync(cancellationToken).ConfigureAwait(false);
+            }
+
             switch (envelope.PayloadCase)
             {
                 case Envelope.PayloadOneofCase.SendResult:
@@ -278,8 +302,17 @@ internal sealed class FreeChatClient : IAsyncDisposable
                         this.PrintEnvelope(envelope);
                     }
 
+                    if (envelope.SendResult.Status == SendStatus.Echoed)
+                        return submitted ?? envelope.SendResult;
+
                     if (IsTerminal(envelope.SendResult.Status))
-                        return envelope.SendResult;
+                    {
+                        if (!waitEcho || envelope.SendResult.Status != SendStatus.Submitted)
+                            return envelope.SendResult;
+
+                        submitted = envelope.SendResult;
+                    }
+
                     break;
                 case Envelope.PayloadOneofCase.Error:
                     throw new CliException(

@@ -106,7 +106,10 @@ internal static class Program
         var request = BuildSendRequest(options);
         await using var client = CreateClient(endpoint, identity, statePath, options);
         await client.AuthenticateAsync(endpoint.Code, cancellation.Token).ConfigureAwait(false);
-        var result = await client.SendAsync(request, cancellation.Token).ConfigureAwait(false);
+        var result = await client.SendAsync(
+            request,
+            cancellation.Token,
+            options.Has("wait-echo")).ConfigureAwait(false);
         return result.Status is SendStatus.Submitted or SendStatus.Echoed ? 0 : 1;
     }
 
@@ -343,6 +346,7 @@ internal static class Program
               --channel <name>       say, party, shout, yell, alliance, fc, ls1..8, cwls1..8, novice, pvp, tell
               --text <text>          Structured message text
               --target <Name@World>  Required for --channel tell
+              --wait-echo            Wait up to 3 seconds for a best-effort ECHOED result
 
             Social options:
               --page-size <n>        Friend list page size (0 = server default, max 200)
