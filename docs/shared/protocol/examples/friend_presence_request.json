@@ -1,0 +1,6 @@
+{
+  "requestId": "presence-1",
+  "friendPresenceRequest": {
+    "contentId": "12345678901234567"
+  }
+}

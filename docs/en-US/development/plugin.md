@@ -34,8 +34,9 @@ rate limits, command blocklist), and **Logs**.
 | `Plugin` | Dalamud lifecycle, services, commands, login/logout |
 | `ChatCapture` | Subscribes to the three `IChatGui` sources |
 | `ChatEventFactory` | Converts `IChatMessage` / `ILogMessage` to `ChatEvent` |
-| `ChatEnricher` | Converts SeString payloads to protocol segments |
-| `ServerHost` | Starts/stops `FreeChatServer`, updates character |
+| `ChatEnricher` | Converts SeString payloads to protocol segments/chunks |
+| `GameSocialData` | Framework-thread linkshell names, friend list, presence |
+| `ServerHost` | Starts/stops `FreeChatServer`, updates character, injects social data |
 | `PairingApprovalService` | Bridges pairing requests to the UI |
 | `ChatSendService` | `ProcessChatBoxEntry`, splitting, blocklist, echo tracking |
 | `Localizer` | Embedded `en-US` / `zh-CN` JSON UI catalogs |
@@ -47,6 +48,7 @@ rate limits, command blocklist), and **Logs**.
 - `SendResult(ECHOED)` is not emitted yet; outgoing `ChatEvent.origin_request_id`
   is populated for clients that need correlation.
 - `ChatEvent.Original*` fields are not populated yet.
-- Linkshell/CWLS display names are not resolved yet.
+- Linkshell/CWLS names are filled into `ChatEvent.channel_name`.
+- Friend list and presence are opt-in; see the social API docs.
 - The QR code encodes the deep link; scan it from the **Pairing** tab or copy the
   link into a client.

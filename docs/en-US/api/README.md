@@ -52,6 +52,7 @@ A runnable reference implementation is in
 | [Authentication](auth.md) | Deep links, ClientHello, pairing, challenge, Welcome |
 | [Subscriptions](subscription.md) | Subscribe, filters, replay, HistoryTruncated, session handling |
 | [Chat events](chat-events.md) | ChatEvent fields, channels, sources, chunks/segments, echo correlation |
+| [Social data](social.md) | Linkshell names, friend list snapshots, friend presence |
 | [Sending](send.md) | raw_text, structured channels, queue, rate limits, SendResult, cancel |
 | [Errors](errors.md) | ErrorCode, SendStatus, CloseCode, slow consumers |
 | [Examples](examples.md) | proto3 JSON examples, CLI examples, minimal client flow |
@@ -74,6 +75,10 @@ A runnable reference implementation is in
 | C→S | `ReplayRequest` | Explicit replay |
 | S→C | `HistoryTruncated` | Requested history is outside the backlog |
 | S→C | `ChatEvent` | Chat event |
+| C→S | `PlayerListRequest` | Request a friend-list snapshot |
+| S→C | `PlayerListSnapshot` | Paginated friend-list snapshot |
+| C→S | `FriendPresenceRequest` | Query presence for one friend |
+| S→C | `FriendPresence` | Single-friend presence result |
 | C→S | `SendRequest` | Raw or structured send |
 | S→C | `SendResult` | Send status |
 | C→S | `SendCancel` | Cancel request (currently limited) |
@@ -107,6 +112,8 @@ send.echo
 pairing.qr
 pairing.device_keys
 tls.pinning.sha256
+social.friend_list (optional)
+social.friend_presence (optional)
 ```
 
 Clients should only use features advertised by both sides; ignore unknown
@@ -125,6 +132,8 @@ features.
   chat history.
 - The server listens on loopback by default; LAN access must be enabled in the
   plugin settings.
+- Linkshell names are resolved automatically. Friend list and presence are
+  opt-in and require a server restart after enabling them.
 
 ## Security notes
 

@@ -1,0 +1,8 @@
+{
+  "requestId": "friends-1",
+  "playerListRequest": {
+    "type": "PLAYER_LIST_TYPE_FRIEND",
+    "expectedOwnerEpoch": "169cdb1edd9b466682a5b9ae14fbfd10",
+    "pageSize": 32
+  }
+}

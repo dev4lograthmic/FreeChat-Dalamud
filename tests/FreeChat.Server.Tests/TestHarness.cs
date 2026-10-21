@@ -74,6 +74,59 @@ internal sealed class RecordingChatSink : IChatSink
         Task.FromResult(new SendResult { Status = SendStatus.Cancelled });
 }
 
+internal sealed class FakeSocialProvider : ISocialDataProvider
+{
+    public FakeSocialProvider(
+        IReadOnlyList<PlayerInfo>? players = null,
+        bool friendListAvailable = true,
+        bool friendPresenceAvailable = true)
+    {
+        this.Players = players ?? Array.Empty<PlayerInfo>();
+        this.FriendListAvailable = friendListAvailable;
+        this.FriendPresenceAvailable = friendPresenceAvailable;
+    }
+
+    public IReadOnlyList<PlayerInfo> Players { get; }
+    public bool FriendListAvailable { get; }
+    public bool FriendPresenceAvailable { get; }
+    public SocialRequestContext? LastContext { get; private set; }
+
+    public Task<FriendListData> GetFriendListAsync(
+        SocialRequestContext context,
+        CancellationToken cancellationToken)
+    {
+        this.LastContext = context;
+        return Task.FromResult(new FriendListData(PlayerListStatus.Success, this.Players));
+    }
+
+    public Task<FriendPresenceData> GetFriendPresenceAsync(
+        ulong contentId,
+        SocialRequestContext context,
+        CancellationToken cancellationToken)
+    {
+        this.LastContext = context;
+        var known = this.Players.Any(x => x.ContentId == contentId);
+        return Task.FromResult(known
+            ? new FriendPresenceData(PlayerListStatus.Success, PresenceState.Online)
+            : new FriendPresenceData(PlayerListStatus.Unavailable, PresenceState.Unknown, "not a friend"));
+    }
+
+    public static IReadOnlyList<PlayerInfo> CreatePlayers(int count) =>
+        Enumerable.Range(1, count)
+            .Select(i => new PlayerInfo
+            {
+                ContentId = (ulong)i,
+                Name = $"Friend {i}",
+                HomeWorldId = 86,
+                HomeWorldName = "Typhon",
+                CurrentWorldId = 86,
+                CurrentWorldName = "Typhon",
+                JobId = 19,
+                JobName = "PLD",
+            })
+            .ToArray();
+}
+
 internal sealed class TestClient : IAsyncDisposable
 {
     private readonly ClientWebSocket socket;

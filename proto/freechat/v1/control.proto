@@ -6,6 +6,7 @@ import "freechat/v1/auth.proto";
 import "freechat/v1/chat.proto";
 import "freechat/v1/common.proto";
 import "freechat/v1/send.proto";
+import "freechat/v1/social.proto";
 import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "FreeChat.Protocol.V1";
@@ -49,6 +50,12 @@ message Envelope {
     SessionEnded session_ended = 33;
     ServerShutdown server_shutdown = 34;
     RateLimitInfo rate_limit = 35;
+
+    // Read-only social data.
+    PlayerListRequest player_list_request = 66;
+    PlayerListSnapshot player_list_snapshot = 67;
+    FriendPresenceRequest friend_presence_request = 68;
+    FriendPresence friend_presence = 69;
   }
 
   reserved 2 to 9, 18 to 19, 29, 36 to 63;

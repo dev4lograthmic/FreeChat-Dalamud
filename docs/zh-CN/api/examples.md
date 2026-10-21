@@ -18,6 +18,10 @@
 | [chat_event_map.json](../../shared/protocol/examples/chat_event_map.json) | 地图链接的 chunks 表示 |
 | [send_request_raw.json](../../shared/protocol/examples/send_request_raw.json) | raw 发送 |
 | [send_request_chat.json](../../shared/protocol/examples/send_request_chat.json) | 结构化发送 |
+| [player_list_request.json](../../shared/protocol/examples/player_list_request.json) | 好友列表请求 |
+| [player_list_snapshot.json](../../shared/protocol/examples/player_list_snapshot.json) | 好友列表快照页 |
+| [friend_presence_request.json](../../shared/protocol/examples/friend_presence_request.json) | 好友在线状态请求 |
+| [friend_presence.json](../../shared/protocol/examples/friend_presence.json) | 好友在线状态结果 |
 | [send_result_submitted.json](../../shared/protocol/examples/send_result_submitted.json) | 提交回执 |
 | [send_result_echoed.json](../../shared/protocol/examples/send_result_echoed.json) | 回显回执 |
 | [error_command_blocked.json](../../shared/protocol/examples/error_command_blocked.json) | 黑名单错误 |

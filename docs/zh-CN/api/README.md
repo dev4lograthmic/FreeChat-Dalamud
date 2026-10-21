@@ -49,6 +49,7 @@
 | [认证与配对](auth.md) | 深链接、ClientHello、PairRequest、Challenge、Welcome |
 | [订阅与回放](subscription.md) | Subscribe、过滤器、回放、HistoryTruncated、会话重置 |
 | [聊天事件](chat-events.md) | ChatEvent 字段、频道、来源、Chunks/Segments、回显关联 |
+| [社交数据](social.md) | 通讯贝名字、好友列表快照、好友在线状态 |
 | [发送消息](send.md) | raw_text、结构化频道、队列、限流、SendResult、取消 |
 | [错误与关闭](errors.md) | ErrorCode、SendStatus、CloseCode、慢消费者 |
 | [示例](examples.md) | proto3 JSON 示例、CLI 示例、最小客户端流程 |
@@ -71,6 +72,10 @@
 | C→S | `ReplayRequest` | 显式回放 |
 | S→C | `HistoryTruncated` | 历史超出 backlog |
 | S→C | `ChatEvent` | 聊天事件 |
+| C→S | `PlayerListRequest` | 请求好友列表快照 |
+| S→C | `PlayerListSnapshot` | 分页好友列表快照 |
+| C→S | `FriendPresenceRequest` | 查询单个好友在线状态 |
+| S→C | `FriendPresence` | 单个好友在线状态结果 |
 | C→S | `SendRequest` | raw/结构化发送 |
 | S→C | `SendResult` | 发送状态 |
 | C→S | `SendCancel` | 取消请求（当前实现有限） |
@@ -103,6 +108,8 @@ send.echo
 pairing.qr
 pairing.device_keys
 tls.pinning.sha256
+social.friend_list（可选）
+social.friend_presence（可选）
 ```
 
 客户端应只使用双方都声明支持的能力；未知能力忽略。
@@ -116,6 +123,7 @@ tls.pinning.sha256
 - `SendResult(SUBMITTED)` 表示游戏聊天框接受了输入，不代表对方收到。
 - 服务端只保存当前游戏会话的 backlog，不持久化聊天记录。
 - 默认只监听 loopback；LAN 需要在插件设置里显式开启。
+- 通讯贝名字自动解析；好友列表和在线状态默认关闭，开启后需要重启服务端。
 
 ## 安全提示
 

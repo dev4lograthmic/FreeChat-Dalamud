@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package freechat.v1;
+
+import "freechat/v1/common.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "FreeChat.Protocol.V1";
+
+// Read-only social data available from the game client.
+//
+// The server exposes this data only when the user explicitly enables it. The
+// friend list is a request/response snapshot; presence is a single-friend
+// query and is only valid for ContentIds present in the current snapshot.
+
+enum PlayerListType {
+  PLAYER_LIST_TYPE_UNSPECIFIED = 0;
+  PLAYER_LIST_TYPE_FRIEND = 1;
+}
+
+enum PlayerListStatus {
+  PLAYER_LIST_STATUS_UNSPECIFIED = 0;
+  PLAYER_LIST_STATUS_SUCCESS = 1;
+  PLAYER_LIST_STATUS_NOT_LOGGED_IN = 2;
+  PLAYER_LIST_STATUS_UNAVAILABLE = 3;
+  PLAYER_LIST_STATUS_BUSY = 4;
+  PLAYER_LIST_STATUS_TIMED_OUT = 5;
+  PLAYER_LIST_STATUS_IDENTITY_CHANGED = 6;
+  PLAYER_LIST_STATUS_FAILED = 7;
+}
+
+enum PresenceState {
+  PRESENCE_STATE_UNSPECIFIED = 0;
+  PRESENCE_STATE_UNKNOWN = 1;
+  PRESENCE_STATE_ONLINE = 2;
+  PRESENCE_STATE_OFFLINE = 3;
+}
+
+message PlayerListRequest {
+  PlayerListType type = 1;
+  // Empty means "the current owner". If set, the server rejects the request
+  // with IDENTITY_CHANGED when the value no longer matches.
+  string expected_owner_key = 2;
+  // Empty means "the current session". Typically Welcome.session_id.
+  string expected_owner_epoch = 3;
+  // 0 uses the server default (32). The server clamps to 1..200.
+  uint32 page_size = 4;
+}
+
+message PlayerInfo {
+  uint64 content_id = 1;
+  string name = 2;
+  uint32 home_world_id = 3;
+  string home_world_name = 4;
+  uint32 current_world_id = 5;
+  string current_world_name = 6;
+  string free_company_tag = 7;
+  uint64 status_bits = 8;
+  uint32 job_id = 9;
+  string job_name = 10;
+  uint32 territory_id = 11;
+  string territory_name = 12;
+  uint32 grand_company = 13;
+  uint32 languages = 14;
+  uint32 main_language = 15;
+  // True when the name or home world could not be resolved. Clients should
+  // still display the entry, but should not rely on identity fields.
+  bool identity_unavailable = 16;
+}
+
+message PlayerListSnapshot {
+  PlayerListType type = 1;
+  PlayerListStatus status = 2;
+  CharacterRef owner = 3;
+  string owner_epoch = 4;
+  string snapshot_id = 5;
+  google.protobuf.Timestamp captured_at = 6;
+  // 0-based page index.
+  uint32 page_index = 7;
+  uint32 page_count = 8;
+  repeated PlayerInfo players = 9;
+  string message = 10;
+}
+
+message FriendPresenceRequest {
+  uint64 content_id = 1;
+}
+
+message FriendPresence {
+  uint64 content_id = 1;
+  PresenceState state = 2;
+  PlayerListStatus status = 3;
+  google.protobuf.Timestamp checked_at = 4;
+}

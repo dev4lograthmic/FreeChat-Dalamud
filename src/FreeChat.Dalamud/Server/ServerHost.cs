@@ -19,6 +19,7 @@ public sealed class ServerHost : IDisposable
     private readonly IPluginLog log;
     private readonly UiLog uiLog;
     private readonly IChatSink chatSink;
+    private readonly ISocialDataProvider? social;
     private string? lastCharacterKey;
     private string? advertisedHost;
 
@@ -27,13 +28,15 @@ public sealed class ServerHost : IDisposable
         IDalamudPluginInterface pluginInterface,
         IPluginLog log,
         UiLog uiLog,
-        IChatSink chatSink)
+        IChatSink chatSink,
+        ISocialDataProvider? social = null)
     {
         this.configuration = configuration;
         this.pluginInterface = pluginInterface;
         this.log = log;
         this.uiLog = uiLog;
         this.chatSink = chatSink;
+        this.social = social;
         this.Approval = new PairingApprovalService();
     }
 
@@ -71,7 +74,7 @@ public sealed class ServerHost : IDisposable
                 SendRateLimitBurst = Math.Clamp(this.configuration.SendRateLimitBurst, 1, 200),
             };
 
-            var server = new FreeChatServer(options, this.chatSink, this.Approval);
+            var server = new FreeChatServer(options, this.chatSink, this.Approval, social: this.social);
             server.StartAsync().GetAwaiter().GetResult();
             this.Server = server;
             this.lastCharacterKey = null;

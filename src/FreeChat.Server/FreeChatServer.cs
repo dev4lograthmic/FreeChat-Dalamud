@@ -29,10 +29,12 @@ public sealed class FreeChatServer : IAsyncDisposable
         IChatSink chatSink,
         IPairingApproval? pairingApproval = null,
         IDeviceStore? deviceStore = null,
-        IClock? clock = null)
+        IClock? clock = null,
+        ISocialDataProvider? social = null)
     {
         this.options = options;
         this.ChatSink = chatSink;
+        this.Social = social;
         this.clock = clock ?? new SystemClock();
         this.devices = deviceStore ?? new JsonDeviceStore(
             options.DeviceStorePath
@@ -55,7 +57,12 @@ public sealed class FreeChatServer : IAsyncDisposable
             this.certificates.Certificate,
             this.OnConnectionAsync);
 
-        this.EnabledFeatures = ProtocolConstants.DefaultFeatures;
+        var features = new List<string>(ProtocolConstants.DefaultFeatures);
+        if (social?.FriendListAvailable == true)
+            features.Add(ProtocolConstants.FriendListFeature);
+        if (social?.FriendPresenceAvailable == true)
+            features.Add(ProtocolConstants.FriendPresenceFeature);
+        this.EnabledFeatures = features;
     }
 
     public string ServerId => this.options.ServerId;
@@ -70,6 +77,7 @@ public sealed class FreeChatServer : IAsyncDisposable
     public ChatBacklog Backlog { get; }
     public TokenBucket SendLimiter { get; }
     public IChatSink ChatSink { get; }
+    public ISocialDataProvider? Social { get; }
     public IReadOnlyList<string> EnabledFeatures { get; }
     public byte[] Fingerprint => this.certificates.Fingerprint;
     public int Port => this.transport.Port;

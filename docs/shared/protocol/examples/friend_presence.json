@@ -1,0 +1,9 @@
+{
+  "requestId": "presence-1",
+  "friendPresence": {
+    "contentId": "12345678901234567",
+    "state": "PRESENCE_STATE_ONLINE",
+    "status": "PLAYER_LIST_STATUS_SUCCESS",
+    "checkedAt": "2026-10-21T12:31:00.000Z"
+  }
+}

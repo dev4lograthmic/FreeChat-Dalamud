@@ -1,6 +1,7 @@
 using System.Net.Sockets;
 using System.Net.WebSockets;
 using System.Security.Cryptography;
+using FreeChat.Protocol;
 using FreeChat.Protocol.V1;
 using FreeChat.Server;
 using Google.Protobuf;
@@ -300,6 +301,115 @@ public sealed class ServerIntegrationTests
         await Assert.ThrowsAnyAsync<SocketException>(() => conflict.StartAsync());
     }
 
+    [Fact]
+    public async Task PlayerList_PaginatesWithStableSnapshot()
+    {
+        var provider = new FakeSocialProvider(FakeSocialProvider.CreatePlayers(70));
+        await using var context = await TestServerContext.StartAsync(provider);
+        Assert.Contains(ProtocolConstants.FriendListFeature, context.Server.EnabledFeatures);
+        Assert.Contains(ProtocolConstants.FriendPresenceFeature, context.Server.EnabledFeatures);
+        var (key, publicKey) = TestKeys.Create();
+        await using var session = await PairAsync(context, publicKey);
+
+        await session.Client.SendAsync(new Envelope
+        {
+            RequestId = "friends",
+            PlayerListRequest = new PlayerListRequest
+            {
+                Type = PlayerListType.Friend,
+                PageSize = 32,
+            },
+        });
+
+        var pages = new List<PlayerListSnapshot>();
+        for (var i = 0; i < 3; i++)
+        {
+            var response = await session.Client.ReceiveAsync();
+            Assert.Equal(Envelope.PayloadOneofCase.PlayerListSnapshot, response.PayloadCase);
+            pages.Add(response.PlayerListSnapshot);
+        }
+
+        Assert.All(pages, page => Assert.Equal(PlayerListStatus.Success, page.Status));
+        Assert.Equal(new uint[] { 0, 1, 2 }, pages.Select(x => x.PageIndex).ToArray());
+        Assert.All(pages, page => Assert.Equal(3u, page.PageCount));
+        Assert.Single(pages.Select(x => x.SnapshotId).Distinct());
+        Assert.Equal(70, pages.Sum(x => x.Players.Count));
+        Assert.Equal("Tester", provider.LastContext?.Owner?.Name);
+        key.Dispose();
+    }
+
+    [Fact]
+    public async Task PlayerList_FeatureDisabled_ReturnsError()
+    {
+        await using var context = await TestServerContext.StartAsync();
+        var (key, publicKey) = TestKeys.Create();
+        await using var session = await PairAsync(context, publicKey);
+
+        await session.Client.SendAsync(new Envelope
+        {
+            RequestId = "friends",
+            PlayerListRequest = new PlayerListRequest { Type = PlayerListType.Friend },
+        });
+
+        var response = await session.Client.ReceiveAsync();
+        Assert.Equal(Envelope.PayloadOneofCase.Error, response.PayloadCase);
+        Assert.Equal(ErrorCode.FeatureDisabled, response.Error.Code);
+        key.Dispose();
+    }
+
+    [Fact]
+    public async Task PlayerList_OwnerMismatch_ReturnsIdentityChanged()
+    {
+        var provider = new FakeSocialProvider(FakeSocialProvider.CreatePlayers(1));
+        await using var context = await TestServerContext.StartAsync(provider);
+        var (key, publicKey) = TestKeys.Create();
+        await using var session = await PairAsync(context, publicKey);
+
+        await session.Client.SendAsync(new Envelope
+        {
+            RequestId = "friends",
+            PlayerListRequest = new PlayerListRequest
+            {
+                Type = PlayerListType.Friend,
+                ExpectedOwnerKey = "other-owner",
+            },
+        });
+
+        var response = await session.Client.ReceiveAsync();
+        Assert.Equal(Envelope.PayloadOneofCase.PlayerListSnapshot, response.PayloadCase);
+        Assert.Equal(PlayerListStatus.IdentityChanged, response.PlayerListSnapshot.Status);
+        key.Dispose();
+    }
+
+    [Fact]
+    public async Task FriendPresence_OnlyAcceptsKnownFriend()
+    {
+        var provider = new FakeSocialProvider(FakeSocialProvider.CreatePlayers(2));
+        await using var context = await TestServerContext.StartAsync(provider);
+        var (key, publicKey) = TestKeys.Create();
+        await using var session = await PairAsync(context, publicKey);
+
+        await session.Client.SendAsync(new Envelope
+        {
+            RequestId = "presence-1",
+            FriendPresenceRequest = new FriendPresenceRequest { ContentId = 1 },
+        });
+        var known = await session.Client.ReceiveAsync();
+        Assert.Equal(Envelope.PayloadOneofCase.FriendPresence, known.PayloadCase);
+        Assert.Equal(PlayerListStatus.Success, known.FriendPresence.Status);
+        Assert.Equal(PresenceState.Online, known.FriendPresence.State);
+
+        await session.Client.SendAsync(new Envelope
+        {
+            RequestId = "presence-2",
+            FriendPresenceRequest = new FriendPresenceRequest { ContentId = 999 },
+        });
+        var unknown = await session.Client.ReceiveAsync();
+        Assert.Equal(PlayerListStatus.Unavailable, unknown.FriendPresence.Status);
+        Assert.Equal(PresenceState.Unknown, unknown.FriendPresence.State);
+        key.Dispose();
+    }
+
     private static async Task<PairSession> PairAsync(
         TestServerContext context,
         byte[] publicKey,
@@ -362,7 +472,7 @@ internal sealed class TestServerContext : IAsyncDisposable
     public FakeClock Clock { get; }
     public string Root { get; }
 
-    public static async Task<TestServerContext> StartAsync()
+    public static async Task<TestServerContext> StartAsync(ISocialDataProvider? social = null)
     {
         var root = Path.Combine(Path.GetTempPath(), "freechat-tests", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
@@ -384,7 +494,7 @@ internal sealed class TestServerContext : IAsyncDisposable
             SendRateLimitBurst = 10,
         };
 
-        var server = new FreeChatServer(options, sink, new AutoApprovePairing(), devices, clock);
+        var server = new FreeChatServer(options, sink, new AutoApprovePairing(), devices, clock, social);
         server.UpdateCharacter(new CharacterRef
         {
             Name = "Tester",

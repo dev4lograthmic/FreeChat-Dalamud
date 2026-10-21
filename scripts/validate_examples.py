@@ -36,6 +36,10 @@ ENVELOPE_PAYLOADS = {
     "sessionEnded",
     "serverShutdown",
     "rateLimit",
+    "playerListRequest",
+    "playerListSnapshot",
+    "friendPresenceRequest",
+    "friendPresence",
 }
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]

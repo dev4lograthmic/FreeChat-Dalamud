@@ -12,19 +12,26 @@ namespace FreeChat.Dalamud.Chat;
 public sealed class ChatEventFactory
 {
     private readonly ChatEnricher enricher;
+    private readonly Func<ChatChannel, string?>? channelName;
 
-    public ChatEventFactory(ChatEnricher enricher) => this.enricher = enricher;
+    public ChatEventFactory(ChatEnricher enricher, Func<ChatChannel, string?>? channelName = null)
+    {
+        this.enricher = enricher;
+        this.channelName = channelName;
+    }
 
     public ChatEvent Create(IChatMessage message, ChatSource source, string? localPlayerName)
     {
         var kind = (ushort)message.LogKind;
+        var channel = MapChannel(kind);
         var sender = CreateCharacter(message.Sender, localPlayerName);
         var chatEvent = new ChatEvent
         {
-            Channel = MapChannel(kind),
+            Channel = channel,
             LogKind = kind,
             Source = source,
             Sender = sender,
+            ChannelName = this.channelName?.Invoke(channel) ?? string.Empty,
             Text = ExtractText(message.Message),
             RawSender = ByteString.CopyFrom(message.Sender.Encode()),
             RawMessage = ByteString.CopyFrom(message.Message.Encode()),

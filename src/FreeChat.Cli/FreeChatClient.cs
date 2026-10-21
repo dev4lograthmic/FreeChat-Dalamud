@@ -56,6 +56,8 @@ internal sealed class FreeChatClient : IAsyncDisposable
             },
         };
         hello.ClientHello.Capabilities.Add(ProtocolConstants.DefaultFeatures);
+        hello.ClientHello.Capabilities.Add(ProtocolConstants.FriendListFeature);
+        hello.ClientHello.Capabilities.Add(ProtocolConstants.FriendPresenceFeature);
         await this.SendEnvelopeAsync(hello, cancellationToken).ConfigureAwait(false);
 
         using var authTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
@@ -292,6 +294,114 @@ internal sealed class FreeChatClient : IAsyncDisposable
         }
     }
 
+    public async Task<IReadOnlyList<PlayerListSnapshot>> RequestFriendListAsync(
+        uint pageSize,
+        string? expectedOwnerKey,
+        string? expectedOwnerEpoch,
+        CancellationToken cancellationToken)
+    {
+        var requestId = NewRequestId();
+        await this.SendEnvelopeAsync(new Envelope
+        {
+            RequestId = requestId,
+            PlayerListRequest = new PlayerListRequest
+            {
+                Type = PlayerListType.Friend,
+                PageSize = pageSize,
+                ExpectedOwnerKey = expectedOwnerKey ?? string.Empty,
+                ExpectedOwnerEpoch = expectedOwnerEpoch ?? string.Empty,
+            },
+        }, cancellationToken).ConfigureAwait(false);
+
+        var pages = new List<PlayerListSnapshot>();
+        var expectedPageCount = 1u;
+        while (pages.Count < expectedPageCount)
+        {
+            var envelope = await this.ReceiveAsync(cancellationToken).ConfigureAwait(false);
+            switch (envelope.PayloadCase)
+            {
+                case Envelope.PayloadOneofCase.PlayerListSnapshot:
+                {
+                    var page = envelope.PlayerListSnapshot;
+                    if (this.printJson)
+                        this.PrintEnvelope(envelope);
+                    else
+                    {
+                        Console.WriteLine(
+                            $"Friend list page {page.PageIndex + 1}/{page.PageCount}: "
+                            + $"status={page.Status}, players={page.Players.Count}"
+                            + (string.IsNullOrEmpty(page.Message) ? string.Empty : $", message={page.Message}"));
+                    }
+
+                    if (page.Status != PlayerListStatus.Success)
+                        return [page];
+
+                    expectedPageCount = page.PageCount;
+                    pages.Add(page);
+                    break;
+                }
+                case Envelope.PayloadOneofCase.Error:
+                    throw new CliException(
+                        $"Friend list failed: {envelope.Error.Code}: {envelope.Error.Message}");
+                case Envelope.PayloadOneofCase.AuthError:
+                    throw new CliException(
+                        $"Authentication failed: {envelope.AuthError.Code}: {envelope.AuthError.Message}");
+                case Envelope.PayloadOneofCase.Ping:
+                    await this.SendPongAsync(envelope.Ping, cancellationToken).ConfigureAwait(false);
+                    break;
+                default:
+                    this.PrintEnvelope(envelope);
+                    break;
+            }
+        }
+
+        if (!this.printJson)
+            Console.WriteLine($"Friend list complete: {pages.Sum(x => x.Players.Count)} players.");
+        return pages;
+    }
+
+    public async Task<FriendPresence> RequestPresenceAsync(
+        ulong contentId,
+        CancellationToken cancellationToken)
+    {
+        await this.SendEnvelopeAsync(new Envelope
+        {
+            RequestId = NewRequestId(),
+            FriendPresenceRequest = new FriendPresenceRequest { ContentId = contentId },
+        }, cancellationToken).ConfigureAwait(false);
+
+        while (true)
+        {
+            var envelope = await this.ReceiveAsync(cancellationToken).ConfigureAwait(false);
+            switch (envelope.PayloadCase)
+            {
+                case Envelope.PayloadOneofCase.FriendPresence:
+                    if (this.printJson)
+                        this.PrintEnvelope(envelope);
+                    else
+                    {
+                        var presence = envelope.FriendPresence;
+                        Console.WriteLine(
+                            $"Presence {presence.ContentId}: {presence.Status}, {presence.State}");
+                    }
+
+                    return envelope.FriendPresence;
+                case Envelope.PayloadOneofCase.Error:
+                    throw new CliException(
+                        $"Presence failed: {envelope.Error.Code}: {envelope.Error.Message}");
+                case Envelope.PayloadOneofCase.AuthError:
+                    throw new CliException(
+                        $"Authentication failed: {envelope.AuthError.Code}: {envelope.AuthError.Message}");
+                case Envelope.PayloadOneofCase.Ping:
+                    await this.SendPongAsync(envelope.Ping, cancellationToken).ConfigureAwait(false);
+                    break;
+                default:
+                    this.PrintEnvelope(envelope);
+                    break;
+            }
+        }
+    }
+
     public async Task PingAsync(CancellationToken cancellationToken)
     {
         var nonce = RandomNumberGenerator.GetBytes(16);
@@ -469,6 +579,20 @@ internal sealed class FreeChatClient : IAsyncDisposable
                 var sender = chat.Sender is { Name.Length: > 0 } value ? value.Name : "-";
                 Console.WriteLine(
                     $"[{chat.Sequence}] {chat.Channel} {sender}: {chat.Text.Replace('\n', ' ')}");
+                break;
+            }
+            case Envelope.PayloadOneofCase.PlayerListSnapshot:
+            {
+                var page = envelope.PlayerListSnapshot;
+                Console.WriteLine(
+                    $"Friend list page {page.PageIndex + 1}/{page.PageCount}: "
+                    + $"status={page.Status}, players={page.Players.Count}");
+                break;
+            }
+            case Envelope.PayloadOneofCase.FriendPresence:
+            {
+                var presence = envelope.FriendPresence;
+                Console.WriteLine($"Presence {presence.ContentId}: {presence.Status}, {presence.State}");
                 break;
             }
             case Envelope.PayloadOneofCase.HistoryTruncated:

@@ -33,8 +33,9 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
 | `Plugin` | Dalamud 生命周期、服务、命令、登录/登出 |
 | `ChatCapture` | 订阅三个 `IChatGui` 来源 |
 | `ChatEventFactory` | 把 `IChatMessage` / `ILogMessage` 转成 `ChatEvent` |
-| `ChatEnricher` | 把 SeString payload 转成协议 segments |
-| `ServerHost` | 启停 `FreeChatServer`、更新角色 |
+| `ChatEnricher` | 把 SeString payload 转成协议 segments/chunks |
+| `GameSocialData` | 在 framework 线程读取通讯贝名字、好友列表、在线状态 |
+| `ServerHost` | 启停 `FreeChatServer`、更新角色、注入社交数据 |
 | `PairingApprovalService` | 把配对请求接到 UI |
 | `ChatSendService` | `ProcessChatBoxEntry`、分段、黑名单、echo 跟踪 |
 | `Localizer` | 内嵌 `en-US` / `zh-CN` JSON UI 文案 |
@@ -45,5 +46,6 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
 
 - 暂不发送 `SendResult(ECHOED)`；outgoing `ChatEvent.origin_request_id` 已填充，客户端可自行关联。
 - `ChatEvent.Original*` 字段暂未填充。
-- 通讯贝/CWLS 名称暂未解析。
+- 通讯贝/CWLS 名字会填入 `ChatEvent.channel_name`。
+- 好友列表和在线状态默认关闭，见社交 API 文档。
 - 二维码编码的是深链接；可在 **配对** 标签扫码，或复制链接到客户端。

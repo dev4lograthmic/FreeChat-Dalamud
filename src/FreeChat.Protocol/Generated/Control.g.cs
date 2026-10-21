@@ -27,59 +27,67 @@ namespace FreeChat.Protocol.V1 {
             "ChlmcmVlY2hhdC92MS9jb250cm9sLnByb3RvEgtmcmVlY2hhdC52MRoWZnJl",
             "ZWNoYXQvdjEvYXV0aC5wcm90bxoWZnJlZWNoYXQvdjEvY2hhdC5wcm90bxoY",
             "ZnJlZWNoYXQvdjEvY29tbW9uLnByb3RvGhZmcmVlY2hhdC92MS9zZW5kLnBy",
-            "b3RvGh9nb29nbGUvcHJvdG9idWYvdGltZXN0YW1wLnByb3RvIr4LCghFbnZl",
-            "bG9wZRIdCgpyZXF1ZXN0X2lkGAEgASgJUglyZXF1ZXN0SWQSPQoMY2xpZW50",
-            "X2hlbGxvGAogASgLMhguZnJlZWNoYXQudjEuQ2xpZW50SGVsbG9IAFILY2xp",
-            "ZW50SGVsbG8SMAoHd2VsY29tZRgLIAEoCzIULmZyZWVjaGF0LnYxLldlbGNv",
-            "bWVIAFIHd2VsY29tZRJJChBwYWlyaW5nX3JlcXVpcmVkGAwgASgLMhwuZnJl",
-            "ZWNoYXQudjEuUGFpcmluZ1JlcXVpcmVkSABSD3BhaXJpbmdSZXF1aXJlZBI9",
-            "CgxwYWlyX3JlcXVlc3QYDSABKAsyGC5mcmVlY2hhdC52MS5QYWlyUmVxdWVz",
-            "dEgAUgtwYWlyUmVxdWVzdBI6CgtwYWlyX3Jlc3VsdBgOIAEoCzIXLmZyZWVj",
-            "aGF0LnYxLlBhaXJSZXN1bHRIAFIKcGFpclJlc3VsdBI2CgljaGFsbGVuZ2UY",
-            "DyABKAsyFi5mcmVlY2hhdC52MS5DaGFsbGVuZ2VIAFIJY2hhbGxlbmdlEk8K",
-            "EmNoYWxsZW5nZV9yZXNwb25zZRgQIAEoCzIeLmZyZWVjaGF0LnYxLkNoYWxs",
-            "ZW5nZVJlc3BvbnNlSABSEWNoYWxsZW5nZVJlc3BvbnNlEjcKCmF1dGhfZXJy",
-            "b3IYESABKAsyFi5mcmVlY2hhdC52MS5BdXRoRXJyb3JIAFIJYXV0aEVycm9y",
-            "EjYKCXN1YnNjcmliZRgUIAEoCzIWLmZyZWVjaGF0LnYxLlN1YnNjcmliZUgA",
-            "UglzdWJzY3JpYmUSOQoKc3Vic2NyaWJlZBgVIAEoCzIXLmZyZWVjaGF0LnYx",
-            "LlN1YnNjcmliZWRIAFIKc3Vic2NyaWJlZBI8Cgt1bnN1YnNjcmliZRgWIAEo",
-            "CzIYLmZyZWVjaGF0LnYxLlVuc3Vic2NyaWJlSABSC3Vuc3Vic2NyaWJlEkMK",
-            "DnJlcGxheV9yZXF1ZXN0GBcgASgLMhouZnJlZWNoYXQudjEuUmVwbGF5UmVx",
-            "dWVzdEgAUg1yZXBsYXlSZXF1ZXN0EkwKEWhpc3RvcnlfdHJ1bmNhdGVkGBgg",
-            "ASgLMh0uZnJlZWNoYXQudjEuSGlzdG9yeVRydW5jYXRlZEgAUhBoaXN0b3J5",
-            "VHJ1bmNhdGVkEjcKCmNoYXRfZXZlbnQYGSABKAsyFi5mcmVlY2hhdC52MS5D",
-            "aGF0RXZlbnRIAFIJY2hhdEV2ZW50Ej0KDHNlbmRfcmVxdWVzdBgaIAEoCzIY",
-            "LmZyZWVjaGF0LnYxLlNlbmRSZXF1ZXN0SABSC3NlbmRSZXF1ZXN0EjoKC3Nl",
-            "bmRfcmVzdWx0GBsgASgLMhcuZnJlZWNoYXQudjEuU2VuZFJlc3VsdEgAUgpz",
-            "ZW5kUmVzdWx0EjoKC3NlbmRfY2FuY2VsGBwgASgLMhcuZnJlZWNoYXQudjEu",
-            "U2VuZENhbmNlbEgAUgpzZW5kQ2FuY2VsEicKBHBpbmcYHiABKAsyES5mcmVl",
-            "Y2hhdC52MS5QaW5nSABSBHBpbmcSJwoEcG9uZxgfIAEoCzIRLmZyZWVjaGF0",
-            "LnYxLlBvbmdIAFIEcG9uZxIqCgVlcnJvchggIAEoCzISLmZyZWVjaGF0LnYx",
-            "LkVycm9ySABSBWVycm9yEkAKDXNlc3Npb25fZW5kZWQYISABKAsyGS5mcmVl",
-            "Y2hhdC52MS5TZXNzaW9uRW5kZWRIAFIMc2Vzc2lvbkVuZGVkEkYKD3NlcnZl",
-            "cl9zaHV0ZG93bhgiIAEoCzIbLmZyZWVjaGF0LnYxLlNlcnZlclNodXRkb3du",
-            "SABSDnNlcnZlclNodXRkb3duEjsKCnJhdGVfbGltaXQYIyABKAsyGi5mcmVl",
-            "Y2hhdC52MS5SYXRlTGltaXRJbmZvSABSCXJhdGVMaW1pdEIJCgdwYXlsb2Fk",
-            "SgQIAhAKSgQIEhAUSgQIHRAeSgQIJBBAIl8KBFBpbmcSFAoFbm9uY2UYASAB",
-            "KAxSBW5vbmNlEjsKC2NsaWVudF90aW1lGAIgASgLMhouZ29vZ2xlLnByb3Rv",
-            "YnVmLlRpbWVzdGFtcFIKY2xpZW50VGltZUoECAMQCCJfCgRQb25nEhQKBW5v",
-            "bmNlGAEgASgMUgVub25jZRI7CgtzZXJ2ZXJfdGltZRgCIAEoCzIaLmdvb2ds",
-            "ZS5wcm90b2J1Zi5UaW1lc3RhbXBSCnNlcnZlclRpbWVKBAgDEAgieQoFRXJy",
-            "b3ISKgoEY29kZRgBIAEoDjIWLmZyZWVjaGF0LnYxLkVycm9yQ29kZVIEY29k",
-            "ZRIYCgdtZXNzYWdlGAIgASgJUgdtZXNzYWdlEiQKDnJldHJ5X2FmdGVyX21z",
-            "GAMgASgNUgxyZXRyeUFmdGVyTXNKBAgEEAgiYwoMU2Vzc2lvbkVuZGVkEhYK",
-            "BnJlYXNvbhgBIAEoCVIGcmVhc29uEjUKCGVuZGVkX2F0GAIgASgLMhouZ29v",
-            "Z2xlLnByb3RvYnVmLlRpbWVzdGFtcFIHZW5kZWRBdEoECAMQCCJUCg5TZXJ2",
-            "ZXJTaHV0ZG93bhIWCgZyZWFzb24YASABKAlSBnJlYXNvbhIkCg5yZXRyeV9h",
-            "ZnRlcl9tcxgCIAEoDVIMcmV0cnlBZnRlck1zSgQIAxAIIoUBCg1SYXRlTGlt",
-            "aXRJbmZvEhQKBXNjb3BlGAEgASgJUgVzY29wZRIUCgVsaW1pdBgCIAEoDVIF",
-            "bGltaXQSHAoJcmVtYWluaW5nGAMgASgNUglyZW1haW5pbmcSJAoOcmVzZXRf",
-            "YWZ0ZXJfbXMYBCABKA1SDHJlc2V0QWZ0ZXJNc0oECAUQCEIXqgIURnJlZUNo",
-            "YXQuUHJvdG9jb2wuVjFiBnByb3RvMw=="));
+            "b3RvGhhmcmVlY2hhdC92MS9zb2NpYWwucHJvdG8aH2dvb2dsZS9wcm90b2J1",
+            "Zi90aW1lc3RhbXAucHJvdG8iiw4KCEVudmVsb3BlEh0KCnJlcXVlc3RfaWQY",
+            "ASABKAlSCXJlcXVlc3RJZBI9CgxjbGllbnRfaGVsbG8YCiABKAsyGC5mcmVl",
+            "Y2hhdC52MS5DbGllbnRIZWxsb0gAUgtjbGllbnRIZWxsbxIwCgd3ZWxjb21l",
+            "GAsgASgLMhQuZnJlZWNoYXQudjEuV2VsY29tZUgAUgd3ZWxjb21lEkkKEHBh",
+            "aXJpbmdfcmVxdWlyZWQYDCABKAsyHC5mcmVlY2hhdC52MS5QYWlyaW5nUmVx",
+            "dWlyZWRIAFIPcGFpcmluZ1JlcXVpcmVkEj0KDHBhaXJfcmVxdWVzdBgNIAEo",
+            "CzIYLmZyZWVjaGF0LnYxLlBhaXJSZXF1ZXN0SABSC3BhaXJSZXF1ZXN0EjoK",
+            "C3BhaXJfcmVzdWx0GA4gASgLMhcuZnJlZWNoYXQudjEuUGFpclJlc3VsdEgA",
+            "UgpwYWlyUmVzdWx0EjYKCWNoYWxsZW5nZRgPIAEoCzIWLmZyZWVjaGF0LnYx",
+            "LkNoYWxsZW5nZUgAUgljaGFsbGVuZ2USTwoSY2hhbGxlbmdlX3Jlc3BvbnNl",
+            "GBAgASgLMh4uZnJlZWNoYXQudjEuQ2hhbGxlbmdlUmVzcG9uc2VIAFIRY2hh",
+            "bGxlbmdlUmVzcG9uc2USNwoKYXV0aF9lcnJvchgRIAEoCzIWLmZyZWVjaGF0",
+            "LnYxLkF1dGhFcnJvckgAUglhdXRoRXJyb3ISNgoJc3Vic2NyaWJlGBQgASgL",
+            "MhYuZnJlZWNoYXQudjEuU3Vic2NyaWJlSABSCXN1YnNjcmliZRI5CgpzdWJz",
+            "Y3JpYmVkGBUgASgLMhcuZnJlZWNoYXQudjEuU3Vic2NyaWJlZEgAUgpzdWJz",
+            "Y3JpYmVkEjwKC3Vuc3Vic2NyaWJlGBYgASgLMhguZnJlZWNoYXQudjEuVW5z",
+            "dWJzY3JpYmVIAFILdW5zdWJzY3JpYmUSQwoOcmVwbGF5X3JlcXVlc3QYFyAB",
+            "KAsyGi5mcmVlY2hhdC52MS5SZXBsYXlSZXF1ZXN0SABSDXJlcGxheVJlcXVl",
+            "c3QSTAoRaGlzdG9yeV90cnVuY2F0ZWQYGCABKAsyHS5mcmVlY2hhdC52MS5I",
+            "aXN0b3J5VHJ1bmNhdGVkSABSEGhpc3RvcnlUcnVuY2F0ZWQSNwoKY2hhdF9l",
+            "dmVudBgZIAEoCzIWLmZyZWVjaGF0LnYxLkNoYXRFdmVudEgAUgljaGF0RXZl",
+            "bnQSPQoMc2VuZF9yZXF1ZXN0GBogASgLMhguZnJlZWNoYXQudjEuU2VuZFJl",
+            "cXVlc3RIAFILc2VuZFJlcXVlc3QSOgoLc2VuZF9yZXN1bHQYGyABKAsyFy5m",
+            "cmVlY2hhdC52MS5TZW5kUmVzdWx0SABSCnNlbmRSZXN1bHQSOgoLc2VuZF9j",
+            "YW5jZWwYHCABKAsyFy5mcmVlY2hhdC52MS5TZW5kQ2FuY2VsSABSCnNlbmRD",
+            "YW5jZWwSJwoEcGluZxgeIAEoCzIRLmZyZWVjaGF0LnYxLlBpbmdIAFIEcGlu",
+            "ZxInCgRwb25nGB8gASgLMhEuZnJlZWNoYXQudjEuUG9uZ0gAUgRwb25nEioK",
+            "BWVycm9yGCAgASgLMhIuZnJlZWNoYXQudjEuRXJyb3JIAFIFZXJyb3ISQAoN",
+            "c2Vzc2lvbl9lbmRlZBghIAEoCzIZLmZyZWVjaGF0LnYxLlNlc3Npb25FbmRl",
+            "ZEgAUgxzZXNzaW9uRW5kZWQSRgoPc2VydmVyX3NodXRkb3duGCIgASgLMhsu",
+            "ZnJlZWNoYXQudjEuU2VydmVyU2h1dGRvd25IAFIOc2VydmVyU2h1dGRvd24S",
+            "OwoKcmF0ZV9saW1pdBgjIAEoCzIaLmZyZWVjaGF0LnYxLlJhdGVMaW1pdElu",
+            "Zm9IAFIJcmF0ZUxpbWl0ElAKE3BsYXllcl9saXN0X3JlcXVlc3QYQiABKAsy",
+            "Hi5mcmVlY2hhdC52MS5QbGF5ZXJMaXN0UmVxdWVzdEgAUhFwbGF5ZXJMaXN0",
+            "UmVxdWVzdBJTChRwbGF5ZXJfbGlzdF9zbmFwc2hvdBhDIAEoCzIfLmZyZWVj",
+            "aGF0LnYxLlBsYXllckxpc3RTbmFwc2hvdEgAUhJwbGF5ZXJMaXN0U25hcHNo",
+            "b3QSXAoXZnJpZW5kX3ByZXNlbmNlX3JlcXVlc3QYRCABKAsyIi5mcmVlY2hh",
+            "dC52MS5GcmllbmRQcmVzZW5jZVJlcXVlc3RIAFIVZnJpZW5kUHJlc2VuY2VS",
+            "ZXF1ZXN0EkYKD2ZyaWVuZF9wcmVzZW5jZRhFIAEoCzIbLmZyZWVjaGF0LnYx",
+            "LkZyaWVuZFByZXNlbmNlSABSDmZyaWVuZFByZXNlbmNlQgkKB3BheWxvYWRK",
+            "BAgCEApKBAgSEBRKBAgdEB5KBAgkEEAiXwoEUGluZxIUCgVub25jZRgBIAEo",
+            "DFIFbm9uY2USOwoLY2xpZW50X3RpbWUYAiABKAsyGi5nb29nbGUucHJvdG9i",
+            "dWYuVGltZXN0YW1wUgpjbGllbnRUaW1lSgQIAxAIIl8KBFBvbmcSFAoFbm9u",
+            "Y2UYASABKAxSBW5vbmNlEjsKC3NlcnZlcl90aW1lGAIgASgLMhouZ29vZ2xl",
+            "LnByb3RvYnVmLlRpbWVzdGFtcFIKc2VydmVyVGltZUoECAMQCCJ5CgVFcnJv",
+            "chIqCgRjb2RlGAEgASgOMhYuZnJlZWNoYXQudjEuRXJyb3JDb2RlUgRjb2Rl",
+            "EhgKB21lc3NhZ2UYAiABKAlSB21lc3NhZ2USJAoOcmV0cnlfYWZ0ZXJfbXMY",
+            "AyABKA1SDHJldHJ5QWZ0ZXJNc0oECAQQCCJjCgxTZXNzaW9uRW5kZWQSFgoG",
+            "cmVhc29uGAEgASgJUgZyZWFzb24SNQoIZW5kZWRfYXQYAiABKAsyGi5nb29n",
+            "bGUucHJvdG9idWYuVGltZXN0YW1wUgdlbmRlZEF0SgQIAxAIIlQKDlNlcnZl",
+            "clNodXRkb3duEhYKBnJlYXNvbhgBIAEoCVIGcmVhc29uEiQKDnJldHJ5X2Fm",
+            "dGVyX21zGAIgASgNUgxyZXRyeUFmdGVyTXNKBAgDEAgihQEKDVJhdGVMaW1p",
+            "dEluZm8SFAoFc2NvcGUYASABKAlSBXNjb3BlEhQKBWxpbWl0GAIgASgNUgVs",
+            "aW1pdBIcCglyZW1haW5pbmcYAyABKA1SCXJlbWFpbmluZxIkCg5yZXNldF9h",
+            "ZnRlcl9tcxgEIAEoDVIMcmVzZXRBZnRlck1zSgQIBRAIQheqAhRGcmVlQ2hh",
+            "dC5Qcm90b2NvbC5WMWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::FreeChat.Protocol.V1.AuthReflection.Descriptor, global::FreeChat.Protocol.V1.ChatReflection.Descriptor, global::FreeChat.Protocol.V1.CommonReflection.Descriptor, global::FreeChat.Protocol.V1.SendReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::FreeChat.Protocol.V1.AuthReflection.Descriptor, global::FreeChat.Protocol.V1.ChatReflection.Descriptor, global::FreeChat.Protocol.V1.CommonReflection.Descriptor, global::FreeChat.Protocol.V1.SendReflection.Descriptor, global::FreeChat.Protocol.V1.SocialReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Envelope), global::FreeChat.Protocol.V1.Envelope.Parser, new[]{ "RequestId", "ClientHello", "Welcome", "PairingRequired", "PairRequest", "PairResult", "Challenge", "ChallengeResponse", "AuthError", "Subscribe", "Subscribed", "Unsubscribe", "ReplayRequest", "HistoryTruncated", "ChatEvent", "SendRequest", "SendResult", "SendCancel", "Ping", "Pong", "Error", "SessionEnded", "ServerShutdown", "RateLimit" }, new[]{ "Payload" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Envelope), global::FreeChat.Protocol.V1.Envelope.Parser, new[]{ "RequestId", "ClientHello", "Welcome", "PairingRequired", "PairRequest", "PairResult", "Challenge", "ChallengeResponse", "AuthError", "Subscribe", "Subscribed", "Unsubscribe", "ReplayRequest", "HistoryTruncated", "ChatEvent", "SendRequest", "SendResult", "SendCancel", "Ping", "Pong", "Error", "SessionEnded", "ServerShutdown", "RateLimit", "PlayerListRequest", "PlayerListSnapshot", "FriendPresenceRequest", "FriendPresence" }, new[]{ "Payload" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Ping), global::FreeChat.Protocol.V1.Ping.Parser, new[]{ "Nonce", "ClientTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Pong), global::FreeChat.Protocol.V1.Pong.Parser, new[]{ "Nonce", "ServerTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.Error), global::FreeChat.Protocol.V1.Error.Parser, new[]{ "Code", "Message", "RetryAfterMs" }, null, null, null, null),
@@ -202,6 +210,18 @@ namespace FreeChat.Protocol.V1 {
           break;
         case PayloadOneofCase.RateLimit:
           RateLimit = other.RateLimit.Clone();
+          break;
+        case PayloadOneofCase.PlayerListRequest:
+          PlayerListRequest = other.PlayerListRequest.Clone();
+          break;
+        case PayloadOneofCase.PlayerListSnapshot:
+          PlayerListSnapshot = other.PlayerListSnapshot.Clone();
+          break;
+        case PayloadOneofCase.FriendPresenceRequest:
+          FriendPresenceRequest = other.FriendPresenceRequest.Clone();
+          break;
+        case PayloadOneofCase.FriendPresence:
+          FriendPresence = other.FriendPresence.Clone();
           break;
       }
 
@@ -517,6 +537,57 @@ namespace FreeChat.Protocol.V1 {
       }
     }
 
+    /// <summary>Field number for the "player_list_request" field.</summary>
+    public const int PlayerListRequestFieldNumber = 66;
+    /// <summary>
+    /// Read-only social data.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.PlayerListRequest PlayerListRequest {
+      get { return payloadCase_ == PayloadOneofCase.PlayerListRequest ? (global::FreeChat.Protocol.V1.PlayerListRequest) payload_ : null; }
+      set {
+        payload_ = value;
+        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.PlayerListRequest;
+      }
+    }
+
+    /// <summary>Field number for the "player_list_snapshot" field.</summary>
+    public const int PlayerListSnapshotFieldNumber = 67;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.PlayerListSnapshot PlayerListSnapshot {
+      get { return payloadCase_ == PayloadOneofCase.PlayerListSnapshot ? (global::FreeChat.Protocol.V1.PlayerListSnapshot) payload_ : null; }
+      set {
+        payload_ = value;
+        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.PlayerListSnapshot;
+      }
+    }
+
+    /// <summary>Field number for the "friend_presence_request" field.</summary>
+    public const int FriendPresenceRequestFieldNumber = 68;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.FriendPresenceRequest FriendPresenceRequest {
+      get { return payloadCase_ == PayloadOneofCase.FriendPresenceRequest ? (global::FreeChat.Protocol.V1.FriendPresenceRequest) payload_ : null; }
+      set {
+        payload_ = value;
+        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.FriendPresenceRequest;
+      }
+    }
+
+    /// <summary>Field number for the "friend_presence" field.</summary>
+    public const int FriendPresenceFieldNumber = 69;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::FreeChat.Protocol.V1.FriendPresence FriendPresence {
+      get { return payloadCase_ == PayloadOneofCase.FriendPresence ? (global::FreeChat.Protocol.V1.FriendPresence) payload_ : null; }
+      set {
+        payload_ = value;
+        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.FriendPresence;
+      }
+    }
+
     private object payload_;
     /// <summary>Enum of possible cases for the "payload" oneof.</summary>
     public enum PayloadOneofCase {
@@ -544,6 +615,10 @@ namespace FreeChat.Protocol.V1 {
       SessionEnded = 33,
       ServerShutdown = 34,
       RateLimit = 35,
+      PlayerListRequest = 66,
+      PlayerListSnapshot = 67,
+      FriendPresenceRequest = 68,
+      FriendPresence = 69,
     }
     private PayloadOneofCase payloadCase_ = PayloadOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -598,6 +673,10 @@ namespace FreeChat.Protocol.V1 {
       if (!object.Equals(SessionEnded, other.SessionEnded)) return false;
       if (!object.Equals(ServerShutdown, other.ServerShutdown)) return false;
       if (!object.Equals(RateLimit, other.RateLimit)) return false;
+      if (!object.Equals(PlayerListRequest, other.PlayerListRequest)) return false;
+      if (!object.Equals(PlayerListSnapshot, other.PlayerListSnapshot)) return false;
+      if (!object.Equals(FriendPresenceRequest, other.FriendPresenceRequest)) return false;
+      if (!object.Equals(FriendPresence, other.FriendPresence)) return false;
       if (PayloadCase != other.PayloadCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -630,6 +709,10 @@ namespace FreeChat.Protocol.V1 {
       if (payloadCase_ == PayloadOneofCase.SessionEnded) hash ^= SessionEnded.GetHashCode();
       if (payloadCase_ == PayloadOneofCase.ServerShutdown) hash ^= ServerShutdown.GetHashCode();
       if (payloadCase_ == PayloadOneofCase.RateLimit) hash ^= RateLimit.GetHashCode();
+      if (payloadCase_ == PayloadOneofCase.PlayerListRequest) hash ^= PlayerListRequest.GetHashCode();
+      if (payloadCase_ == PayloadOneofCase.PlayerListSnapshot) hash ^= PlayerListSnapshot.GetHashCode();
+      if (payloadCase_ == PayloadOneofCase.FriendPresenceRequest) hash ^= FriendPresenceRequest.GetHashCode();
+      if (payloadCase_ == PayloadOneofCase.FriendPresence) hash ^= FriendPresence.GetHashCode();
       hash ^= (int) payloadCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -745,6 +828,22 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(154, 2);
         output.WriteMessage(RateLimit);
       }
+      if (payloadCase_ == PayloadOneofCase.PlayerListRequest) {
+        output.WriteRawTag(146, 4);
+        output.WriteMessage(PlayerListRequest);
+      }
+      if (payloadCase_ == PayloadOneofCase.PlayerListSnapshot) {
+        output.WriteRawTag(154, 4);
+        output.WriteMessage(PlayerListSnapshot);
+      }
+      if (payloadCase_ == PayloadOneofCase.FriendPresenceRequest) {
+        output.WriteRawTag(162, 4);
+        output.WriteMessage(FriendPresenceRequest);
+      }
+      if (payloadCase_ == PayloadOneofCase.FriendPresence) {
+        output.WriteRawTag(170, 4);
+        output.WriteMessage(FriendPresence);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -851,6 +950,22 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(154, 2);
         output.WriteMessage(RateLimit);
       }
+      if (payloadCase_ == PayloadOneofCase.PlayerListRequest) {
+        output.WriteRawTag(146, 4);
+        output.WriteMessage(PlayerListRequest);
+      }
+      if (payloadCase_ == PayloadOneofCase.PlayerListSnapshot) {
+        output.WriteRawTag(154, 4);
+        output.WriteMessage(PlayerListSnapshot);
+      }
+      if (payloadCase_ == PayloadOneofCase.FriendPresenceRequest) {
+        output.WriteRawTag(162, 4);
+        output.WriteMessage(FriendPresenceRequest);
+      }
+      if (payloadCase_ == PayloadOneofCase.FriendPresence) {
+        output.WriteRawTag(170, 4);
+        output.WriteMessage(FriendPresence);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -932,6 +1047,18 @@ namespace FreeChat.Protocol.V1 {
       }
       if (payloadCase_ == PayloadOneofCase.RateLimit) {
         size += 2 + pb::CodedOutputStream.ComputeMessageSize(RateLimit);
+      }
+      if (payloadCase_ == PayloadOneofCase.PlayerListRequest) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlayerListRequest);
+      }
+      if (payloadCase_ == PayloadOneofCase.PlayerListSnapshot) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(PlayerListSnapshot);
+      }
+      if (payloadCase_ == PayloadOneofCase.FriendPresenceRequest) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(FriendPresenceRequest);
+      }
+      if (payloadCase_ == PayloadOneofCase.FriendPresence) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(FriendPresence);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1086,6 +1213,30 @@ namespace FreeChat.Protocol.V1 {
             RateLimit = new global::FreeChat.Protocol.V1.RateLimitInfo();
           }
           RateLimit.MergeFrom(other.RateLimit);
+          break;
+        case PayloadOneofCase.PlayerListRequest:
+          if (PlayerListRequest == null) {
+            PlayerListRequest = new global::FreeChat.Protocol.V1.PlayerListRequest();
+          }
+          PlayerListRequest.MergeFrom(other.PlayerListRequest);
+          break;
+        case PayloadOneofCase.PlayerListSnapshot:
+          if (PlayerListSnapshot == null) {
+            PlayerListSnapshot = new global::FreeChat.Protocol.V1.PlayerListSnapshot();
+          }
+          PlayerListSnapshot.MergeFrom(other.PlayerListSnapshot);
+          break;
+        case PayloadOneofCase.FriendPresenceRequest:
+          if (FriendPresenceRequest == null) {
+            FriendPresenceRequest = new global::FreeChat.Protocol.V1.FriendPresenceRequest();
+          }
+          FriendPresenceRequest.MergeFrom(other.FriendPresenceRequest);
+          break;
+        case PayloadOneofCase.FriendPresence:
+          if (FriendPresence == null) {
+            FriendPresence = new global::FreeChat.Protocol.V1.FriendPresence();
+          }
+          FriendPresence.MergeFrom(other.FriendPresence);
           break;
       }
 
@@ -1319,6 +1470,42 @@ namespace FreeChat.Protocol.V1 {
             RateLimit = subBuilder;
             break;
           }
+          case 530: {
+            global::FreeChat.Protocol.V1.PlayerListRequest subBuilder = new global::FreeChat.Protocol.V1.PlayerListRequest();
+            if (payloadCase_ == PayloadOneofCase.PlayerListRequest) {
+              subBuilder.MergeFrom(PlayerListRequest);
+            }
+            input.ReadMessage(subBuilder);
+            PlayerListRequest = subBuilder;
+            break;
+          }
+          case 538: {
+            global::FreeChat.Protocol.V1.PlayerListSnapshot subBuilder = new global::FreeChat.Protocol.V1.PlayerListSnapshot();
+            if (payloadCase_ == PayloadOneofCase.PlayerListSnapshot) {
+              subBuilder.MergeFrom(PlayerListSnapshot);
+            }
+            input.ReadMessage(subBuilder);
+            PlayerListSnapshot = subBuilder;
+            break;
+          }
+          case 546: {
+            global::FreeChat.Protocol.V1.FriendPresenceRequest subBuilder = new global::FreeChat.Protocol.V1.FriendPresenceRequest();
+            if (payloadCase_ == PayloadOneofCase.FriendPresenceRequest) {
+              subBuilder.MergeFrom(FriendPresenceRequest);
+            }
+            input.ReadMessage(subBuilder);
+            FriendPresenceRequest = subBuilder;
+            break;
+          }
+          case 554: {
+            global::FreeChat.Protocol.V1.FriendPresence subBuilder = new global::FreeChat.Protocol.V1.FriendPresence();
+            if (payloadCase_ == PayloadOneofCase.FriendPresence) {
+              subBuilder.MergeFrom(FriendPresence);
+            }
+            input.ReadMessage(subBuilder);
+            FriendPresence = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -1547,6 +1734,42 @@ namespace FreeChat.Protocol.V1 {
             }
             input.ReadMessage(subBuilder);
             RateLimit = subBuilder;
+            break;
+          }
+          case 530: {
+            global::FreeChat.Protocol.V1.PlayerListRequest subBuilder = new global::FreeChat.Protocol.V1.PlayerListRequest();
+            if (payloadCase_ == PayloadOneofCase.PlayerListRequest) {
+              subBuilder.MergeFrom(PlayerListRequest);
+            }
+            input.ReadMessage(subBuilder);
+            PlayerListRequest = subBuilder;
+            break;
+          }
+          case 538: {
+            global::FreeChat.Protocol.V1.PlayerListSnapshot subBuilder = new global::FreeChat.Protocol.V1.PlayerListSnapshot();
+            if (payloadCase_ == PayloadOneofCase.PlayerListSnapshot) {
+              subBuilder.MergeFrom(PlayerListSnapshot);
+            }
+            input.ReadMessage(subBuilder);
+            PlayerListSnapshot = subBuilder;
+            break;
+          }
+          case 546: {
+            global::FreeChat.Protocol.V1.FriendPresenceRequest subBuilder = new global::FreeChat.Protocol.V1.FriendPresenceRequest();
+            if (payloadCase_ == PayloadOneofCase.FriendPresenceRequest) {
+              subBuilder.MergeFrom(FriendPresenceRequest);
+            }
+            input.ReadMessage(subBuilder);
+            FriendPresenceRequest = subBuilder;
+            break;
+          }
+          case 554: {
+            global::FreeChat.Protocol.V1.FriendPresence subBuilder = new global::FreeChat.Protocol.V1.FriendPresence();
+            if (payloadCase_ == PayloadOneofCase.FriendPresence) {
+              subBuilder.MergeFrom(FriendPresence);
+            }
+            input.ReadMessage(subBuilder);
+            FriendPresence = subBuilder;
             break;
           }
         }

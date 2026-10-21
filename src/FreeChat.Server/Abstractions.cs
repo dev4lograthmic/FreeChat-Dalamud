@@ -31,6 +31,42 @@ public interface IChatSink
     Task<SendResult> CancelAsync(SendContext context, string targetRequestId, CancellationToken cancellationToken);
 }
 
+/// <summary>Identity and session information for a read-only social request.</summary>
+public sealed record SocialRequestContext(
+    string SessionId,
+    string? OwnerKey,
+    CharacterRef? Owner);
+
+public sealed record FriendListData(
+    PlayerListStatus Status,
+    IReadOnlyList<PlayerInfo> Players,
+    string Message = "");
+
+public sealed record FriendPresenceData(
+    PlayerListStatus Status,
+    PresenceState State,
+    string Message = "");
+
+/// <summary>
+/// Reads game social data on behalf of authenticated clients. Implementations
+/// must keep native pointers on the game/framework thread and return only
+/// managed snapshots.
+/// </summary>
+public interface ISocialDataProvider
+{
+    bool FriendListAvailable { get; }
+    bool FriendPresenceAvailable { get; }
+
+    Task<FriendListData> GetFriendListAsync(
+        SocialRequestContext context,
+        CancellationToken cancellationToken);
+
+    Task<FriendPresenceData> GetFriendPresenceAsync(
+        ulong contentId,
+        SocialRequestContext context,
+        CancellationToken cancellationToken);
+}
+
 public sealed record SendContext(
     string SessionId,
     string? OwnerKey,

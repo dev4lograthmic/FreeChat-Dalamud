@@ -36,6 +36,8 @@ internal static class Program
                 "pair" => await PairAsync(options).ConfigureAwait(false),
                 "subscribe" => await SubscribeAsync(options).ConfigureAwait(false),
                 "send" => await SendAsync(options).ConfigureAwait(false),
+                "friends" => await FriendsAsync(options).ConfigureAwait(false),
+                "presence" => await PresenceAsync(options).ConfigureAwait(false),
                 "ping" => await PingAsync(options).ConfigureAwait(false),
                 "decode" => Decode(options),
                 _ => throw new CliException($"Unknown command: {command}. Use --help."),
@@ -106,6 +108,40 @@ internal static class Program
         await client.AuthenticateAsync(endpoint.Code, cancellation.Token).ConfigureAwait(false);
         var result = await client.SendAsync(request, cancellation.Token).ConfigureAwait(false);
         return result.Status is SendStatus.Submitted or SendStatus.Echoed ? 0 : 1;
+    }
+
+    private static async Task<int> FriendsAsync(CliOptions options)
+    {
+        var endpoint = CliEndpoint.FromOptions(options);
+        var statePath = options.Get("state", DeviceIdentity.DefaultPath);
+        var identity = DeviceIdentity.LoadExisting(statePath);
+        using var cancellation = CreateCancellation();
+
+        await using var client = CreateClient(endpoint, identity, statePath, options);
+        await client.AuthenticateAsync(endpoint.Code, cancellation.Token).ConfigureAwait(false);
+        await client.RequestFriendListAsync(
+            (uint)Math.Max(0, options.GetInt("page-size", 0)),
+            options.Get("owner-key"),
+            options.Get("owner-epoch"),
+            cancellation.Token).ConfigureAwait(false);
+        return 0;
+    }
+
+    private static async Task<int> PresenceAsync(CliOptions options)
+    {
+        var endpoint = CliEndpoint.FromOptions(options);
+        var statePath = options.Get("state", DeviceIdentity.DefaultPath);
+        var identity = DeviceIdentity.LoadExisting(statePath);
+        using var cancellation = CreateCancellation();
+
+        var contentId = (ulong)options.GetLong("content-id", 0);
+        if (contentId == 0)
+            throw new CliException("Missing or invalid --content-id.");
+
+        await using var client = CreateClient(endpoint, identity, statePath, options);
+        await client.AuthenticateAsync(endpoint.Code, cancellation.Token).ConfigureAwait(false);
+        await client.RequestPresenceAsync(contentId, cancellation.Token).ConfigureAwait(false);
+        return 0;
     }
 
     private static async Task<int> PingAsync(CliOptions options)
@@ -279,6 +315,8 @@ internal static class Program
               freechat pair      --host <host> --port <port> --fingerprint <hex> --code <code>
               freechat subscribe --uri <freechat://...> [options]
               freechat send      --uri <freechat://...> (--raw <text> | --channel <name> --text <text>)
+              freechat friends   --uri <freechat://...> [--page-size <n>]
+              freechat presence  --uri <freechat://...> --content-id <id>
               freechat ping      --uri <freechat://...>
               freechat decode    (--input <file|-> | --base64 <data> | --hex <data>) [--encoding json|protobuf]
 
@@ -305,6 +343,12 @@ internal static class Program
               --channel <name>       say, party, shout, yell, alliance, fc, ls1..8, cwls1..8, novice, pvp, tell
               --text <text>          Structured message text
               --target <Name@World>  Required for --channel tell
+
+            Social options:
+              --page-size <n>        Friend list page size (0 = server default, max 200)
+              --owner-key <key>      Expected owner key; reject if the character changed
+              --owner-epoch <id>     Expected session id; reject if the session changed
+              --content-id <id>      Friend ContentId for the presence query
             """);
     }
 }

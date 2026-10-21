@@ -45,6 +45,9 @@
 | `ERROR_CODE_INTERNAL` | 服务端内部错误 | 记录日志并重连 |
 | `ERROR_CODE_SHUTTING_DOWN` | 服务端关闭 | 重连 |
 | `ERROR_CODE_HISTORY_UNAVAILABLE` | 历史不可用 | 从 oldest 重新订阅 |
+| `ERROR_CODE_FEATURE_DISABLED` | 用户关闭了该功能 | 提示用户开启 |
+| `ERROR_CODE_PLAYER_LIST_BUSY` | 好友刷新正在进行 | 稍后重试 |
+| `ERROR_CODE_PLAYER_LIST_TIMEOUT` | 游戏未及时响应 | 重试或显示不可用 |
 
 ## 3. SendStatus
 

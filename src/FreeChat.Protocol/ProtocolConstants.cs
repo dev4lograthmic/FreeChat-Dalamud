@@ -5,6 +5,8 @@ public static class ProtocolConstants
     public const uint Version = 1;
     public const string ProtobufSubProtocol = "freechat.v1.protobuf";
     public const string JsonSubProtocol = "freechat.v1.json";
+    public const string FriendListFeature = "social.friend_list";
+    public const string FriendPresenceFeature = "social.friend_presence";
 
     public static readonly string[] DefaultFeatures =
     [

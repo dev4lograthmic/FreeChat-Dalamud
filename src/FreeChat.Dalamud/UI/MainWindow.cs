@@ -506,6 +506,22 @@ public sealed class MainWindow : Window, IDisposable
         if (ImGui.Checkbox(this.l10n["settings.json"], ref json))
             config.EnableJsonDebug = json;
 
+        ImGui.Separator();
+        ImGui.TextUnformatted(this.l10n["settings.social"]);
+        var social = config.EnableSocialApi;
+        if (ImGui.Checkbox(this.l10n["settings.socialEnable"], ref social))
+            config.EnableSocialApi = social;
+
+        var friendList = config.EnableFriendListApi;
+        if (ImGui.Checkbox(this.l10n["settings.friendList"], ref friendList))
+            config.EnableFriendListApi = friendList;
+
+        var friendPresence = config.EnableFriendPresenceApi;
+        if (ImGui.Checkbox(this.l10n["settings.friendPresence"], ref friendPresence))
+            config.EnableFriendPresenceApi = friendPresence;
+
+        ImGui.TextWrapped(this.l10n["settings.socialWarning"]);
+
         var backlogMessages = config.BacklogMessages;
         if (ImGui.InputInt(this.l10n["settings.backlogMessages"], ref backlogMessages, 100, 1000))
             config.BacklogMessages = Math.Max(100, backlogMessages);

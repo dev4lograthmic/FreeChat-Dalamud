@@ -45,6 +45,9 @@
 | `ERROR_CODE_INTERNAL` | Server internal error | Log and reconnect |
 | `ERROR_CODE_SHUTTING_DOWN` | Server shutting down | Reconnect |
 | `ERROR_CODE_HISTORY_UNAVAILABLE` | History unavailable | Resubscribe from oldest |
+| `ERROR_CODE_FEATURE_DISABLED` | Feature disabled by the user | Ask the user to enable it |
+| `ERROR_CODE_PLAYER_LIST_BUSY` | Friend refresh already in progress | Retry shortly |
+| `ERROR_CODE_PLAYER_LIST_TIMEOUT` | Game did not answer in time | Retry or show unavailable |
 
 ## 3. SendStatus
 

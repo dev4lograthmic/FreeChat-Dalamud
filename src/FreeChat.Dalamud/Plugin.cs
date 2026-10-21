@@ -8,6 +8,7 @@ using FreeChat.Dalamud.Chat;
 using FreeChat.Dalamud.Localization;
 using FreeChat.Dalamud.Logging;
 using FreeChat.Dalamud.Send;
+using FreeChat.Dalamud.Social;
 using FreeChat.Dalamud.UI;
 
 namespace FreeChat.Dalamud;
@@ -26,6 +27,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
     [PluginService] internal static IFramework Framework { get; private set; } = null!;
     [PluginService] internal static ITextureProvider TextureProviderService { get; private set; } = null!;
+    [PluginService] internal static IGameInteropProvider GameInteropProvider { get; private set; } = null!;
 
     private readonly WindowSystem windowSystem = new("FreeChat");
     private readonly MainWindow mainWindow;
@@ -43,15 +45,26 @@ public sealed class Plugin : IDalamudPlugin
             this.UiLog,
             Framework,
             Log);
+        this.Social = new GameSocialData(
+            this.Configuration,
+            ClientState,
+            PlayerState,
+            DataManager,
+            Framework,
+            GameInteropProvider,
+            Log);
         this.ServerHost = new ServerHost(
             this.Configuration,
             Interface,
             Log,
             this.UiLog,
-            this.ChatSendService);
+            this.ChatSendService,
+            this.Social);
         this.ServerHost.Start();
 
-        var factory = new ChatEventFactory(new ChatEnricher(DataManager));
+        var factory = new ChatEventFactory(
+            new ChatEnricher(DataManager),
+            this.Social.NameFor);
         this.ChatCapture = new ChatCapture(
             ChatGui,
             this.ServerHost,
@@ -87,6 +100,7 @@ public sealed class Plugin : IDalamudPlugin
     public UiLog UiLog { get; }
     public ITextureProvider TextureProvider => TextureProviderService;
     public ServerHost ServerHost { get; }
+    public GameSocialData Social { get; }
     public ChatSendService ChatSendService { get; }
     public ChatCapture ChatCapture { get; }
     public string? LocalPlayerName => ObjectTable.LocalPlayer?.Name.TextValue;
@@ -108,6 +122,7 @@ public sealed class Plugin : IDalamudPlugin
         this.ChatCapture.Dispose();
         this.ChatSendService.Dispose();
         this.ServerHost.Dispose();
+        this.Social.Dispose();
         this.windowSystem.RemoveAllWindows();
         this.mainWindow.Dispose();
     }
@@ -120,12 +135,14 @@ public sealed class Plugin : IDalamudPlugin
 
     private void OnLogout(int type, int code)
     {
+        this.Social.Clear();
         _ = this.ServerHost.ResetSessionAsync("logout");
         this.ServerHost.UpdateCharacter(null);
     }
 
     private void OnFrameworkUpdate(IFramework framework)
     {
+        this.Social.Tick();
         if (ClientState.IsLoggedIn && PlayerState.IsLoaded)
             this.ServerHost.UpdateCharacter(ObjectTable.LocalPlayer);
     }

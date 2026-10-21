@@ -18,6 +18,10 @@ These examples are language-neutral and use proto3 JSON:
 | [chat_event_map.json](../../shared/protocol/examples/chat_event_map.json) | Map link rendered as chunks |
 | [send_request_raw.json](../../shared/protocol/examples/send_request_raw.json) | Raw send |
 | [send_request_chat.json](../../shared/protocol/examples/send_request_chat.json) | Structured send |
+| [player_list_request.json](../../shared/protocol/examples/player_list_request.json) | Friend list request |
+| [player_list_snapshot.json](../../shared/protocol/examples/player_list_snapshot.json) | Friend list snapshot page |
+| [friend_presence_request.json](../../shared/protocol/examples/friend_presence_request.json) | Friend presence request |
+| [friend_presence.json](../../shared/protocol/examples/friend_presence.json) | Friend presence result |
 | [send_result_submitted.json](../../shared/protocol/examples/send_result_submitted.json) | Submitted result |
 | [send_result_echoed.json](../../shared/protocol/examples/send_result_echoed.json) | Echoed result |
 | [error_command_blocked.json](../../shared/protocol/examples/error_command_blocked.json) | Blocked command error |

@@ -79,6 +79,12 @@ internal sealed class SessionHandler : IAsyncDisposable
                     },
                 }).ConfigureAwait(false);
                 break;
+            case Envelope.PayloadOneofCase.PlayerListRequest:
+                await this.HandlePlayerListRequestAsync(envelope, cancellationToken).ConfigureAwait(false);
+                break;
+            case Envelope.PayloadOneofCase.FriendPresenceRequest:
+                await this.HandleFriendPresenceRequestAsync(envelope, cancellationToken).ConfigureAwait(false);
+                break;
             case Envelope.PayloadOneofCase.Unsubscribe:
                 this.subscribed = false;
                 break;
@@ -491,6 +497,232 @@ internal sealed class SessionHandler : IAsyncDisposable
         {
             RequestId = envelope.RequestId,
             SendResult = result,
+        }).ConfigureAwait(false);
+    }
+
+    private async Task HandlePlayerListRequestAsync(Envelope envelope, CancellationToken cancellationToken)
+    {
+        if (this.state < SessionState.Authenticated)
+        {
+            await this.SendErrorAsync(ErrorCode.Unauthenticated, "Authenticate before requesting social data.", envelope.RequestId)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        var request = envelope.PlayerListRequest;
+        if (request.Type != PlayerListType.Friend)
+        {
+            await this.SendErrorAsync(ErrorCode.InvalidRequest, "Only friend lists are supported.", envelope.RequestId)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        if (this.server.Social is null || !this.server.Social.FriendListAvailable)
+        {
+            await this.SendErrorAsync(ErrorCode.FeatureDisabled, "Friend list API is disabled.", envelope.RequestId)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        var owner = this.server.Character?.Clone() ?? new CharacterRef();
+        var ownerKey = this.server.OwnerKey ?? string.Empty;
+        var ownerEpoch = this.server.SessionId;
+
+        if (owner.Name.Length == 0)
+        {
+            await this.SendPlayerListErrorAsync(
+                envelope.RequestId,
+                PlayerListStatus.NotLoggedIn,
+                owner,
+                ownerEpoch,
+                "No character is logged in.").ConfigureAwait(false);
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(request.ExpectedOwnerKey)
+            && !string.Equals(request.ExpectedOwnerKey, ownerKey, StringComparison.Ordinal))
+        {
+            await this.SendPlayerListErrorAsync(
+                envelope.RequestId,
+                PlayerListStatus.IdentityChanged,
+                owner,
+                ownerEpoch,
+                "The active character changed.").ConfigureAwait(false);
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(request.ExpectedOwnerEpoch)
+            && !string.Equals(request.ExpectedOwnerEpoch, ownerEpoch, StringComparison.Ordinal))
+        {
+            await this.SendPlayerListErrorAsync(
+                envelope.RequestId,
+                PlayerListStatus.IdentityChanged,
+                owner,
+                ownerEpoch,
+                "The session changed.").ConfigureAwait(false);
+            return;
+        }
+
+        FriendListData data;
+        try
+        {
+            data = await this.server.Social.GetFriendListAsync(
+                new SocialRequestContext(this.sessionId, this.server.OwnerKey, this.server.Character),
+                cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            data = new FriendListData(PlayerListStatus.Failed, Array.Empty<PlayerInfo>(), "Friend list read failed.");
+        }
+
+        var status = data.Status is PlayerListStatus.Unspecified ? PlayerListStatus.Failed : data.Status;
+        if (status != PlayerListStatus.Success)
+        {
+            await this.SendPlayerListErrorAsync(
+                envelope.RequestId,
+                status,
+                owner,
+                ownerEpoch,
+                data.Message).ConfigureAwait(false);
+            return;
+        }
+
+        if (data.Players.Count > 200)
+        {
+            await this.SendPlayerListErrorAsync(
+                envelope.RequestId,
+                PlayerListStatus.Failed,
+                owner,
+                ownerEpoch,
+                "Friend list exceeds the 200-entry limit.").ConfigureAwait(false);
+            return;
+        }
+
+        var pageSize = request.PageSize == 0 ? 32 : Math.Clamp((int)request.PageSize, 1, 200);
+        var pageCount = Math.Max(1, (data.Players.Count + pageSize - 1) / pageSize);
+        var snapshotId = Guid.NewGuid().ToString("N");
+        var capturedAt = Timestamp.FromDateTimeOffset(this.server.Clock.UtcNow);
+        var pages = new List<PlayerListSnapshot>(pageCount);
+        for (var pageIndex = 0; pageIndex < pageCount; pageIndex++)
+        {
+            var page = new PlayerListSnapshot
+            {
+                Type = PlayerListType.Friend,
+                Status = PlayerListStatus.Success,
+                Owner = owner.Clone(),
+                OwnerEpoch = ownerEpoch,
+                SnapshotId = snapshotId,
+                CapturedAt = capturedAt,
+                PageIndex = (uint)pageIndex,
+                PageCount = (uint)pageCount,
+            };
+
+            foreach (var player in data.Players.Skip(pageIndex * pageSize).Take(pageSize))
+                page.Players.Add(player.Clone());
+
+            if (page.CalculateSize() > 120 * 1024)
+            {
+                await this.SendPlayerListErrorAsync(
+                    envelope.RequestId,
+                    PlayerListStatus.Failed,
+                    owner,
+                    ownerEpoch,
+                    "Friend list page exceeds the packet budget.").ConfigureAwait(false);
+                return;
+            }
+
+            pages.Add(page);
+        }
+
+        foreach (var page in pages)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            await this.SendAsync(new Envelope
+            {
+                RequestId = envelope.RequestId,
+                PlayerListSnapshot = page,
+            }).ConfigureAwait(false);
+        }
+    }
+
+    private Task SendPlayerListErrorAsync(
+        string requestId,
+        PlayerListStatus status,
+        CharacterRef owner,
+        string ownerEpoch,
+        string message) =>
+        this.SendAsync(new Envelope
+        {
+            RequestId = requestId,
+            PlayerListSnapshot = new PlayerListSnapshot
+            {
+                Type = PlayerListType.Friend,
+                Status = status,
+                Owner = owner.Clone(),
+                OwnerEpoch = ownerEpoch,
+                SnapshotId = Guid.NewGuid().ToString("N"),
+                CapturedAt = Timestamp.FromDateTimeOffset(this.server.Clock.UtcNow),
+                PageIndex = 0,
+                PageCount = 1,
+                Message = message,
+            },
+        });
+
+    private async Task HandleFriendPresenceRequestAsync(Envelope envelope, CancellationToken cancellationToken)
+    {
+        if (this.state < SessionState.Authenticated)
+        {
+            await this.SendErrorAsync(ErrorCode.Unauthenticated, "Authenticate before requesting social data.", envelope.RequestId)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        var contentId = envelope.FriendPresenceRequest.ContentId;
+        if (contentId == 0)
+        {
+            await this.SendErrorAsync(ErrorCode.InvalidRequest, "content_id is required.", envelope.RequestId)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        if (this.server.Social is null || !this.server.Social.FriendPresenceAvailable)
+        {
+            await this.SendErrorAsync(ErrorCode.FeatureDisabled, "Friend presence API is disabled.", envelope.RequestId)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        FriendPresenceData data;
+        try
+        {
+            data = await this.server.Social.GetFriendPresenceAsync(
+                contentId,
+                new SocialRequestContext(this.sessionId, this.server.OwnerKey, this.server.Character),
+                cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            data = new FriendPresenceData(PlayerListStatus.Failed, PresenceState.Unknown);
+        }
+
+        await this.SendAsync(new Envelope
+        {
+            RequestId = envelope.RequestId,
+            FriendPresence = new FriendPresence
+            {
+                ContentId = contentId,
+                State = data.State is PresenceState.Unspecified ? PresenceState.Unknown : data.State,
+                Status = data.Status is PlayerListStatus.Unspecified ? PlayerListStatus.Failed : data.Status,
+                CheckedAt = Timestamp.FromDateTimeOffset(this.server.Clock.UtcNow),
+            },
         }).ConfigureAwait(false);
     }
 

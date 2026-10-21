@@ -21,6 +21,9 @@ public sealed class Configuration : IPluginConfiguration
     public int SendRateLimitPerSecond { get; set; } = 4;
     public int SendRateLimitBurst { get; set; } = 4;
     public int SendIntervalMs { get; set; } = 250;
+    public bool EnableSocialApi { get; set; }
+    public bool EnableFriendListApi { get; set; }
+    public bool EnableFriendPresenceApi { get; set; }
     public List<string> BlockedCommands { get; set; } = new(CommandPolicy.DefaultBlocked);
 
     internal void Initialise(Plugin owner) => this.plugin = owner;

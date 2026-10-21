@@ -70,6 +70,7 @@ See [CLI docs](docs/en-US/development/cli.md) and the
 - Structured `ChatEvent` with raw SeString, text, styles, and link-aware chunks
   for item/map/party-finder/quest/player/status/auto-translate
 - Per-connection filters, current-session replay, send rate limiting
+- Linkshell names in `channel_name`; opt-in friend list and presence APIs
 - Send raw text/commands via `ProcessChatBoxEntry`, with 500-byte splitting,
   command blocklist, and echo correlation
 - Plugin UI: tabbed status/pairing/devices/settings/logs, QR + deep link,
@@ -166,6 +167,7 @@ dotnet run --project src\FreeChat.Cli -- pair --uri "<freechat://pair?...>"
 - 结构化 `ChatEvent`：原始 SeString、文本、样式，以及物品/地图/招募/任务/
   玩家/状态/自动翻译的富文本 chunks
 - 每连接过滤、当前会话回放、发送限流
+- `channel_name` 通讯贝名字；可选好友列表/在线状态 API
 - 通过 `ProcessChatBoxEntry` 发送原始文本/命令，支持 500 字节分段、命令黑名单、echo 关联
 - 插件 UI：状态/配对/设备/设置/日志标签、二维码 + 深链接、在线客户端、
   `en-US` / `zh-CN` 本地化、可配置黑名单和限流

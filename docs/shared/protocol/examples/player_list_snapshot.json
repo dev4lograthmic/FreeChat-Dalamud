@@ -1,0 +1,39 @@
+{
+  "requestId": "friends-1",
+  "playerListSnapshot": {
+    "type": "PLAYER_LIST_TYPE_FRIEND",
+    "status": "PLAYER_LIST_STATUS_SUCCESS",
+    "owner": {
+      "name": "Someone",
+      "worldId": 86,
+      "worldName": "Typhon",
+      "isPlayer": true,
+      "isLocal": true
+    },
+    "ownerEpoch": "169cdb1edd9b466682a5b9ae14fbfd10",
+    "snapshotId": "7d1f0c69e1b94c56a6f4ae6b4a8c5f21",
+    "capturedAt": "2026-10-21T12:30:00.000Z",
+    "pageIndex": 0,
+    "pageCount": 1,
+    "players": [
+      {
+        "contentId": "12345678901234567",
+        "name": "Friend One",
+        "homeWorldId": 86,
+        "homeWorldName": "Typhon",
+        "currentWorldId": 86,
+        "currentWorldName": "Typhon",
+        "freeCompanyTag": "FC",
+        "statusBits": "1",
+        "jobId": 19,
+        "jobName": "Paladin",
+        "territoryId": 129,
+        "territoryName": "Limsa Lominsa",
+        "grandCompany": 1,
+        "languages": 3,
+        "mainLanguage": 1,
+        "identityUnavailable": false
+      }
+    ]
+  }
+}
