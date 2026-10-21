@@ -6,6 +6,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Utility;
 using FreeChat.Dalamud.Logging;
+using FreeChat.Dalamud.Send;
 using FreeChat.Protocol.V1;
 using FreeChat.Server;
 using Lumina.Excel.Sheets;
@@ -220,6 +221,24 @@ public sealed class ServerHost : IDisposable
     }
 
     public void Publish(ChatEvent chatEvent) => this.Server?.PublishChatEvent(chatEvent);
+
+    /// <summary>
+    /// Best-effort notification after SUBMITTED. It never changes the
+    /// terminal state of the send request.
+    /// </summary>
+    public void SendEchoResult(SendEchoMatch match, string originMessageId)
+    {
+        if (string.IsNullOrEmpty(match.SessionId)
+            || string.Equals(match.SessionId, "ui", StringComparison.Ordinal))
+            return;
+
+        this.Server?.SendEchoResult(
+            match.SessionId,
+            match.RequestId,
+            match.PartIndex,
+            match.PartCount,
+            originMessageId);
+    }
 
     public Task ResetSessionAsync(string reason) =>
         this.Server?.ResetSessionAsync(reason) ?? Task.CompletedTask;

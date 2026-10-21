@@ -192,8 +192,8 @@ Clients should use `originRequestId` to match the original
 Current implementation:
 
 - the server sets `originRequestId`;
-- the server does **not** currently send an additional `SendResult(ECHOED)`;
-  send results usually stop at `SUBMITTED`.
+- `SUBMITTED` is terminal, and the server may additionally send a best-effort,
+  non-terminal `SendResult(ECHOED)` to the originating session.
 
 ## 8. Examples
 

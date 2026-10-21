@@ -11,6 +11,13 @@ using FreeChat.Server;
 
 namespace FreeChat.Dalamud.Send;
 
+/// <summary>A best-effort game echo matched to the request and part that produced it.</summary>
+public sealed record SendEchoMatch(
+    string SessionId,
+    string RequestId,
+    int PartIndex,
+    int PartCount);
+
 public sealed class ChatSendService : IChatSink, IDisposable
 {
     private static readonly TimeSpan EchoWindow = TimeSpan.FromSeconds(5);
@@ -162,8 +169,9 @@ public sealed class ChatSendService : IChatSink, IDisposable
         return Task.FromResult(result);
     }
 
-    public bool TryAttachEcho(ChatEvent chatEvent)
+    public bool TryAttachEcho(ChatEvent chatEvent, out SendEchoMatch? match)
     {
+        match = null;
         if (string.IsNullOrEmpty(chatEvent.Text))
             return false;
 
@@ -182,7 +190,12 @@ public sealed class ChatSendService : IChatSink, IDisposable
                 if (!pending.Part.EndsWith(chatEvent.Text, StringComparison.Ordinal))
                     continue;
 
-                chatEvent.OriginRequestId = pending.RequestId;
+                chatEvent.OriginRequestId = pending.Context.RequestId;
+                match = new SendEchoMatch(
+                    pending.Context.SessionId,
+                    pending.Context.RequestId,
+                    pending.PartIndex,
+                    pending.PartCount);
                 this.pendingEchoes.RemoveAt(i);
                 return true;
             }
@@ -278,7 +291,12 @@ public sealed class ChatSendService : IChatSink, IDisposable
         }
 
         var part = this.current.Parts[this.current.Index];
-        var pending = new PendingEcho(this.current.Context.RequestId, part, DateTimeOffset.UtcNow);
+        var pending = new PendingEcho(
+            this.current.Context,
+            this.current.Index,
+            this.current.Parts.Length,
+            part,
+            DateTimeOffset.UtcNow);
         lock (this.echoGate)
         {
             this.pendingEchoes.Add(pending);
@@ -409,5 +427,10 @@ public sealed class ChatSendService : IChatSink, IDisposable
         public TaskCompletionSource<SendResult> Completion { get; }
     }
 
-    private sealed record PendingEcho(string RequestId, string Part, DateTimeOffset At);
+    private sealed record PendingEcho(
+        SendContext Context,
+        int PartIndex,
+        int PartCount,
+        string Part,
+        DateTimeOffset At);
 }

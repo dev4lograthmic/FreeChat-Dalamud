@@ -44,7 +44,7 @@ src\FreeChat.Dalamud\bin\Debug\FreeChat.Dalamud.dll
 
 ## 当前限制
 
-- 暂不发送 `SendResult(ECHOED)`；outgoing `ChatEvent.origin_request_id` 已填充，客户端可自行关联。
+- `SUBMITTED` 是终止结果；`SendResult(ECHOED)` 是尽力而为的非终止通知，outgoing `ChatEvent.origin_request_id` 也会填充。
 - `ChatEvent.Original*` 字段暂未填充。
 - 通讯贝/CWLS 名字会填入 `ChatEvent.channel_name`。
 - 好友列表和在线状态默认关闭，见社交 API 文档。

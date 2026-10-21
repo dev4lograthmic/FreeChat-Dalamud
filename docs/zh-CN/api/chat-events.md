@@ -187,7 +187,8 @@ chat.chunks.quest
 当前实现说明：
 
 - 服务端会设置 `originRequestId`。
-- 服务端暂不额外发送 `SendResult(ECHOED)`；发送回执通常停在 `SUBMITTED`。
+- `SUBMITTED` 是终止结果；服务端还可能向原 session 发送一条尽力而为、非终止的
+  `SendResult(ECHOED)`。
 
 ## 8. 示例
 

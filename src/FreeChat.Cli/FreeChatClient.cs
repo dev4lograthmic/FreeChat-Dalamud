@@ -655,7 +655,6 @@ internal sealed class FreeChatClient : IAsyncDisposable
 
     private static bool IsTerminal(SendStatus status) => status is
         SendStatus.Submitted or
-        SendStatus.Echoed or
         SendStatus.Failed or
         SendStatus.Blocked or
         SendStatus.RateLimited or

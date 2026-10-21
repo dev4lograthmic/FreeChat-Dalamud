@@ -119,7 +119,7 @@ social.friend_presence（可选）
 - 协议版本：`freechat.v1`。
 - 默认子协议：`freechat.v1.protobuf`。
 - `freechat.v1.json` 仅在插件设置开启 JSON debug 时可用。
-- 当前服务端在发送回显时会设置 `ChatEvent.origin_request_id`，但**暂不发送单独的 `SendResult(ECHOED)`**。
+- `SUBMITTED` 是发送的终止结果。服务端会在回显上设置 `ChatEvent.origin_request_id`，并尽力发送一条非终止的 `SendResult(ECHOED)`。
 - `SendResult(SUBMITTED)` 表示游戏聊天框接受了输入，不代表对方收到。
 - 服务端只保存当前游戏会话的 backlog，不持久化聊天记录。
 - 默认只监听 loopback；LAN 需要在插件设置里显式开启。

@@ -78,8 +78,10 @@ public sealed class ChatCapture : IDisposable
                 message,
                 ChatSource.PostHandle,
                 this.localPlayerName());
-            this.sendService.TryAttachEcho(chatEvent);
+            this.sendService.TryAttachEcho(chatEvent, out var echo);
             this.server.Publish(chatEvent);
+            if (echo is not null)
+                this.server.SendEchoResult(echo, chatEvent.MessageId);
             this.sendService.UpdateLastEcho(chatEvent);
             Interlocked.Increment(ref this.postHandleCount);
             this.lastEventAt = DateTimeOffset.UtcNow;

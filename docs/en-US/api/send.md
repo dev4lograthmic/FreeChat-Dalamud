@@ -132,23 +132,46 @@ guarantee delivery.
 
 | Status | Meaning |
 |---|---|
-| `SEND_STATUS_QUEUED` | Queued (current implementation usually returns Submitted directly) |
-| `SEND_STATUS_SUBMITTED` | The game chat box accepted the input; not delivery |
-| `SEND_STATUS_ECHOED` | Game echo observed (protocol reserved; not emitted currently) |
+| `SEND_STATUS_QUEUED` | Reserved; not currently emitted |
+| `SEND_STATUS_SUBMITTED` | Terminal: the game chat box accepted the input; not delivery |
+| `SEND_STATUS_ECHOED` | Optional best-effort notification: the game echo was observed |
 | `SEND_STATUS_FAILED` | Game API failure/exception |
 | `SEND_STATUS_BLOCKED` | Command blocklist |
 | `SEND_STATUS_RATE_LIMITED` | Rate limited |
 | `SEND_STATUS_QUEUE_FULL` | Queue full |
 | `SEND_STATUS_CANCELLED` | Cancelled |
 
+`SUBMITTED` is terminal for the request. If the game later displays the
+message and the server can match it to the request, the server may send an
+additional `ECHOED` result:
+
+```json
+{
+  "requestId": "send-2",
+  "sendResult": {
+    "status": "SEND_STATUS_ECHOED",
+    "partIndex": 0,
+    "partCount": 1,
+    "originMessageId": "srv-1a2b:sess-9f8e:44"
+  }
+}
+```
+
+`ECHOED` is **not terminal** and does not change the already-finished
+`SUBMITTED` request. It is best-effort and may be missing. Clients must not
+wait for it before treating the send as submitted.
+
 `SUBMITTED` is not a delivery receipt; tells have no read/delivery confirmation.
+`ECHOED` only confirms that the local game displayed the message, not that a
+remote player received it.
 
 ## 5. Multi-part sends
 
 - Structured sends over 500 bytes are split.
 - Every part keeps the channel/tell prefix.
-- Current implementation submits all parts and returns one `Submitted` with
-  `partCount`; it does not send per-part `SendResult` messages yet.
+- The request returns one terminal `Submitted` with `partCount`.
+- If the game echo of a part is observed, the server may send a best-effort
+  `ECHOED` with that part's `partIndex` and `partCount`.
 - If a part fails, later parts are not submitted.
 
 ## 6. Echo correlation
@@ -165,8 +188,11 @@ The game echo event may include:
 }
 ```
 
-Clients correlate using `originRequestId`. The current implementation does not
-send an additional `SendResult(ECHOED)`; do not assume it will always arrive.
+Clients correlate using `originRequestId`. The server also makes a best-effort
+attempt to send `SendResult(ECHOED)` to the session that issued the request.
+It may be absent when the echo is suppressed, modified beyond recognition,
+arrives after the 5-second match window, or the client has disconnected.
+`SUBMITTED` remains the terminal result; do not block on `ECHOED`.
 
 ## 7. SendCancel
 

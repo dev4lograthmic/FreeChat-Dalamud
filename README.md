@@ -80,7 +80,7 @@ See [CLI docs](docs/en-US/development/cli.md) and the
 
 ## Not implemented yet
 
-- `SendResult(ECHOED)` and full multi-part acknowledgement (Phase 7)
+- Full multi-part acknowledgement semantics (Phase 7)
 - Browser clients, relay, multi-instance (future)
 
 ## Documentation
@@ -176,7 +176,7 @@ dotnet run --project src\FreeChat.Cli -- pair --uri "<freechat://pair?...>"
 
 ## 尚未实现
 
-- `SendResult(ECHOED)` 和完整多段回执（Phase 7）
+- 完整多段回执语义（Phase 7）
 - 浏览器客户端、relay、多实例（以后）
 
 ## 文档

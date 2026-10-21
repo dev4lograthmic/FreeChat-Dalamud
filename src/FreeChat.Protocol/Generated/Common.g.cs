@@ -237,8 +237,10 @@ namespace FreeChat.Protocol.V1 {
   }
 
   /// <summary>
-  /// Status of a send request. A request can emit multiple SendResult messages:
-  /// QUEUED -> SUBMITTED -> ECHOED (or a terminal failure status).
+  /// Status of a send request. SUBMITTED is the terminal status for the request.
+  /// ECHOED is an optional, best-effort notification that may arrive afterwards
+  /// when the game displays the sent message; it does not change the terminal
+  /// state. QUEUED is reserved by the protocol and is not currently emitted.
   /// </summary>
   public enum SendStatus {
     [pbr::OriginalName("SEND_STATUS_UNSPECIFIED")] Unspecified = 0,

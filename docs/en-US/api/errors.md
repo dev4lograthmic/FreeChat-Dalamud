@@ -55,8 +55,8 @@
 |---|---|
 | `SEND_STATUS_UNSPECIFIED` | Unspecified |
 | `SEND_STATUS_QUEUED` | Queued |
-| `SEND_STATUS_SUBMITTED` | Game accepted input; not delivery |
-| `SEND_STATUS_ECHOED` | Echo observed (protocol reserved) |
+| `SEND_STATUS_SUBMITTED` | Terminal; game accepted input, not delivery |
+| `SEND_STATUS_ECHOED` | Optional best-effort echo notification |
 | `SEND_STATUS_FAILED` | Failed |
 | `SEND_STATUS_BLOCKED` | Command blocklist |
 | `SEND_STATUS_RATE_LIMITED` | Rate limited |

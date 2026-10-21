@@ -45,8 +45,8 @@ rate limits, command blocklist), and **Logs**.
 
 ## Current limitations
 
-- `SendResult(ECHOED)` is not emitted yet; outgoing `ChatEvent.origin_request_id`
-  is populated for clients that need correlation.
+- `SUBMITTED` is terminal. `SendResult(ECHOED)` is a best-effort, non-terminal
+  notification; outgoing `ChatEvent.origin_request_id` is also populated.
 - `ChatEvent.Original*` fields are not populated yet.
 - Linkshell/CWLS names are filled into `ChatEvent.channel_name`.
 - Friend list and presence are opt-in; see the social API docs.

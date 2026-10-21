@@ -124,8 +124,9 @@ features.
 - Protocol version: `freechat.v1`.
 - Default subprotocol: `freechat.v1.protobuf`.
 - `freechat.v1.json` is available only when JSON debug is enabled in the plugin.
-- The server sets `ChatEvent.origin_request_id` on outgoing echoes, but
-  **does not currently emit a separate `SendResult(ECHOED)`**.
+- `SUBMITTED` is the terminal send result. The server sets
+  `ChatEvent.origin_request_id` on outgoing echoes and makes a best-effort
+  attempt to send an additional, non-terminal `SendResult(ECHOED)`.
 - `SendResult(SUBMITTED)` means the game chat box accepted the input; it does
   not prove delivery.
 - The server keeps only the current game session backlog and does not persist

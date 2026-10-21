@@ -123,23 +123,43 @@ message SendRequest {
 
 | 状态 | 含义 |
 |---|---|
-| `SEND_STATUS_QUEUED` | 已入队（当前实现通常直接返回 Submitted） |
-| `SEND_STATUS_SUBMITTED` | 游戏聊天框接受了输入，不代表送达 |
-| `SEND_STATUS_ECHOED` | 观察到游戏回显（协议保留；当前实现未发送） |
+| `SEND_STATUS_QUEUED` | 协议保留；当前实现不发送 |
+| `SEND_STATUS_SUBMITTED` | 终止状态：游戏聊天框接受了输入，不代表送达 |
+| `SEND_STATUS_ECHOED` | 可选的尽力而为通知：观察到了游戏回显 |
 | `SEND_STATUS_FAILED` | 游戏 API 失败/异常 |
 | `SEND_STATUS_BLOCKED` | 命令黑名单 |
 | `SEND_STATUS_RATE_LIMITED` | 限流 |
 | `SEND_STATUS_QUEUE_FULL` | 队列满 |
 | `SEND_STATUS_CANCELLED` | 取消 |
 
+`SUBMITTED` 是本次请求的终止状态。如果之后游戏显示了消息，且服务端能把它
+匹配到原请求，可能会再发送一条 `ECHOED`：
+
+```json
+{
+  "requestId": "send-2",
+  "sendResult": {
+    "status": "SEND_STATUS_ECHOED",
+    "partIndex": 0,
+    "partCount": 1,
+    "originMessageId": "srv-1a2b:sess-9f8e:44"
+  }
+}
+```
+
+`ECHOED` **不是终止状态**，不会改变已经结束的 `SUBMITTED` 请求。它是尽力而为
+通知，可能完全不会到达；客户端不能为了等它而阻塞发送流程。
+
 `SUBMITTED` 不是送达回执；私聊没有已读/送达确认。
+`ECHOED` 只说明本地游戏显示了该消息，不代表远端玩家收到。
 
 ## 5. 多段发送
 
 - 结构化发送超过 500 字节时会拆成多段。
 - 每段保留频道/私聊前缀。
-- 当前实现：所有段提交后返回一个 `Submitted`，带 `partCount`；暂不逐段发送
-  `SendResult`。
+- 本次请求返回一个终止的 `Submitted`，带 `partCount`。
+- 如果观察到某段的游戏回显，服务端可能会尽力发送一条带该段 `partIndex` 和
+  `partCount` 的 `ECHOED`。
 - 某段失败时后续段不会继续提交。
 
 ## 6. 回显关联
@@ -156,8 +176,10 @@ message SendRequest {
 }
 ```
 
-客户端用 `originRequestId` 关联发送请求。当前实现不发送额外的
-`SendResult(ECHOED)`；不要假设一定收到该状态。
+客户端用 `originRequestId` 关联发送请求。服务端还会尽力向发起请求的 session
+发送 `SendResult(ECHOED)`。如果回显被抑制、文本被修改到无法匹配、超过 5 秒
+匹配窗口，或客户端已断开，则可能收不到。`SUBMITTED` 仍是终止结果；不要阻塞
+等待 `ECHOED`。
 
 ## 7. SendCancel
 

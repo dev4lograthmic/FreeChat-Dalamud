@@ -148,6 +148,66 @@ public sealed class ServerIntegrationTests
     }
 
     [Fact]
+    public async Task SendResult_Echoed_IsBestEffortAfterSubmitted()
+    {
+        await using var context = await TestServerContext.StartAsync();
+        var (key, publicKey) = TestKeys.Create();
+        await using var session = await PairAsync(context, publicKey);
+
+        await session.Client.SendAsync(new Envelope
+        {
+            RequestId = "send-echo",
+            SendRequest = new SendRequest { RawText = "/echo hello" },
+        });
+
+        var submitted = await session.Client.ReceiveAsync();
+        Assert.Equal(SendStatus.Submitted, submitted.SendResult.Status);
+        Assert.True(context.Server.SendEchoResult(
+            session.Welcome.SessionId,
+            "send-echo",
+            0,
+            1,
+            "srv:sess:42"));
+
+        var echoed = await session.Client.ReceiveAsync();
+        Assert.Equal(Envelope.PayloadOneofCase.SendResult, echoed.PayloadCase);
+        Assert.Equal(SendStatus.Echoed, echoed.SendResult.Status);
+        Assert.Equal("srv:sess:42", echoed.SendResult.OriginMessageId);
+        Assert.Equal(0, echoed.SendResult.PartIndex);
+        Assert.Equal(1, echoed.SendResult.PartCount);
+        key.Dispose();
+    }
+
+    [Fact]
+    public async Task SendResult_Echoed_QueuedUntilSubmitted()
+    {
+        await using var context = await TestServerContext.StartAsync();
+        var (key, publicKey) = TestKeys.Create();
+        await using var session = await PairAsync(context, publicKey);
+
+        Assert.True(context.Server.SendEchoResult(
+            session.Welcome.SessionId,
+            "send-early",
+            0,
+            1,
+            "srv:sess:41"));
+
+        await session.Client.SendAsync(new Envelope
+        {
+            RequestId = "send-early",
+            SendRequest = new SendRequest { RawText = "/echo hello" },
+        });
+
+        var submitted = await session.Client.ReceiveAsync();
+        Assert.Equal(SendStatus.Submitted, submitted.SendResult.Status);
+
+        var echoed = await session.Client.ReceiveAsync();
+        Assert.Equal(SendStatus.Echoed, echoed.SendResult.Status);
+        Assert.Equal("srv:sess:41", echoed.SendResult.OriginMessageId);
+        key.Dispose();
+    }
+
+    [Fact]
     public async Task SendRateLimit_ReturnsRateLimited()
     {
         await using var context = await TestServerContext.StartAsync();

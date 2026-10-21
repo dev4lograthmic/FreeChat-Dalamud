@@ -17,6 +17,10 @@ public sealed class FreeChatServer : IAsyncDisposable
     private readonly WebSocketServer transport;
     private readonly ConcurrentDictionary<string, SessionHandler> sessions = new(StringComparer.Ordinal);
     private readonly object sequenceGate = new();
+    private readonly object echoGate = new();
+    private readonly Dictionary<string, DateTimeOffset> submittedAt = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, DateTimeOffset> pendingEchoTimestamps = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, List<Envelope>> pendingEchoResults = new(StringComparer.Ordinal);
 
     private long sequence;
     private string sessionId = Guid.NewGuid().ToString("N");
@@ -94,6 +98,91 @@ public sealed class FreeChatServer : IAsyncDisposable
 
         _ = session.EndAsync("disconnected_by_user");
         return true;
+    }
+
+    /// <summary>
+    /// Queues or sends a best-effort ECHOED notification. SUBMITTED is already
+    /// terminal; this method only decides whether the optional notification can
+    /// be delivered to the originating session.
+    /// </summary>
+    public bool SendEchoResult(
+        string sessionId,
+        string requestId,
+        int partIndex,
+        int partCount,
+        string originMessageId)
+    {
+        var key = EchoKey(sessionId, requestId);
+        var envelope = new Envelope
+        {
+            RequestId = requestId,
+            SendResult = new SendResult
+            {
+                Status = SendStatus.Echoed,
+                PartIndex = partIndex,
+                PartCount = partCount,
+                OriginMessageId = originMessageId,
+            },
+        };
+
+        var now = this.clock.UtcNow;
+        lock (this.echoGate)
+        {
+            this.CleanupEchoState(now);
+            if (!this.submittedAt.ContainsKey(key))
+            {
+                if (!this.pendingEchoResults.TryGetValue(key, out var queued))
+                {
+                    queued = new List<Envelope>();
+                    this.pendingEchoResults[key] = queued;
+                    this.pendingEchoTimestamps[key] = now;
+                }
+
+                queued.Add(envelope);
+                return true;
+            }
+        }
+
+        return this.sessions.TryGetValue(sessionId, out var session) && session.TrySend(envelope);
+    }
+
+    /// <summary>Called after the terminal SUBMITTED result has been queued.</summary>
+    public void MarkSendSubmitted(string sessionId, string requestId)
+    {
+        var key = EchoKey(sessionId, requestId);
+        List<Envelope>? pending = null;
+        lock (this.echoGate)
+        {
+            this.submittedAt[key] = this.clock.UtcNow;
+            if (this.pendingEchoResults.Remove(key, out var queued))
+            {
+                pending = queued;
+                this.pendingEchoTimestamps.Remove(key);
+            }
+
+            this.CleanupEchoState(this.clock.UtcNow);
+        }
+
+        if (pending is null || !this.sessions.TryGetValue(sessionId, out var session))
+            return;
+
+        foreach (var envelope in pending)
+            session.TrySend(envelope);
+    }
+
+    private static string EchoKey(string sessionId, string requestId) =>
+        sessionId + "\0" + requestId;
+
+    private void CleanupEchoState(DateTimeOffset now)
+    {
+        foreach (var entry in this.submittedAt.Where(x => now - x.Value > TimeSpan.FromMinutes(2)).ToArray())
+            this.submittedAt.Remove(entry.Key);
+
+        foreach (var entry in this.pendingEchoTimestamps.Where(x => now - x.Value > TimeSpan.FromSeconds(30)).ToArray())
+        {
+            this.pendingEchoTimestamps.Remove(entry.Key);
+            this.pendingEchoResults.Remove(entry.Key);
+        }
     }
 
     public Task StartAsync()

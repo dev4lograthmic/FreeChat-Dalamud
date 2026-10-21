@@ -638,9 +638,16 @@ namespace FreeChat.Protocol.V1 {
   }
 
   /// <summary>
-  /// Emitted for each stage of a send request. Correlate with Envelope.request_id.
-  /// QUEUED and SUBMITTED can be followed by ECHOED; any terminal status ends the
-  /// request. Multi-part sends use part_index/part_count.
+  /// Correlate with Envelope.request_id.
+  ///
+  /// SUBMITTED is terminal: the game chat box accepted the input. If the game
+  /// later displays the message and the server can match the echo, it may send an
+  /// additional ECHOED result with the same request_id. ECHOED is best-effort,
+  /// is not terminal, and may be absent. Clients must not wait for it.
+  ///
+  /// Multi-part sends use part_index/part_count. The current implementation sends
+  /// one terminal SUBMITTED for the request and best-effort per-part ECHOED
+  /// notifications when each displayed part is observed.
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SendResult : pb::IMessage<SendResult>

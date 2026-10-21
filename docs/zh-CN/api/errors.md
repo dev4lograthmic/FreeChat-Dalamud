@@ -55,8 +55,8 @@
 |---|---|
 | `SEND_STATUS_UNSPECIFIED` | 未指定 |
 | `SEND_STATUS_QUEUED` | 已入队 |
-| `SEND_STATUS_SUBMITTED` | 游戏接受输入，不代表送达 |
-| `SEND_STATUS_ECHOED` | 观察到回显（协议保留） |
+| `SEND_STATUS_SUBMITTED` | 终止状态；游戏接受输入，不代表送达 |
+| `SEND_STATUS_ECHOED` | 可选的尽力而为回显通知 |
 | `SEND_STATUS_FAILED` | 失败 |
 | `SEND_STATUS_BLOCKED` | 命令黑名单 |
 | `SEND_STATUS_RATE_LIMITED` | 限流 |

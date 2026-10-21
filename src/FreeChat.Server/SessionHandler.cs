@@ -441,6 +441,9 @@ internal sealed class SessionHandler : IAsyncDisposable
                 RequestId = envelope.RequestId,
                 SendResult = result,
             }).ConfigureAwait(false);
+
+            if (result.Status == SendStatus.Submitted)
+                this.server.MarkSendSubmitted(this.sessionId, envelope.RequestId);
         }
         catch (SendRejectedException ex)
         {
@@ -725,6 +728,8 @@ internal sealed class SessionHandler : IAsyncDisposable
             },
         }).ConfigureAwait(false);
     }
+
+    internal bool TrySend(Envelope envelope) => this.connection.Send(envelope);
 
     public bool TrySendChat(ChatEvent chatEvent)
     {
