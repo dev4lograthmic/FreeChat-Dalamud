@@ -11,6 +11,10 @@ internal static class Program
 
     public static async Task<int> Main(string[] args)
     {
+        // JSON and chat text are UTF-8 on the wire. Keep redirected output
+        // UTF-8 as well instead of the Windows console code page.
+        Console.OutputEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+
         if (args.Length == 0 || args[0] is "-h" or "--help")
         {
             PrintUsage();
