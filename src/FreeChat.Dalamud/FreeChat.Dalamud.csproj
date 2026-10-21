@@ -5,7 +5,7 @@
     <Name>FreeChat</Name>
     <Punchline>Receive and send FFXIV chat from your own clients.</Punchline>
     <Description>Game-side WebSocket server for the FreeChat protocol. Pair a trusted client, receive chat events, and send commands or messages.</Description>
-    <RepoUrl>https://github.com/example/FreeChat-Dalamud</RepoUrl>
+    <RepoUrl>https://github.com/dev4lograthmic/FreeChat-Dalamud</RepoUrl>
     <Tags>chat;server;lan;websocket</Tags>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>

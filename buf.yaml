@@ -1,6 +1,7 @@
 version: v2
 modules:
   - path: proto
+    name: buf.build/free-chat/free-chat
 lint:
   use:
     - STANDARD
