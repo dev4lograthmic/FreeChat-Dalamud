@@ -56,9 +56,12 @@
 is then empty. Do not substitute a placeholder world name.
 
 Same-world tells and other local player chat often carry only the character
-name, with no world at all. `sender.isPlayer` is still `true` for player chat
-channels. When the display text is `Name@World`, `sender.worldName` is filled
-but `sender.worldId` may remain `0`.
+name, with no world at all. For tells without world information, the server
+fills the sender's world from the local player's current world and treats it as
+same-server. This is the current world, not necessarily the other character's
+home world. `sender.isPlayer` is `true` for player chat channels. When the
+display text is `Name@World`, `sender.worldName` is taken from the text but
+`sender.worldId` may remain `0`.
 
 ## 2. Channels and log_kind
 

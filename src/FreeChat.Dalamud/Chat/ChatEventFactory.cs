@@ -2,6 +2,7 @@ using Dalamud.Game.Chat;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
+using Dalamud.Plugin.Services;
 using Dalamud.Utility;
 using FreeChat.Protocol.V1;
 using Google.Protobuf;
@@ -13,18 +14,27 @@ public sealed class ChatEventFactory
 {
     private readonly ChatEnricher enricher;
     private readonly Func<ChatChannel, string?>? channelName;
+    private readonly IPlayerState? playerState;
 
-    public ChatEventFactory(ChatEnricher enricher, Func<ChatChannel, string?>? channelName = null)
+    public ChatEventFactory(
+        ChatEnricher enricher,
+        Func<ChatChannel, string?>? channelName = null,
+        IPlayerState? playerState = null)
     {
         this.enricher = enricher;
         this.channelName = channelName;
+        this.playerState = playerState;
     }
 
     public ChatEvent Create(IChatMessage message, ChatSource source, string? localPlayerName)
     {
         var kind = (ushort)message.LogKind;
         var channel = MapChannel(kind);
-        var sender = CreateCharacter(message.Sender, localPlayerName, IsPlayerKind(kind));
+        var sender = CreateCharacter(
+            message.Sender,
+            localPlayerName,
+            IsPlayerKind(kind),
+            channel == ChatChannel.Tell);
         var chatEvent = new ChatEvent
         {
             Channel = channel,
@@ -126,16 +136,25 @@ public sealed class ChatEventFactory
         return chatEvent;
     }
 
-    private static CharacterRef CreateCharacter(SeString sender, string? localPlayerName, bool isPlayerKind)
+    private CharacterRef CreateCharacter(
+        SeString sender,
+        string? localPlayerName,
+        bool isPlayerKind,
+        bool isTell)
     {
         var player = sender.Payloads.OfType<PlayerPayload>().FirstOrDefault();
         if (player is not null)
         {
+            var worldId = player.World.RowId;
+            var worldName = WorldNames.Resolve(player.World);
+            if (isTell && worldId == 0 && worldName.Length == 0)
+                (worldId, worldName) = this.LocalWorld();
+
             return new CharacterRef
             {
                 Name = player.PlayerName,
-                WorldId = player.World.RowId,
-                WorldName = WorldNames.Resolve(player.World),
+                WorldId = worldId,
+                WorldName = worldName,
                 IsPlayer = true,
                 IsLocal = localPlayerName is not null && player.PlayerName == localPlayerName,
             };
@@ -143,7 +162,7 @@ public sealed class ChatEventFactory
 
         var text = ExtractText(sender).Trim();
         var name = text;
-        var worldName = string.Empty;
+        var worldNameFromText = string.Empty;
         if (isPlayerKind)
         {
             // Same-world tells usually carry only the character name. Some
@@ -153,17 +172,32 @@ public sealed class ChatEventFactory
             if (at > 0 && at < text.Length - 1)
             {
                 name = text[..at].Trim();
-                worldName = text[(at + 1)..].Trim();
+                worldNameFromText = text[(at + 1)..].Trim();
             }
         }
+
+        var senderWorldId = 0u;
+        var senderWorldName = worldNameFromText;
+        if (isTell && senderWorldName.Length == 0)
+            (senderWorldId, senderWorldName) = this.LocalWorld();
 
         return new CharacterRef
         {
             Name = name,
-            WorldName = worldName,
+            WorldId = senderWorldId,
+            WorldName = senderWorldName,
             IsPlayer = isPlayerKind,
             IsLocal = isPlayerKind && localPlayerName is not null && name == localPlayerName,
         };
+    }
+
+    private (uint Id, string Name) LocalWorld()
+    {
+        if (this.playerState is not { IsLoaded: true })
+            return (0, string.Empty);
+
+        var world = this.playerState.CurrentWorld;
+        return (world.RowId, WorldNames.Resolve(world));
     }
 
     /// <summary>

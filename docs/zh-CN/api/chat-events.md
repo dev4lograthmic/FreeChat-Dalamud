@@ -56,8 +56,10 @@
 不要用占位服务器名替代。
 
 本服私聊等本地玩家消息通常只带角色名，消息里没有世界信息；此时
-`sender.isPlayer` 仍为 `true`。如果显示文本是 `Name@World`，会填充
-`sender.worldName`，但 `sender.worldId` 可能仍为 `0`。
+`sender.isPlayer` 仍为 `true`。对于没有世界信息的 tell，服务端会用本地玩家
+**当前世界**填充发送者世界，并当作同服处理。注意这是当前世界，不一定是对方的
+本服。如果显示文本是 `Name@World`，`sender.worldName` 取自文本，但
+`sender.worldId` 可能仍为 `0`。
 
 ## 2. 频道与 log_kind
 

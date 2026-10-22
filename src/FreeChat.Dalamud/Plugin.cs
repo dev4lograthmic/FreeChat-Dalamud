@@ -65,7 +65,8 @@ public sealed class Plugin : IDalamudPlugin
 
         var factory = new ChatEventFactory(
             new ChatEnricher(DataManager),
-            this.Social.NameFor);
+            this.Social.NameFor,
+            PlayerState);
         this.ChatCapture = new ChatCapture(
             ChatGui,
             this.ServerHost,
