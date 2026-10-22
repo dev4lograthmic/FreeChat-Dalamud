@@ -55,13 +55,15 @@
 `sender.worldId` is `0` when the sender's world is unknown; `sender.worldName`
 is then empty. Do not substitute a placeholder world name.
 
-Same-world tells and other local player chat often carry only the character
-name, with no world at all. For tells without world information, the server
-fills the sender's world from the local player's current world and treats it as
-same-server. This is the current world, not necessarily the other character's
-home world. `sender.isPlayer` is `true` for player chat channels. When the
-display text is `Name@World`, `sender.worldName` is taken from the text but
-`sender.worldId` may remain `0`.
+A tell sender normally carries the character's **home world**, even when the
+sender is currently visiting another world. `sender.worldName` is therefore the
+home world, not their current location; the current location may only appear
+in the message text. For outgoing tells, the game's sender payload is the
+target player, so `tellPeer` is that target.
+
+If a tell carries no world at all (for example a self-tell), the server infers
+the local player's current world and treats it as same-server. This is an
+inference; it does not reveal the other character's home world.
 
 ## 2. Channels and log_kind
 
