@@ -18,6 +18,7 @@ public sealed class ServerHost : IDisposable
     private readonly IPluginLog log;
     private readonly UiLog uiLog;
     private readonly IChatSink chatSink;
+    private readonly IPlayerState playerState;
     private readonly ISocialDataProvider? social;
     private string? lastCharacterKey;
     private string? advertisedHost;
@@ -28,6 +29,7 @@ public sealed class ServerHost : IDisposable
         IPluginLog log,
         UiLog uiLog,
         IChatSink chatSink,
+        IPlayerState playerState,
         ISocialDataProvider? social = null)
     {
         this.configuration = configuration;
@@ -35,6 +37,7 @@ public sealed class ServerHost : IDisposable
         this.log = log;
         this.uiLog = uiLog;
         this.chatSink = chatSink;
+        this.playerState = playerState;
         this.social = social;
         this.Approval = new PairingApprovalService();
     }
@@ -205,17 +208,19 @@ public sealed class ServerHost : IDisposable
             return;
 
         var worldName = WorldNames.Resolve(player.HomeWorld);
+        var contentId = this.playerState.IsLoaded ? this.playerState.ContentId : 0;
         var key = $"{name}@{worldId}";
-        if (key == this.lastCharacterKey)
+        var cacheKey = $"{key}@{contentId}";
+        if (cacheKey == this.lastCharacterKey)
             return;
 
-        this.lastCharacterKey = key;
+        this.lastCharacterKey = cacheKey;
         server.UpdateCharacter(new CharacterRef
         {
             Name = name,
             WorldId = worldId,
             WorldName = worldName,
-            ContentId = 0,
+            ContentId = contentId,
             IsPlayer = true,
             IsLocal = true,
         }, key);

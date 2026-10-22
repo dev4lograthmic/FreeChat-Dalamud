@@ -236,17 +236,24 @@ public sealed class FreeChatServer : IAsyncDisposable
         }
     }
 
-    public ServerInfo CreateServerInfo() => new()
+    public ServerInfo CreateServerInfo(bool includeContentId = false)
     {
-        ServerId = this.ServerId,
-        ServerName = this.ServerName,
-        Character = this.Character?.Clone() ?? new CharacterRef(),
-        ProtocolVersion = ProtocolConstants.Version,
-        ServerVersion = "0.1.0",
-        PublicKeyFingerprint = ByteString.CopyFrom(this.Fingerprint),
-        Capabilities = this.CreateCapabilities(),
-        ServerTime = Timestamp.FromDateTimeOffset(this.clock.UtcNow),
-    };
+        var character = this.Character?.Clone() ?? new CharacterRef();
+        if (!includeContentId)
+            character.ContentId = 0;
+
+        return new ServerInfo
+        {
+            ServerId = this.ServerId,
+            ServerName = this.ServerName,
+            Character = character,
+            ProtocolVersion = ProtocolConstants.Version,
+            ServerVersion = "0.1.0",
+            PublicKeyFingerprint = ByteString.CopyFrom(this.Fingerprint),
+            Capabilities = this.CreateCapabilities(),
+            ServerTime = Timestamp.FromDateTimeOffset(this.clock.UtcNow),
+        };
+    }
 
     internal void RegisterSession(SessionHandler session) =>
         this.sessions.TryAdd(session.SessionId, session);

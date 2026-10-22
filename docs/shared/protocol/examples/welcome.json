@@ -3,6 +3,14 @@
     "server": {
       "serverId": "srv-1a2b",
       "serverName": "FreeChat",
+      "character": {
+        "name": "Someone",
+        "worldId": 86,
+        "worldName": "Typhon",
+        "contentId": "12345678901234567",
+        "isPlayer": true,
+        "isLocal": true
+      },
       "protocolVersion": 1,
       "serverVersion": "0.1.0",
       "publicKeyFingerprint": "DtOmq5V/9vWaljCkc9MafQT8tGVIuJAWGWmAx+llhPY="

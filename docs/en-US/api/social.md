@@ -61,6 +61,7 @@ The server returns ordered pages, all sharing the same `snapshotId`,
       "name": "Someone",
       "worldId": 86,
       "worldName": "Typhon",
+      "contentId": "12345678901234567",
       "isPlayer": true,
       "isLocal": true
     },

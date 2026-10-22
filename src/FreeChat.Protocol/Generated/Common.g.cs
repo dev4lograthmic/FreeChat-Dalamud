@@ -405,6 +405,11 @@ namespace FreeChat.Protocol.V1 {
     /// <summary>Field number for the "content_id" field.</summary>
     public const int ContentIdFieldNumber = 4;
     private ulong contentId_;
+    /// <summary>
+    /// 0 when the identity is not available (for example the pre-pairing
+    /// ServerInfo or a chat sender without a known ContentId). Authenticated owner
+    /// snapshots include the local character's real id.
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ulong ContentId {

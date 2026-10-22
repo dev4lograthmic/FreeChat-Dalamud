@@ -39,6 +39,28 @@ public sealed class ServerIntegrationTests
     }
 
     [Fact]
+    public async Task ContentId_IsRedactedBeforePairing_AndReturnedInWelcome()
+    {
+        await using var context = await TestServerContext.StartAsync();
+        var (key, publicKey) = TestKeys.Create();
+
+        await using var client = await TestClient.ConnectAsync(context.Server.Port, context.Server.Fingerprint);
+        await client.SendAsync(TestKeys.ClientHello(publicKey));
+
+        var pairing = await client.ReceiveAsync();
+        Assert.Equal(Envelope.PayloadOneofCase.PairingRequired, pairing.PayloadCase);
+        Assert.Equal(0UL, pairing.PairingRequired.Server.Character.ContentId);
+
+        await client.SendAsync(TestKeys.PairRequest(context.Server.Pairing.CurrentCode, publicKey));
+        var result = await client.ReceiveAsync();
+        Assert.True(result.PairResult.Ok);
+        var welcome = await client.ReceiveAsync();
+        Assert.Equal(Envelope.PayloadOneofCase.Welcome, welcome.PayloadCase);
+        Assert.Equal(TestKeys.LocalContentId, welcome.Welcome.Server.Character.ContentId);
+        key.Dispose();
+    }
+
+    [Fact]
     public async Task WrongPin_IsRejected()
     {
         await using var context = await TestServerContext.StartAsync();
@@ -441,6 +463,8 @@ public sealed class ServerIntegrationTests
         Assert.Single(pages.Select(x => x.SnapshotId).Distinct());
         Assert.Equal(70, pages.Sum(x => x.Players.Count));
         Assert.Equal("Tester", provider.LastContext?.Owner?.Name);
+        Assert.Equal(TestKeys.LocalContentId, pages[0].Owner.ContentId);
+        Assert.Equal(TestKeys.LocalContentId, provider.LastContext?.Owner?.ContentId);
         key.Dispose();
     }
 
@@ -606,6 +630,7 @@ internal sealed class TestServerContext : IAsyncDisposable
             Name = "Tester",
             WorldId = 86,
             WorldName = "Typhon",
+            ContentId = TestKeys.LocalContentId,
             IsPlayer = true,
             IsLocal = true,
         }, "owner");

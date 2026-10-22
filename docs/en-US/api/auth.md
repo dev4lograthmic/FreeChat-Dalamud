@@ -124,6 +124,8 @@ Clients should:
 - verify `server.serverId` matches the deep link `sid`;
 - treat `server.character.worldId == 0` as an unknown world; `worldName` is then
   empty;
+- treat `server.character.contentId == 0` as redacted; the real ContentId is
+  only returned in `Welcome` after authentication;
 - show the device name, platform, and public-key fingerprint to the user;
 - ask the user to read the pairing code from the plugin UI; never request it
   from the server.
@@ -227,6 +229,14 @@ Signature input:
     "server": {
       "serverId": "srv-1a2b",
       "serverName": "FreeChat",
+      "character": {
+        "name": "Someone",
+        "worldId": 86,
+        "worldName": "Typhon",
+        "contentId": "12345678901234567",
+        "isPlayer": true,
+        "isLocal": true
+      },
       "protocolVersion": 1,
       "publicKeyFingerprint": "DtOmq5V/9vWaljCkc9MafQT8tGVIuJAWGWmAx+llhPY="
     },
@@ -246,6 +256,9 @@ Clients should persist:
 - `server_id`
 - current `session_id`
 - last known `sequence`
+
+`welcome.server.character.contentId` is the local character's ContentId. It is
+only sent to authenticated, paired clients; pre-pairing `ServerInfo` redacts it.
 
 ## 10. AuthError
 

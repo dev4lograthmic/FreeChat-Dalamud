@@ -244,6 +244,8 @@ internal sealed class TestClient : IAsyncDisposable
 
 internal static class TestKeys
 {
+    public const ulong LocalContentId = 12345678901234567;
+
     public static (ECDsa Key, byte[] PublicKey) Create()
     {
         var key = ECDsa.Create(ECCurve.NamedCurves.nistP256);

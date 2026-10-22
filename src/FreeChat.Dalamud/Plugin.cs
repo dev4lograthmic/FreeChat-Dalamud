@@ -59,6 +59,7 @@ public sealed class Plugin : IDalamudPlugin
             Log,
             this.UiLog,
             this.ChatSendService,
+            PlayerState,
             this.Social);
         this.ServerHost.Start();
 

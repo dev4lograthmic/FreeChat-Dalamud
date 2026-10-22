@@ -265,7 +265,7 @@ internal sealed class SessionHandler : IAsyncDisposable
         {
             Welcome = new Welcome
             {
-                Server = this.server.CreateServerInfo(),
+                Server = this.server.CreateServerInfo(includeContentId: true),
                 SessionId = this.sessionId,
                 OldestSequence = this.server.Backlog.OldestSequence,
                 LatestSequence = this.server.Backlog.LatestSequence,

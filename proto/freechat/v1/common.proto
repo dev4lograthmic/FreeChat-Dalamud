@@ -166,6 +166,9 @@ message CharacterRef {
   string name = 1;
   uint32 world_id = 2;
   string world_name = 3;
+  // 0 when the identity is not available (for example the pre-pairing
+  // ServerInfo or a chat sender without a known ContentId). Authenticated owner
+  // snapshots include the local character's real id.
   uint64 content_id = 4;
   bool is_player = 5;
   // True when this is the local player's character.

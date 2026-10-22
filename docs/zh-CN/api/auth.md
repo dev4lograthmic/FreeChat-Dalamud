@@ -122,6 +122,8 @@ Client                                      Server
 - 校验 `server.publicKeyFingerprint` 与深链接 `fp` 一致。
 - 校验 `server.serverId` 与深链接 `sid` 一致。
 - `server.character.worldId` 为 `0` 表示世界未知，此时 `worldName` 为空。
+- `server.character.contentId` 为 `0` 表示已脱敏；真实 ContentId 只在认证后的
+  `Welcome` 中返回。
 - 把设备名/平台/公钥指纹展示给用户。
 - 让用户从插件 UI 读取配对码；不要尝试从服务端获取。
 
@@ -220,6 +222,14 @@ Client                                      Server
     "server": {
       "serverId": "srv-1a2b",
       "serverName": "FreeChat",
+      "character": {
+        "name": "Someone",
+        "worldId": 86,
+        "worldName": "Typhon",
+        "contentId": "12345678901234567",
+        "isPlayer": true,
+        "isLocal": true
+      },
       "protocolVersion": 1,
       "publicKeyFingerprint": "DtOmq5V/9vWaljCkc9MafQT8tGVIuJAWGWmAx+llhPY="
     },
@@ -239,6 +249,9 @@ Client                                      Server
 - `server_id`
 - 当前 `session_id`
 - 最近一次 `sequence`
+
+`welcome.server.character.contentId` 是本地角色的 ContentId，只发给已认证、已配对
+的客户端；配对前的 `ServerInfo` 会把该字段脱敏为 0。
 
 ## 10. AuthError
 
