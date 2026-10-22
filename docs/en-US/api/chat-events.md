@@ -61,9 +61,10 @@ home world, not their current location; the current location may only appear
 in the message text. For outgoing tells, the game's sender payload is the
 target player, so `tellPeer` is that target.
 
-If a tell carries no world at all (for example a self-tell), the server infers
-the local player's current world and treats it as same-server. This is an
-inference; it does not reveal the other character's home world.
+If a tell carries no world at all, the sender and receiver normally share the
+same home world (or it is a self-tell). In that case the server fills the local
+player's **home world** and treats it as same-server. This is an inference; it
+does not reveal the other character's current location.
 
 ## 2. Channels and log_kind
 

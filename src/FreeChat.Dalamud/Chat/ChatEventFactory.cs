@@ -196,7 +196,10 @@ public sealed class ChatEventFactory
         if (this.playerState is not { IsLoaded: true })
             return (0, string.Empty);
 
-        var world = this.playerState.CurrentWorld;
+        // A tell without a world is normally from a character whose home world
+        // matches ours (or from ourselves). The omitted world is therefore the
+        // local home world, not the world we happen to be visiting.
+        var world = this.playerState.HomeWorld;
         return (world.RowId, WorldNames.Resolve(world));
     }
 
