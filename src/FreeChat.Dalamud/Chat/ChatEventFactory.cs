@@ -24,7 +24,7 @@ public sealed class ChatEventFactory
     {
         var kind = (ushort)message.LogKind;
         var channel = MapChannel(kind);
-        var sender = CreateCharacter(message.Sender, localPlayerName);
+        var sender = CreateCharacter(message.Sender, localPlayerName, IsPlayerKind(kind));
         var chatEvent = new ChatEvent
         {
             Channel = channel,
@@ -126,7 +126,7 @@ public sealed class ChatEventFactory
         return chatEvent;
     }
 
-    private static CharacterRef CreateCharacter(SeString sender, string? localPlayerName)
+    private static CharacterRef CreateCharacter(SeString sender, string? localPlayerName, bool isPlayerKind)
     {
         var player = sender.Payloads.OfType<PlayerPayload>().FirstOrDefault();
         if (player is not null)
@@ -141,14 +141,68 @@ public sealed class ChatEventFactory
             };
         }
 
-        var text = ExtractText(sender);
+        var text = ExtractText(sender).Trim();
+        var name = text;
+        var worldName = string.Empty;
+        if (isPlayerKind)
+        {
+            // Same-world tells usually carry only the character name. Some
+            // senders still render as "Name@World"; keep the world text even
+            // when the id is unknown.
+            var at = text.LastIndexOf('@');
+            if (at > 0 && at < text.Length - 1)
+            {
+                name = text[..at].Trim();
+                worldName = text[(at + 1)..].Trim();
+            }
+        }
+
         return new CharacterRef
         {
-            Name = text,
-            IsPlayer = false,
-            IsLocal = false,
+            Name = name,
+            WorldName = worldName,
+            IsPlayer = isPlayerKind,
+            IsLocal = isPlayerKind && localPlayerName is not null && name == localPlayerName,
         };
     }
+
+    /// <summary>
+    /// Whether the chat type is produced by a player character. Used when the
+    /// game omits PlayerPayload (for example, same-world tells).
+    /// </summary>
+    private static bool IsPlayerKind(ushort kind) => (XivChatType)kind is
+        XivChatType.Say
+        or XivChatType.Shout
+        or XivChatType.Yell
+        or XivChatType.TellIncoming
+        or XivChatType.TellOutgoing
+        or XivChatType.GmTell
+        or XivChatType.Party
+        or XivChatType.CrossParty
+        or XivChatType.GmParty
+        or XivChatType.Alliance
+        or XivChatType.FreeCompany
+        or XivChatType.GmFreeCompany
+        or XivChatType.Ls1
+        or XivChatType.Ls2
+        or XivChatType.Ls3
+        or XivChatType.Ls4
+        or XivChatType.Ls5
+        or XivChatType.Ls6
+        or XivChatType.Ls7
+        or XivChatType.Ls8
+        or XivChatType.CrossLinkShell1
+        or XivChatType.CrossLinkShell2
+        or XivChatType.CrossLinkShell3
+        or XivChatType.CrossLinkShell4
+        or XivChatType.CrossLinkShell5
+        or XivChatType.CrossLinkShell6
+        or XivChatType.CrossLinkShell7
+        or XivChatType.CrossLinkShell8
+        or XivChatType.NoviceNetwork
+        or XivChatType.PvPTeam
+        or XivChatType.CustomEmote
+        or XivChatType.StandardEmote;
 
     private static string ExtractText(SeString value) =>
         string.Concat(value.Payloads.OfType<ITextProvider>().Select(x => x.Text));

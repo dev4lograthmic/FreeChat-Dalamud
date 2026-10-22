@@ -55,6 +55,11 @@
 `sender.worldId` is `0` when the sender's world is unknown; `sender.worldName`
 is then empty. Do not substitute a placeholder world name.
 
+Same-world tells and other local player chat often carry only the character
+name, with no world at all. `sender.isPlayer` is still `true` for player chat
+channels. When the display text is `Name@World`, `sender.worldName` is filled
+but `sender.worldId` may remain `0`.
+
 ## 2. Channels and log_kind
 
 `ChatChannel` is the normalized display/filter field; `logKind` is the raw game

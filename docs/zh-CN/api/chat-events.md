@@ -55,6 +55,10 @@
 `sender.worldId` 为 `0` 表示发送者世界未知，此时 `sender.worldName` 为空。
 不要用占位服务器名替代。
 
+本服私聊等本地玩家消息通常只带角色名，消息里没有世界信息；此时
+`sender.isPlayer` 仍为 `true`。如果显示文本是 `Name@World`，会填充
+`sender.worldName`，但 `sender.worldId` 可能仍为 `0`。
+
 ## 2. 频道与 log_kind
 
 `ChatChannel` 是归一化显示/过滤字段；`logKind` 是游戏原始值。
