@@ -52,6 +52,9 @@
 | `originalText` | Original plain text; present when it differs from the current stage |
 | `contentMode` | `CURRENT` or `ORIGINAL` |
 
+`sender.worldId` is `0` when the sender's world is unknown; `sender.worldName`
+is then empty. Do not substitute a placeholder world name.
+
 ## 2. Channels and log_kind
 
 `ChatChannel` is the normalized display/filter field; `logKind` is the raw game

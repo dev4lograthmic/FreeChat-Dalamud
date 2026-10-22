@@ -122,6 +122,8 @@ Clients should:
 
 - verify `server.publicKeyFingerprint` matches the deep link `fp`;
 - verify `server.serverId` matches the deep link `sid`;
+- treat `server.character.worldId == 0` as an unknown world; `worldName` is then
+  empty;
 - show the device name, platform, and public-key fingerprint to the user;
 - ask the user to read the pairing code from the plugin UI; never request it
   from the server.

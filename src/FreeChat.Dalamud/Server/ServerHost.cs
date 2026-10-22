@@ -4,12 +4,10 @@ using System.Security.Cryptography;
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-using Dalamud.Utility;
 using FreeChat.Dalamud.Logging;
 using FreeChat.Dalamud.Send;
 using FreeChat.Protocol.V1;
 using FreeChat.Server;
-using Lumina.Excel.Sheets;
 
 namespace FreeChat.Dalamud;
 
@@ -203,7 +201,10 @@ public sealed class ServerHost : IDisposable
 
         var name = player.Name.TextValue;
         var worldId = player.HomeWorld.RowId;
-        var worldName = player.HomeWorld.Value.Name.ExtractText();
+        if (worldId == 0)
+            return;
+
+        var worldName = WorldNames.Resolve(player.HomeWorld);
         var key = $"{name}@{worldId}";
         if (key == this.lastCharacterKey)
             return;

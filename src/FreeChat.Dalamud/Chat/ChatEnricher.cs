@@ -201,9 +201,7 @@ public sealed class ChatEnricher
                     {
                         Name = player.PlayerName,
                         WorldId = player.World.RowId,
-                        WorldName = player.World.IsValid
-                            ? player.World.Value.Name.ExtractText()
-                            : string.Empty,
+                        WorldName = WorldNames.Resolve(player.World),
                     };
                     segments.Add(new Segment
                     {

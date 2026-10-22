@@ -94,7 +94,7 @@ public sealed class ChatEventFactory
             Name = sourceEntity?.Name.ToString() ?? string.Empty,
             WorldId = sourceEntity?.HomeWorldId ?? 0,
             WorldName = sourceEntity is { IsPlayer: true }
-                ? sourceEntity.HomeWorld.Value.Name.ExtractText()
+                ? WorldNames.Resolve(sourceEntity.HomeWorld)
                 : string.Empty,
             IsPlayer = sourceEntity?.IsPlayer ?? false,
             IsLocal = localPlayerName is not null && sourceEntity?.Name.ToString() == localPlayerName,
@@ -135,7 +135,7 @@ public sealed class ChatEventFactory
             {
                 Name = player.PlayerName,
                 WorldId = player.World.RowId,
-                WorldName = player.World.Value.Name.ExtractText(),
+                WorldName = WorldNames.Resolve(player.World),
                 IsPlayer = true,
                 IsLocal = localPlayerName is not null && player.PlayerName == localPlayerName,
             };

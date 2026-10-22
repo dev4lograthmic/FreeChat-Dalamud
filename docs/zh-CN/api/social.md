@@ -69,8 +69,12 @@ FreeChat 提供三类只读社交数据：
         "name": "Friend One",
         "homeWorldId": 86,
         "homeWorldName": "Typhon",
+        "homeDataCenterId": 9,
+        "homeDataCenterName": "Materia",
         "currentWorldId": 86,
         "currentWorldName": "Typhon",
+        "currentDataCenterId": 9,
+        "currentDataCenterName": "Materia",
         "freeCompanyTag": "FC",
         "statusBits": "1",
         "jobId": 19,
@@ -113,9 +117,16 @@ FreeChat 提供三类只读社交数据：
 
 - `statusBits` 是原始 `OnlineStatus` 位掩码。客户端可以解释在线/离线/导师/AFK 等，
   但不要假设所有位都稳定。
-- `identityUnavailable` 表示名字或本服无法解析；客户端仍应显示该行，但不要依赖
-  身份字段。
-- `contentId` 只返回给已认证、已配对客户端。
+- `identityUnavailable` 表示**名字**无法解析，对应游戏里的“无法获得角色情报”行。
+  世界字段是独立的：条目可能有名字和当前世界但没有本服（跨大区好友常见），也
+  可能有世界但没有名字。不要因为这个标记就丢弃整行。
+- `homeWorld*` 是角色本服；`currentWorld*` 是角色当前所在服务器，也就是游戏好友
+  列表“所在地”列对跨服/跨大区好友显示的值。`currentWorld` 非 0 时优先使用它，
+  否则回退到 `homeWorld`。
+- `homeDataCenter*` / `currentDataCenter*` 是对应世界的大区。ID 为 `0` 表示未知，
+  对应名称为空。客户端不要把它显示成服务器或大区名。
+- `contentId` 只返回给已认证、已配对客户端。游戏无法识别的条目可能为 `0`，
+  这类条目不能用于好友在线状态查询。
 
 ## 3. 好友在线状态
 

@@ -471,36 +471,61 @@ public sealed class GameSocialData : ISocialDataProvider, IDisposable
             var players = new List<PlayerInfo>((int)count);
             var ids = new HashSet<ulong>();
             var worlds = this.data.GetExcelSheet<World>();
+            var dataCenters = this.data.GetExcelSheet<WorldDCGroupType>();
             var jobs = this.data.GetExcelSheet<ClassJob>();
             var territories = this.data.GetExcelSheet<TerritoryType>();
 
             for (var i = 0; i < count; i++)
             {
                 var entry = entries[i];
-                if (entry.ContentId == 0 || !ids.Add(entry.ContentId))
-                    return new FriendListData(PlayerListStatus.Failed, Array.Empty<PlayerInfo>(), "Friend list contains invalid identities.");
+                if (entry.ContentId != 0 && !ids.Add(entry.ContentId))
+                    return new FriendListData(PlayerListStatus.Failed, Array.Empty<PlayerInfo>(), "Friend list contains duplicate identities.");
 
                 var name = CleanName(entry.NameString) ?? string.Empty;
+                var homeWorldName = WorldNames.Resolve(worlds, entry.HomeWorld);
+                var currentWorldName = WorldNames.Resolve(worlds, entry.CurrentWorld);
+                var homeDataCenter = ResolveDataCenter(worlds, dataCenters, entry.HomeWorld);
+                var currentDataCenter = ResolveDataCenter(worlds, dataCenters, entry.CurrentWorld);
                 var player = new PlayerInfo
                 {
                     ContentId = entry.ContentId,
                     Name = name,
                     HomeWorldId = entry.HomeWorld,
-                    HomeWorldName = worlds.GetRowOrDefault(entry.HomeWorld)?.Name.ExtractText() ?? string.Empty,
+                    HomeWorldName = homeWorldName,
+                    HomeDataCenterId = homeDataCenter.Id,
+                    HomeDataCenterName = homeDataCenter.Name,
                     CurrentWorldId = entry.CurrentWorld,
-                    CurrentWorldName = worlds.GetRowOrDefault(entry.CurrentWorld)?.Name.ExtractText() ?? string.Empty,
+                    CurrentWorldName = currentWorldName,
+                    CurrentDataCenterId = currentDataCenter.Id,
+                    CurrentDataCenterName = currentDataCenter.Name,
                     FreeCompanyTag = CleanName(entry.FCTagString) ?? string.Empty,
                     StatusBits = (ulong)entry.State,
                     JobId = entry.Job,
-                    JobName = jobs.GetRowOrDefault(entry.Job)?.Name.ExtractText() ?? string.Empty,
+                    JobName = entry.Job == 0 ? string.Empty : jobs.GetRowOrDefault(entry.Job)?.Name.ExtractText() ?? string.Empty,
                     TerritoryId = entry.Location,
                     TerritoryName = TerritoryName(territories, entry.Location),
                     GrandCompany = (uint)entry.GrandCompany,
                     Languages = (uint)entry.Languages,
                     MainLanguage = (uint)entry.ClientLanguage,
-                    IdentityUnavailable = entry.HomeWorld == 0 || name.Length == 0,
+                    // The game shows "unable to retrieve character information"
+                    // when the name is missing; world fields are independent.
+                    IdentityUnavailable = name.Length == 0,
                 };
                 players.Add(player);
+
+                if (entry.ContentId != 0 && (name.Length == 0 || entry.HomeWorld == 0))
+                {
+                    this.log.Debug(
+                        "Friend entry has an unresolved identity: contentId={ContentId} name='{Name}' home={HomeWorld}('{HomeWorldName}') current={CurrentWorld}('{CurrentWorldName}') state={State} flags={Flags}",
+                        entry.ContentId,
+                        name,
+                        entry.HomeWorld,
+                        homeWorldName,
+                        entry.CurrentWorld,
+                        currentWorldName,
+                        (ulong)entry.State,
+                        entry.ExtraFlags);
+                }
             }
 
             var snapshot = new FriendCache(
@@ -728,6 +753,22 @@ public sealed class GameSocialData : ISocialDataProvider, IDisposable
         if (string.IsNullOrEmpty(value))
             return null;
         return value.Length > 64 ? value[..64] : value;
+    }
+
+    private static (uint Id, string Name) ResolveDataCenter(
+        Lumina.Excel.ExcelSheet<World> worlds,
+        Lumina.Excel.ExcelSheet<WorldDCGroupType> dataCenters,
+        uint worldId)
+    {
+        if (worldId == 0)
+            return (0, string.Empty);
+        var world = worlds.GetRowOrDefault(worldId);
+        if (world is not { } row)
+            return (0, string.Empty);
+        var dataCenterId = row.DataCenter.RowId;
+        if (dataCenterId == 0)
+            return (0, string.Empty);
+        return (dataCenterId, dataCenters.GetRowOrDefault(dataCenterId)?.Name.ExtractText() ?? string.Empty);
     }
 
     private static string TerritoryName(

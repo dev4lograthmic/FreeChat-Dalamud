@@ -30,7 +30,7 @@ namespace FreeChat.Protocol.V1 {
             "Gy5mcmVlY2hhdC52MS5QbGF5ZXJMaXN0VHlwZVIEdHlwZRIsChJleHBlY3Rl",
             "ZF9vd25lcl9rZXkYAiABKAlSEGV4cGVjdGVkT3duZXJLZXkSMAoUZXhwZWN0",
             "ZWRfb3duZXJfZXBvY2gYAyABKAlSEmV4cGVjdGVkT3duZXJFcG9jaBIbCglw",
-            "YWdlX3NpemUYBCABKA1SCHBhZ2VTaXplIsUECgpQbGF5ZXJJbmZvEh0KCmNv",
+            "YWdlX3NpemUYBCABKA1SCHBhZ2VTaXplIpUGCgpQbGF5ZXJJbmZvEh0KCmNv",
             "bnRlbnRfaWQYASABKARSCWNvbnRlbnRJZBISCgRuYW1lGAIgASgJUgRuYW1l",
             "EiIKDWhvbWVfd29ybGRfaWQYAyABKA1SC2hvbWVXb3JsZElkEiYKD2hvbWVf",
             "d29ybGRfbmFtZRgEIAEoCVINaG9tZVdvcmxkTmFtZRIoChBjdXJyZW50X3dv",
@@ -43,40 +43,45 @@ namespace FreeChat.Protocol.V1 {
             "YW1lEiMKDWdyYW5kX2NvbXBhbnkYDSABKA1SDGdyYW5kQ29tcGFueRIcCgls",
             "YW5ndWFnZXMYDiABKA1SCWxhbmd1YWdlcxIjCg1tYWluX2xhbmd1YWdlGA8g",
             "ASgNUgxtYWluTGFuZ3VhZ2USMQoUaWRlbnRpdHlfdW5hdmFpbGFibGUYECAB",
-            "KAhSE2lkZW50aXR5VW5hdmFpbGFibGUitwMKElBsYXllckxpc3RTbmFwc2hv",
-            "dBIvCgR0eXBlGAEgASgOMhsuZnJlZWNoYXQudjEuUGxheWVyTGlzdFR5cGVS",
-            "BHR5cGUSNQoGc3RhdHVzGAIgASgOMh0uZnJlZWNoYXQudjEuUGxheWVyTGlz",
-            "dFN0YXR1c1IGc3RhdHVzEi8KBW93bmVyGAMgASgLMhkuZnJlZWNoYXQudjEu",
-            "Q2hhcmFjdGVyUmVmUgVvd25lchIfCgtvd25lcl9lcG9jaBgEIAEoCVIKb3du",
-            "ZXJFcG9jaBIfCgtzbmFwc2hvdF9pZBgFIAEoCVIKc25hcHNob3RJZBI7Cgtj",
-            "YXB0dXJlZF9hdBgGIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBS",
-            "CmNhcHR1cmVkQXQSHQoKcGFnZV9pbmRleBgHIAEoDVIJcGFnZUluZGV4Eh0K",
-            "CnBhZ2VfY291bnQYCCABKA1SCXBhZ2VDb3VudBIxCgdwbGF5ZXJzGAkgAygL",
-            "MhcuZnJlZWNoYXQudjEuUGxheWVySW5mb1IHcGxheWVycxIYCgdtZXNzYWdl",
-            "GAogASgJUgdtZXNzYWdlIjYKFUZyaWVuZFByZXNlbmNlUmVxdWVzdBIdCgpj",
-            "b250ZW50X2lkGAEgASgEUgljb250ZW50SWQi0wEKDkZyaWVuZFByZXNlbmNl",
-            "Eh0KCmNvbnRlbnRfaWQYASABKARSCWNvbnRlbnRJZBIwCgVzdGF0ZRgCIAEo",
-            "DjIaLmZyZWVjaGF0LnYxLlByZXNlbmNlU3RhdGVSBXN0YXRlEjUKBnN0YXR1",
-            "cxgDIAEoDjIdLmZyZWVjaGF0LnYxLlBsYXllckxpc3RTdGF0dXNSBnN0YXR1",
-            "cxI5CgpjaGVja2VkX2F0GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVz",
-            "dGFtcFIJY2hlY2tlZEF0Kk8KDlBsYXllckxpc3RUeXBlEiAKHFBMQVlFUl9M",
-            "SVNUX1RZUEVfVU5TUEVDSUZJRUQQABIbChdQTEFZRVJfTElTVF9UWVBFX0ZS",
-            "SUVORBABKqcCChBQbGF5ZXJMaXN0U3RhdHVzEiIKHlBMQVlFUl9MSVNUX1NU",
-            "QVRVU19VTlNQRUNJRklFRBAAEh4KGlBMQVlFUl9MSVNUX1NUQVRVU19TVUND",
-            "RVNTEAESJAogUExBWUVSX0xJU1RfU1RBVFVTX05PVF9MT0dHRURfSU4QAhIi",
-            "Ch5QTEFZRVJfTElTVF9TVEFUVVNfVU5BVkFJTEFCTEUQAxIbChdQTEFZRVJf",
-            "TElTVF9TVEFUVVNfQlVTWRAEEiAKHFBMQVlFUl9MSVNUX1NUQVRVU19USU1F",
-            "RF9PVVQQBRInCiNQTEFZRVJfTElTVF9TVEFUVVNfSURFTlRJVFlfQ0hBTkdF",
-            "RBAGEh0KGVBMQVlFUl9MSVNUX1NUQVRVU19GQUlMRUQQByqCAQoNUHJlc2Vu",
-            "Y2VTdGF0ZRIeChpQUkVTRU5DRV9TVEFURV9VTlNQRUNJRklFRBAAEhoKFlBS",
-            "RVNFTkNFX1NUQVRFX1VOS05PV04QARIZChVQUkVTRU5DRV9TVEFURV9PTkxJ",
-            "TkUQAhIaChZQUkVTRU5DRV9TVEFURV9PRkZMSU5FEANCF6oCFEZyZWVDaGF0",
-            "LlByb3RvY29sLlYxYgZwcm90bzM="));
+            "KAhSE2lkZW50aXR5VW5hdmFpbGFibGUSLQoTaG9tZV9kYXRhX2NlbnRlcl9p",
+            "ZBgRIAEoDVIQaG9tZURhdGFDZW50ZXJJZBIxChVob21lX2RhdGFfY2VudGVy",
+            "X25hbWUYEiABKAlSEmhvbWVEYXRhQ2VudGVyTmFtZRIzChZjdXJyZW50X2Rh",
+            "dGFfY2VudGVyX2lkGBMgASgNUhNjdXJyZW50RGF0YUNlbnRlcklkEjcKGGN1",
+            "cnJlbnRfZGF0YV9jZW50ZXJfbmFtZRgUIAEoCVIVY3VycmVudERhdGFDZW50",
+            "ZXJOYW1lIrcDChJQbGF5ZXJMaXN0U25hcHNob3QSLwoEdHlwZRgBIAEoDjIb",
+            "LmZyZWVjaGF0LnYxLlBsYXllckxpc3RUeXBlUgR0eXBlEjUKBnN0YXR1cxgC",
+            "IAEoDjIdLmZyZWVjaGF0LnYxLlBsYXllckxpc3RTdGF0dXNSBnN0YXR1cxIv",
+            "CgVvd25lchgDIAEoCzIZLmZyZWVjaGF0LnYxLkNoYXJhY3RlclJlZlIFb3du",
+            "ZXISHwoLb3duZXJfZXBvY2gYBCABKAlSCm93bmVyRXBvY2gSHwoLc25hcHNo",
+            "b3RfaWQYBSABKAlSCnNuYXBzaG90SWQSOwoLY2FwdHVyZWRfYXQYBiABKAsy",
+            "Gi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgpjYXB0dXJlZEF0Eh0KCnBh",
+            "Z2VfaW5kZXgYByABKA1SCXBhZ2VJbmRleBIdCgpwYWdlX2NvdW50GAggASgN",
+            "UglwYWdlQ291bnQSMQoHcGxheWVycxgJIAMoCzIXLmZyZWVjaGF0LnYxLlBs",
+            "YXllckluZm9SB3BsYXllcnMSGAoHbWVzc2FnZRgKIAEoCVIHbWVzc2FnZSI2",
+            "ChVGcmllbmRQcmVzZW5jZVJlcXVlc3QSHQoKY29udGVudF9pZBgBIAEoBFIJ",
+            "Y29udGVudElkItMBCg5GcmllbmRQcmVzZW5jZRIdCgpjb250ZW50X2lkGAEg",
+            "ASgEUgljb250ZW50SWQSMAoFc3RhdGUYAiABKA4yGi5mcmVlY2hhdC52MS5Q",
+            "cmVzZW5jZVN0YXRlUgVzdGF0ZRI1CgZzdGF0dXMYAyABKA4yHS5mcmVlY2hh",
+            "dC52MS5QbGF5ZXJMaXN0U3RhdHVzUgZzdGF0dXMSOQoKY2hlY2tlZF9hdBgE",
+            "IAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCWNoZWNrZWRBdCpP",
+            "Cg5QbGF5ZXJMaXN0VHlwZRIgChxQTEFZRVJfTElTVF9UWVBFX1VOU1BFQ0lG",
+            "SUVEEAASGwoXUExBWUVSX0xJU1RfVFlQRV9GUklFTkQQASqnAgoQUGxheWVy",
+            "TGlzdFN0YXR1cxIiCh5QTEFZRVJfTElTVF9TVEFUVVNfVU5TUEVDSUZJRUQQ",
+            "ABIeChpQTEFZRVJfTElTVF9TVEFUVVNfU1VDQ0VTUxABEiQKIFBMQVlFUl9M",
+            "SVNUX1NUQVRVU19OT1RfTE9HR0VEX0lOEAISIgoeUExBWUVSX0xJU1RfU1RB",
+            "VFVTX1VOQVZBSUxBQkxFEAMSGwoXUExBWUVSX0xJU1RfU1RBVFVTX0JVU1kQ",
+            "BBIgChxQTEFZRVJfTElTVF9TVEFUVVNfVElNRURfT1VUEAUSJwojUExBWUVS",
+            "X0xJU1RfU1RBVFVTX0lERU5USVRZX0NIQU5HRUQQBhIdChlQTEFZRVJfTElT",
+            "VF9TVEFUVVNfRkFJTEVEEAcqggEKDVByZXNlbmNlU3RhdGUSHgoaUFJFU0VO",
+            "Q0VfU1RBVEVfVU5TUEVDSUZJRUQQABIaChZQUkVTRU5DRV9TVEFURV9VTktO",
+            "T1dOEAESGQoVUFJFU0VOQ0VfU1RBVEVfT05MSU5FEAISGgoWUFJFU0VOQ0Vf",
+            "U1RBVEVfT0ZGTElORRADQheqAhRGcmVlQ2hhdC5Qcm90b2NvbC5WMWIGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::FreeChat.Protocol.V1.CommonReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::FreeChat.Protocol.V1.PlayerListType), typeof(global::FreeChat.Protocol.V1.PlayerListStatus), typeof(global::FreeChat.Protocol.V1.PresenceState), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.PlayerListRequest), global::FreeChat.Protocol.V1.PlayerListRequest.Parser, new[]{ "Type", "ExpectedOwnerKey", "ExpectedOwnerEpoch", "PageSize" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.PlayerInfo), global::FreeChat.Protocol.V1.PlayerInfo.Parser, new[]{ "ContentId", "Name", "HomeWorldId", "HomeWorldName", "CurrentWorldId", "CurrentWorldName", "FreeCompanyTag", "StatusBits", "JobId", "JobName", "TerritoryId", "TerritoryName", "GrandCompany", "Languages", "MainLanguage", "IdentityUnavailable" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.PlayerInfo), global::FreeChat.Protocol.V1.PlayerInfo.Parser, new[]{ "ContentId", "Name", "HomeWorldId", "HomeWorldName", "CurrentWorldId", "CurrentWorldName", "FreeCompanyTag", "StatusBits", "JobId", "JobName", "TerritoryId", "TerritoryName", "GrandCompany", "Languages", "MainLanguage", "IdentityUnavailable", "HomeDataCenterId", "HomeDataCenterName", "CurrentDataCenterId", "CurrentDataCenterName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.PlayerListSnapshot), global::FreeChat.Protocol.V1.PlayerListSnapshot.Parser, new[]{ "Type", "Status", "Owner", "OwnerEpoch", "SnapshotId", "CapturedAt", "PageIndex", "PageCount", "Players", "Message" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.FriendPresenceRequest), global::FreeChat.Protocol.V1.FriendPresenceRequest.Parser, new[]{ "ContentId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::FreeChat.Protocol.V1.FriendPresence), global::FreeChat.Protocol.V1.FriendPresence.Parser, new[]{ "ContentId", "State", "Status", "CheckedAt" }, null, null, null, null)
@@ -482,6 +487,10 @@ namespace FreeChat.Protocol.V1 {
       languages_ = other.languages_;
       mainLanguage_ = other.mainLanguage_;
       identityUnavailable_ = other.identityUnavailable_;
+      homeDataCenterId_ = other.homeDataCenterId_;
+      homeDataCenterName_ = other.homeDataCenterName_;
+      currentDataCenterId_ = other.currentDataCenterId_;
+      currentDataCenterName_ = other.currentDataCenterName_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -518,6 +527,9 @@ namespace FreeChat.Protocol.V1 {
     /// <summary>Field number for the "home_world_id" field.</summary>
     public const int HomeWorldIdFieldNumber = 3;
     private uint homeWorldId_;
+    /// <summary>
+    /// 0 means the game did not provide a world. World names are empty then.
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public uint HomeWorldId {
@@ -675,8 +687,9 @@ namespace FreeChat.Protocol.V1 {
     public const int IdentityUnavailableFieldNumber = 16;
     private bool identityUnavailable_;
     /// <summary>
-    /// True when the name or home world could not be resolved. Clients should
-    /// still display the entry, but should not rely on identity fields.
+    /// True when the name could not be resolved. World fields are independent:
+    /// for example, an online friend in another data center may have a name and
+    /// current world but no home world, or the game may only know the world.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -684,6 +697,60 @@ namespace FreeChat.Protocol.V1 {
       get { return identityUnavailable_; }
       set {
         identityUnavailable_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "home_data_center_id" field.</summary>
+    public const int HomeDataCenterIdFieldNumber = 17;
+    private uint homeDataCenterId_;
+    /// <summary>
+    /// Data center of the home world. 0/empty when the home world is unknown.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint HomeDataCenterId {
+      get { return homeDataCenterId_; }
+      set {
+        homeDataCenterId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "home_data_center_name" field.</summary>
+    public const int HomeDataCenterNameFieldNumber = 18;
+    private string homeDataCenterName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string HomeDataCenterName {
+      get { return homeDataCenterName_; }
+      set {
+        homeDataCenterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "current_data_center_id" field.</summary>
+    public const int CurrentDataCenterIdFieldNumber = 19;
+    private uint currentDataCenterId_;
+    /// <summary>
+    /// Data center of the current world. 0/empty when the current world is unknown.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint CurrentDataCenterId {
+      get { return currentDataCenterId_; }
+      set {
+        currentDataCenterId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "current_data_center_name" field.</summary>
+    public const int CurrentDataCenterNameFieldNumber = 20;
+    private string currentDataCenterName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string CurrentDataCenterName {
+      get { return currentDataCenterName_; }
+      set {
+        currentDataCenterName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -718,6 +785,10 @@ namespace FreeChat.Protocol.V1 {
       if (Languages != other.Languages) return false;
       if (MainLanguage != other.MainLanguage) return false;
       if (IdentityUnavailable != other.IdentityUnavailable) return false;
+      if (HomeDataCenterId != other.HomeDataCenterId) return false;
+      if (HomeDataCenterName != other.HomeDataCenterName) return false;
+      if (CurrentDataCenterId != other.CurrentDataCenterId) return false;
+      if (CurrentDataCenterName != other.CurrentDataCenterName) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -741,6 +812,10 @@ namespace FreeChat.Protocol.V1 {
       if (Languages != 0) hash ^= Languages.GetHashCode();
       if (MainLanguage != 0) hash ^= MainLanguage.GetHashCode();
       if (IdentityUnavailable != false) hash ^= IdentityUnavailable.GetHashCode();
+      if (HomeDataCenterId != 0) hash ^= HomeDataCenterId.GetHashCode();
+      if (HomeDataCenterName.Length != 0) hash ^= HomeDataCenterName.GetHashCode();
+      if (CurrentDataCenterId != 0) hash ^= CurrentDataCenterId.GetHashCode();
+      if (CurrentDataCenterName.Length != 0) hash ^= CurrentDataCenterName.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -823,6 +898,22 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(128, 1);
         output.WriteBool(IdentityUnavailable);
       }
+      if (HomeDataCenterId != 0) {
+        output.WriteRawTag(136, 1);
+        output.WriteUInt32(HomeDataCenterId);
+      }
+      if (HomeDataCenterName.Length != 0) {
+        output.WriteRawTag(146, 1);
+        output.WriteString(HomeDataCenterName);
+      }
+      if (CurrentDataCenterId != 0) {
+        output.WriteRawTag(152, 1);
+        output.WriteUInt32(CurrentDataCenterId);
+      }
+      if (CurrentDataCenterName.Length != 0) {
+        output.WriteRawTag(162, 1);
+        output.WriteString(CurrentDataCenterName);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -897,6 +988,22 @@ namespace FreeChat.Protocol.V1 {
         output.WriteRawTag(128, 1);
         output.WriteBool(IdentityUnavailable);
       }
+      if (HomeDataCenterId != 0) {
+        output.WriteRawTag(136, 1);
+        output.WriteUInt32(HomeDataCenterId);
+      }
+      if (HomeDataCenterName.Length != 0) {
+        output.WriteRawTag(146, 1);
+        output.WriteString(HomeDataCenterName);
+      }
+      if (CurrentDataCenterId != 0) {
+        output.WriteRawTag(152, 1);
+        output.WriteUInt32(CurrentDataCenterId);
+      }
+      if (CurrentDataCenterName.Length != 0) {
+        output.WriteRawTag(162, 1);
+        output.WriteString(CurrentDataCenterName);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -954,6 +1061,18 @@ namespace FreeChat.Protocol.V1 {
       }
       if (IdentityUnavailable != false) {
         size += 2 + 1;
+      }
+      if (HomeDataCenterId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeUInt32Size(HomeDataCenterId);
+      }
+      if (HomeDataCenterName.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(HomeDataCenterName);
+      }
+      if (CurrentDataCenterId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeUInt32Size(CurrentDataCenterId);
+      }
+      if (CurrentDataCenterName.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(CurrentDataCenterName);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1014,6 +1133,18 @@ namespace FreeChat.Protocol.V1 {
       }
       if (other.IdentityUnavailable != false) {
         IdentityUnavailable = other.IdentityUnavailable;
+      }
+      if (other.HomeDataCenterId != 0) {
+        HomeDataCenterId = other.HomeDataCenterId;
+      }
+      if (other.HomeDataCenterName.Length != 0) {
+        HomeDataCenterName = other.HomeDataCenterName;
+      }
+      if (other.CurrentDataCenterId != 0) {
+        CurrentDataCenterId = other.CurrentDataCenterId;
+      }
+      if (other.CurrentDataCenterName.Length != 0) {
+        CurrentDataCenterName = other.CurrentDataCenterName;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1098,6 +1229,22 @@ namespace FreeChat.Protocol.V1 {
             IdentityUnavailable = input.ReadBool();
             break;
           }
+          case 136: {
+            HomeDataCenterId = input.ReadUInt32();
+            break;
+          }
+          case 146: {
+            HomeDataCenterName = input.ReadString();
+            break;
+          }
+          case 152: {
+            CurrentDataCenterId = input.ReadUInt32();
+            break;
+          }
+          case 162: {
+            CurrentDataCenterName = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -1179,6 +1326,22 @@ namespace FreeChat.Protocol.V1 {
           }
           case 128: {
             IdentityUnavailable = input.ReadBool();
+            break;
+          }
+          case 136: {
+            HomeDataCenterId = input.ReadUInt32();
+            break;
+          }
+          case 146: {
+            HomeDataCenterName = input.ReadString();
+            break;
+          }
+          case 152: {
+            CurrentDataCenterId = input.ReadUInt32();
+            break;
+          }
+          case 162: {
+            CurrentDataCenterName = input.ReadString();
             break;
           }
         }

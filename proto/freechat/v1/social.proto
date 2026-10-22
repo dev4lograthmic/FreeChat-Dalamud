@@ -50,6 +50,7 @@ message PlayerListRequest {
 message PlayerInfo {
   uint64 content_id = 1;
   string name = 2;
+  // 0 means the game did not provide a world. World names are empty then.
   uint32 home_world_id = 3;
   string home_world_name = 4;
   uint32 current_world_id = 5;
@@ -63,9 +64,16 @@ message PlayerInfo {
   uint32 grand_company = 13;
   uint32 languages = 14;
   uint32 main_language = 15;
-  // True when the name or home world could not be resolved. Clients should
-  // still display the entry, but should not rely on identity fields.
+  // True when the name could not be resolved. World fields are independent:
+  // for example, an online friend in another data center may have a name and
+  // current world but no home world, or the game may only know the world.
   bool identity_unavailable = 16;
+  // Data center of the home world. 0/empty when the home world is unknown.
+  uint32 home_data_center_id = 17;
+  string home_data_center_name = 18;
+  // Data center of the current world. 0/empty when the current world is unknown.
+  uint32 current_data_center_id = 19;
+  string current_data_center_name = 20;
 }
 
 message PlayerListSnapshot {

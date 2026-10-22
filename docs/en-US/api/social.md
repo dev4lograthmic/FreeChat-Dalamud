@@ -75,8 +75,12 @@ The server returns ordered pages, all sharing the same `snapshotId`,
         "name": "Friend One",
         "homeWorldId": 86,
         "homeWorldName": "Typhon",
+        "homeDataCenterId": 9,
+        "homeDataCenterName": "Materia",
         "currentWorldId": 86,
         "currentWorldName": "Typhon",
+        "currentDataCenterId": 9,
+        "currentDataCenterName": "Materia",
         "freeCompanyTag": "FC",
         "statusBits": "1",
         "jobId": 19,
@@ -120,9 +124,21 @@ When the API is disabled, the server returns an `Error` with
 
 - `statusBits` is the raw `OnlineStatus` bit mask. Clients may interpret it as
   online/offline/mentor/AFK/etc., but should not assume every bit is stable.
-- `identityUnavailable` means the name or home world could not be resolved;
-  clients should still render the row without relying on identity.
-- `contentId` is only returned to authenticated, paired clients.
+- `identityUnavailable` means the **name** could not be resolved, matching the
+  game's "unable to retrieve character information" rows. World fields are
+  independent: an entry can have a name and current world but no home world
+  (typical for friends in another data center), or a world but no name. Do not
+  use this flag to discard the whole row.
+- `homeWorld*` is the character's home world. `currentWorld*` is the world the
+  character is currently on; this is what the game shows in the friend list's
+  "Location" column for cross-world/cross-DC friends. Use `currentWorld` when
+  it is non-zero and fall back to `homeWorld` otherwise.
+- `homeDataCenter*` / `currentDataCenter*` describe the data center of the
+  matching world. An id of `0` means unknown and the corresponding name is
+  empty. Never display a zero id as a server or data center name.
+- `contentId` is only returned to authenticated, paired clients. It may be `0`
+  for an entry the game cannot identify; such an entry cannot be used with
+  friend presence.
 
 ## 3. Friend presence
 

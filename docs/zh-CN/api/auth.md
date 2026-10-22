@@ -121,6 +121,7 @@ Client                                      Server
 
 - 校验 `server.publicKeyFingerprint` 与深链接 `fp` 一致。
 - 校验 `server.serverId` 与深链接 `sid` 一致。
+- `server.character.worldId` 为 `0` 表示世界未知，此时 `worldName` 为空。
 - 把设备名/平台/公钥指纹展示给用户。
 - 让用户从插件 UI 读取配对码；不要尝试从服务端获取。
 

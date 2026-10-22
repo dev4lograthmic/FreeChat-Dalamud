@@ -52,6 +52,9 @@
 | `originalText` | 插件修改前的原始纯文本；与当前阶段不同时存在 |
 | `contentMode` | `CURRENT` 或 `ORIGINAL` |
 
+`sender.worldId` 为 `0` 表示发送者世界未知，此时 `sender.worldName` 为空。
+不要用占位服务器名替代。
+
 ## 2. 频道与 log_kind
 
 `ChatChannel` 是归一化显示/过滤字段；`logKind` 是游戏原始值。
